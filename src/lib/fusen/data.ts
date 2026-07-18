@@ -49,7 +49,7 @@ export const GUIDES: GuideData[] = [
 export const CONTACT_INFO = {
   whatsapp: "+8613800138000",
   whatsappLink: "https://wa.me/8613800138000",
-  email: "contact@fusen-guide.com",
+  email: "contact@fusenco.com",
   phone: "+86 138-0013-8000",
 };
 
