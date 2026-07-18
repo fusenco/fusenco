@@ -1,0 +1,12 @@
+[build]
+  command = "npx next build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# SPA fallback - 所有路由都指向 index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
