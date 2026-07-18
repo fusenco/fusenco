@@ -47,10 +47,10 @@ export const GUIDES: GuideData[] = [
 ];
 
 export const CONTACT_INFO = {
-  whatsapp: "+8613800138000",
-  whatsappLink: "https://wa.me/8613800138000",
-  email: "contact@fusenco.com",
-  phone: "+86 138-0013-8000",
+  whatsapp: "+86 131-1671-6778",
+  whatsappLink: "https://wa.me/8613116716778",
+  email: "info@fusenco.com",
+  phone: "+86 131-1671-6778",
 };
 
 export const DESTINATION_IMAGES: Record<string, string> = {
