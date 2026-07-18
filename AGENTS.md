@@ -1,65 +1,74 @@
-# 项目上下文
+# FUSEN - China Local Guide Service
 
-### 版本技术栈
+## 项目概览
+面向国外独立游客的中国地陪服务独立站。基于 Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS 4 构建。支持 8 种语言（英/俄/日/韩/西/葡/法/阿），东方文化感与高端商务融合设计风格。
 
+## 技术栈
 - **Framework**: Next.js 16 (App Router)
-- **Core**: React 19
 - **Language**: TypeScript 5
-- **UI 组件**: shadcn/ui (基于 Radix UI)
-- **Styling**: Tailwind CSS 4
+- **Styling**: Tailwind CSS 4 + shadcn/ui 设计令牌
+- **Fonts**: Inter (body) + Cormorant Garamond (serif/display)
+- **i18n**: 自建轻量多语言系统（Context + localStorage 持久化）
 
 ## 目录结构
-
 ```
-├── public/                 # 静态资源
-├── scripts/                # 构建与启动脚本
-│   ├── build.sh            # 构建脚本
-│   ├── dev.sh              # 开发环境启动脚本
-│   ├── prepare.sh          # 预处理脚本
-│   └── start.sh            # 生产环境启动脚本
-├── src/
-│   ├── app/                # 页面路由与布局
-│   ├── components/ui/      # Shadcn UI 组件库
-│   ├── hooks/              # 自定义 Hooks
-│   ├── lib/                # 工具库
-│   │   └── utils.ts        # 通用工具函数 (cn)
-│   └── server.ts           # 自定义服务端入口
-├── next.config.ts          # Next.js 配置
-├── package.json            # 项目依赖管理
-└── tsconfig.json           # TypeScript 配置
+src/
+├── app/
+│   ├── layout.tsx              # 根布局（LanguageProvider 包裹、字体加载）
+│   ├── page.tsx                # 首页（组合所有模块）
+│   └── globals.css            # 全局样式 + FUSEN 品牌设计令牌
+├── components/
+│   └── fusen/
+│       ├── Navbar.tsx          # 固定导航栏（滚动变色 + 移动端菜单）
+│       ├── LanguageSwitcher.tsx# 多语言切换下拉
+│       ├── Hero.tsx            # 首屏 Hero（背景图 + CTA + 统计数据）
+│       ├── Services.tsx        # 服务介绍（4 项卡片）
+│       ├── Destinations.tsx    # 热门目的地（8 城市图片网格）
+│       ├── Guides.tsx          # 导游展示（4 位导游卡片）
+│       ├── WhyUs.tsx           # 为什么选择我们（4 项优势）
+│       ├── Testimonials.tsx    # 客户评价（3 条证言）
+│       ├── Contact.tsx         # 联系区（WhatsApp/邮箱 + 询价表单）
+│       └── Footer.tsx          # 页脚
+├── lib/
+│   ├── i18n/
+│   │   ├── translations.ts     # 8 语言翻译数据
+│   │   └── LanguageProvider.tsx# 多语言 Context Provider
+│   └── fusen/
+│       └── data.ts             # 导游数据、联系方式、目的地图片
+└── public/
+    ├── fusen-logo.png          # FUSEN LOGO
+    ├── hero-mountain.jpg       # 首屏背景图
+    └── pattern-bg.jpg          # 装饰纹理背景
 ```
 
-- 项目文件（如 app 目录、pages 目录、components 等）默认初始化到 `src/` 目录下。
+## 品牌设计令牌
+- **主色（中国红）**: #8B1A1A
+- **辅色（金）**: #C9A961
+- **深色背景**: #1A1410
+- **浅色背景**: #F8F5F0
+- **卡片背景**: #FFFFFF
+- **边框**: #E5DDD3
+- **字体**: Cormorant Garamond (serif) + Inter (sans)
 
-## 包管理规范
+## 多语言系统
+支持语言：EN, RU, JA, KO, ES, PT, FR, AR
+- 阿拉伯语自动切换 RTL 布局
+- 语言选择持久化到 localStorage
+- 所有文本内容均通过 `useLanguage().t` 获取
 
-**仅允许使用 pnpm** 作为包管理器，**严禁使用 npm 或 yarn**。
-**常用命令**：
-- 安装依赖：`pnpm add <package>`
-- 安装开发依赖：`pnpm add -D <package>`
-- 安装所有依赖：`pnpm install`
-- 移除依赖：`pnpm remove <package>`
+## 构建与测试命令
+```bash
+pnpm install        # 安装依赖
+pnpm run dev        # 开发模式（热更新）
+pnpm run build      # 生产构建
+pnpm run start      # 生产启动
+pnpm ts-check       # TypeScript 类型检查
+pnpm lint           # ESLint 检查
+```
 
-## 开发规范
-
-### 编码规范
-
-- 默认按 TypeScript `strict` 心智写代码；优先复用当前作用域已声明的变量、函数、类型和导入，禁止引用未声明标识符或拼错变量名。
-- 禁止隐式 `any` 和 `as any`；函数参数、返回值、解构项、事件对象、`catch` 错误在使用前应有明确类型或先完成类型收窄，并清理未使用的变量和导入。
-
-### next.config 配置规范
-
-- 配置的路径不要写死绝对路径，必须使用 path.resolve(__dirname, ...)、import.meta.dirname 或 process.cwd() 动态拼接。
-
-### Hydration 问题防范
-
-1. 严禁在 JSX 渲染逻辑中直接使用 typeof window、Date.now()、Math.random() 等动态数据。**必须使用 'use client' 并配合 useEffect + useState 确保动态内容仅在客户端挂载后渲染**；同时严禁非法 HTML 嵌套（如 <p> 嵌套 <div>）。
-2. **禁止使用 head 标签**，优先使用 metadata，详见文档：https://nextjs.org/docs/app/api-reference/functions/generate-metadata
-   1. 三方 CSS、字体等资源可在 `globals.css` 中顶部通过 `@import` 引入或使用 next/font
-   2. preload, preconnect, dns-prefetch 通过 ReactDOM 的 preload、preconnect、dns-prefetch 方法引入
-   3. json-ld 可阅读 https://nextjs.org/docs/app/guides/json-ld
-
-## UI 设计与组件规范 (UI & Styling Standards)
-
-- 模板默认预装核心组件库 `shadcn/ui`，位于`src/components/ui/`目录下
-- Next.js 项目**必须默认**采用 shadcn/ui 组件、风格和规范，**除非用户指定用其他的组件和规范。**
+## 业务信息
+- **品牌**: FUSEN
+- **服务**: 英语及小语种翻译、私人探店、商务对接、工厂探访对接
+- **目标客户**: 来华个人游、过境免签、家庭旅行
+- **联系方式**: WhatsApp + 邮箱（无在线预订系统）
+- **导游**: 4 位导游（北京/上海/深圳/成都），多语言能力

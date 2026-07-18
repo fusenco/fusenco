@@ -1,55 +1,45 @@
-import type { Metadata } from 'next';
-import { Inspector } from 'react-dev-inspector';
-import './globals.css';
+import type { Metadata } from "next";
+import { Inspector } from "react-dev-inspector";
+import { Inter, Cormorant_Garamond } from "next/font/google";
+import "./globals.css";
+import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-display",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: {
-    default: '新应用 | 扣子编程',
-    template: '%s | 扣子编程',
-  },
+  title: "FUSEN | Premium Local Guide Service in China",
   description:
-    '扣子编程是一款一站式云端 Vibe Coding 开发平台。通过对话轻松构建智能体、工作流和网站，实现从创意到上线的无缝衔接。',
+    "Professional local guides for independent travelers in China. Multi-language support (EN, RU, JA, KO, ES, PT, FR, AR), private tours, business matching, and factory visits across China's top destinations.",
   keywords: [
-    '扣子编程',
-    'Coze Code',
-    'Vibe Coding',
-    'AI 编程',
-    '智能体搭建',
-    '工作流搭建',
-    '网站搭建',
-    '网站部署',
-    '全栈开发',
-    'AI 工程师',
+    "China local guide",
+    "China private tour",
+    "Beijing guide",
+    "Shanghai guide",
+    "business trip China",
+    "factory visit China",
+    "multi-language guide China",
+    "FUSEN",
   ],
-  authors: [{ name: 'Coze Code Team', url: 'https://code.coze.cn' }],
-  generator: 'Coze Code',
-  // icons: {
-  //   icon: '',
-  // },
+  authors: [{ name: "FUSEN" }],
   openGraph: {
-    title: '扣子编程 | 你的 AI 工程师已就位',
+    title: "FUSEN | Premium Local Guide Service in China",
     description:
-      '我正在使用扣子编程 Vibe Coding，让创意瞬间上线。告别拖拽，拥抱心流。',
-    url: 'https://code.coze.cn',
-    siteName: '扣子编程',
-    locale: 'zh_CN',
-    type: 'website',
-    // images: [
-    //   {
-    //     url: '',
-    //     width: 1200,
-    //     height: 630,
-    //     alt: '扣子编程 - 你的 AI 工程师',
-    //   },
-    // ],
+      "Discover the real China with professional local guides. Multi-language support, private tours, business assistance.",
+    siteName: "FUSEN",
+    locale: "en_US",
+    type: "website",
   },
-  // twitter: {
-  //   card: 'summary_large_image',
-  //   title: 'Coze Code | Your AI Engineer is Here',
-  //   description:
-  //     'Build and deploy full-stack applications through AI conversation. No env setup, just flow.',
-  //   // images: [''],
-  // },
   robots: {
     index: true,
     follow: true,
@@ -61,13 +51,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isDev = process.env.COZE_PROJECT_ENV === 'DEV';
+  const isDev = process.env.COZE_PROJECT_ENV === "DEV";
 
   return (
-    <html lang="en">
-      <body className={`antialiased`}>
-        {isDev && <Inspector />}
-        {children}
+    <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
+      <body className="antialiased font-sans">
+        <LanguageProvider>
+          {isDev && <Inspector />}
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );
