@@ -24,7 +24,6 @@ coverage
 storybook-static
 
 # Package manager artifacts
-pnpm-lock.yaml
 package-lock.json
 yarn.lock
 .pnp*
@@ -77,6 +76,20 @@ logs/
 *.rar
 *.zip
 *.gz
+*.tar.gz
+
+# 部署文件
+deploy.sh
+deploy-ssl.sh
+fusenco-deploy.tar.gz
+
+# 构建产物
+out/
+dist/
+tsconfig.tsbuildinfo
+
+# Assets (临时截图)
+assets/
 
 # 文档类也默认加入
 *.pdf
