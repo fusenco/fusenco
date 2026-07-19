@@ -31,6 +31,7 @@ export interface Translation {
     destinations: string;
     guides: string;
     about: string;
+    plan: string;
     contact: string;
     cta: string;
   };
@@ -104,6 +105,7 @@ export const translations: Record<LanguageCode, Translation> = {
       destinations: "Destinations",
       guides: "Our Guides",
       about: "About",
+      plan: "Plan",
       contact: "Contact",
       cta: "Get in Touch",
     },
@@ -242,6 +244,7 @@ export const translations: Record<LanguageCode, Translation> = {
       destinations: "Направления",
       guides: "Наши гиды",
       about: "О нас",
+      plan: "План",
       contact: "Контакты",
       cta: "Связаться",
     },
@@ -380,6 +383,7 @@ export const translations: Record<LanguageCode, Translation> = {
       destinations: "目的地",
       guides: "ガイド紹介",
       about: "会社概要",
+      plan: "プラン",
       contact: "お問い合わせ",
       cta: "お問い合わせ",
     },
@@ -512,6 +516,7 @@ export const translations: Record<LanguageCode, Translation> = {
       destinations: "여행지",
       guides: "가이드",
       about: "소개",
+      plan: "계획",
       contact: "문의",
       cta: "문의하기",
     },
@@ -644,6 +649,7 @@ export const translations: Record<LanguageCode, Translation> = {
       destinations: "Destinos",
       guides: "Guías",
       about: "Nosotros",
+      plan: "Plan",
       contact: "Contacto",
       cta: "Contáctanos",
     },
@@ -776,6 +782,7 @@ export const translations: Record<LanguageCode, Translation> = {
       destinations: "Destinos",
       guides: "Guias",
       about: "Sobre",
+      plan: "Plano",
       contact: "Contato",
       cta: "Fale Conosco",
     },
@@ -908,6 +915,7 @@ export const translations: Record<LanguageCode, Translation> = {
       destinations: "Destinations",
       guides: "Guides",
       about: "À propos",
+      plan: "Plan",
       contact: "Contact",
       cta: "Contactez-nous",
     },
@@ -1040,6 +1048,7 @@ export const translations: Record<LanguageCode, Translation> = {
       destinations: "الوجهات",
       guides: "مرشدونا",
       about: "من نحن",
+      plan: "الخطة",
       contact: "اتصل بنا",
       cta: "تواصل معنا",
     },

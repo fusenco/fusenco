@@ -20,6 +20,7 @@ export function Navbar() {
     { href: "#services", label: t.nav.services },
     { href: "#destinations", label: t.nav.destinations },
     { href: "#guides", label: t.nav.guides },
+    { href: "/plan", label: t.nav.plan },
     { href: "#contact", label: t.nav.contact },
   ];
 
