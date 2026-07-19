@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
+import { SERVICE_BACKGROUNDS } from "@/lib/fusen/data";
 
 const SERVICE_SVGS = [
   // Translation
@@ -41,20 +42,34 @@ export function Services() {
           {t.services.items.map((service, i) => (
             <div
               key={i}
-              className="group relative rounded-xl bg-card p-8 border border-border transition-all duration-300 hover:shadow-brand-hover hover:border-brand-gold/50 hover:-translate-y-1"
+              className="group relative rounded-xl overflow-hidden border border-border transition-all duration-300 hover:shadow-brand-hover hover:border-brand-gold/50 hover:-translate-y-1"
             >
-              {/* Icon */}
-              <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-brand-red/8 text-brand-red transition-colors group-hover:bg-brand-red group-hover:text-white">
-                {SERVICE_SVGS[i]}
+              {/* Background image */}
+              <div className="absolute inset-0">
+                <img
+                  src={SERVICE_BACKGROUNDS[i]}
+                  alt=""
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/30 transition-opacity group-hover:from-black/90" />
               </div>
 
-              <h3 className="font-serif text-xl font-bold text-foreground mb-3">{service.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{service.desc}</p>
+              {/* Content */}
+              <div className="relative z-10 p-8 min-h-[280px] flex flex-col">
+                {/* Icon */}
+                <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-white/15 backdrop-blur-sm text-white transition-colors group-hover:bg-brand-red group-hover:text-white">
+                  {SERVICE_SVGS[i]}
+                </div>
 
-              {/* Number badge */}
-              <span className="absolute top-6 end-6 font-serif text-3xl font-bold text-accent/20 group-hover:text-accent/40 transition-colors">
-                0{i + 1}
-              </span>
+                <h3 className="font-serif text-xl font-bold text-white mb-3">{service.title}</h3>
+                <p className="text-sm text-white/80 leading-relaxed">{service.desc}</p>
+
+                {/* Number badge */}
+                <span className="absolute top-6 end-6 font-serif text-3xl font-bold text-white/20 group-hover:text-brand-gold/60 transition-colors">
+                  0{i + 1}
+                </span>
+              </div>
             </div>
           ))}
         </div>

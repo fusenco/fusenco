@@ -9,15 +9,32 @@ export function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Build WhatsApp message and redirect
-    const msg = encodeURIComponent(
-      `FUSEN Inquiry\n\nName: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
-    );
-    window.open(`${CONTACT_INFO.whatsappLink}?text=${msg}`, "_blank");
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
+    const formData = new FormData(e.currentTarget);
+    const params = new URLSearchParams();
+    formData.forEach((value, key) => {
+      params.append(key, value.toString());
+    });
+
+    try {
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: params.toString(),
+      });
+      setSubmitted(true);
+      setForm({ name: "", email: "", message: "" });
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch {
+      // Fallback: open WhatsApp with the message
+      const msg = encodeURIComponent(
+        `FUSEN Inquiry\n\nName: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
+      );
+      window.open(`${CONTACT_INFO.whatsappLink}?text=${msg}`, "_blank");
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 5000);
+    }
   };
 
   return (
@@ -99,7 +116,7 @@ export function Contact() {
             </div>
           </div>
 
-          {/* Inquiry form */}
+          {/* Inquiry form - Netlify Forms */}
           <div className="rounded-xl bg-white/5 border border-white/10 p-6 sm:p-8">
             {submitted ? (
               <div className="flex flex-col items-center justify-center h-full py-12 text-center">
@@ -111,11 +128,25 @@ export function Contact() {
                 <p className="text-white text-lg font-medium">{t.contact.formSuccess}</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form
+                name="inquiry"
+                method="POST"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                onSubmit={handleSubmit}
+                className="space-y-4"
+              >
+                <input type="hidden" name="form-name" value="inquiry" />
+                <p className="hidden">
+                  <label>
+                    Don&apos;t fill this out: <input name="bot-field" />
+                  </label>
+                </p>
                 <div>
                   <label className="block text-sm text-white/60 mb-1.5">{t.contact.formName}</label>
                   <input
                     type="text"
+                    name="name"
                     required
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -127,6 +158,7 @@ export function Contact() {
                   <label className="block text-sm text-white/60 mb-1.5">{t.contact.formEmail}</label>
                   <input
                     type="email"
+                    name="email"
                     required
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -137,6 +169,7 @@ export function Contact() {
                 <div>
                   <label className="block text-sm text-white/60 mb-1.5">{t.contact.formMessage}</label>
                   <textarea
+                    name="message"
                     required
                     rows={4}
                     value={form.message}

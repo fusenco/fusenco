@@ -17,44 +17,46 @@ export function Guides() {
         </div>
 
         {/* Guides grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {GUIDES.map((guide, i) => (
             <div
               key={i}
-              className="group rounded-xl bg-card border border-border p-6 text-center transition-all duration-300 hover:shadow-brand-hover hover:-translate-y-1"
+              className="group flex items-center gap-5 rounded-xl bg-card border border-border p-6 transition-all duration-300 hover:shadow-brand-hover hover:border-brand-gold/50 hover:-translate-y-1"
             >
-              {/* Avatar */}
-              <div className="mx-auto mb-4 relative h-24 w-24">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-red to-brand-gold opacity-20" />
-                <div className="absolute inset-1 rounded-full bg-brand-dark flex items-center justify-center">
-                  <span className="font-serif text-3xl font-bold text-brand-gold">
-                    {guide.name.charAt(0)}
-                  </span>
+              {/* Avatar with photo */}
+              <div className="relative shrink-0">
+                <div className="h-20 w-20 sm:h-24 sm:w-24 rounded-xl overflow-hidden ring-2 ring-brand-gold/20 transition-all group-hover:ring-brand-gold/50">
+                  <img
+                    src={guide.avatar}
+                    alt={guide.name}
+                    loading="lazy"
+                    className="h-full w-full object-cover"
+                  />
                 </div>
                 {/* Experience badge */}
-                <div className="absolute -bottom-1 -right-1 rounded-full bg-brand-gold px-2 py-0.5 text-xs font-bold text-brand-dark">
-                  {guide.experience}+
+                <div className="absolute -bottom-1 -right-1 rounded-full bg-brand-gold px-2 py-0.5 text-xs font-bold text-brand-dark shadow-md">
+                  {guide.experience}y
                 </div>
               </div>
 
-              <h3 className="font-serif text-lg font-bold text-foreground">{guide.name}</h3>
-              <p className="text-sm text-muted-foreground mb-2">{guide.city} · {guide.specialty}</p>
+              {/* Info */}
+              <div className="flex-1 min-w-0">
+                <h3 className="font-serif text-lg font-bold text-foreground truncate">{guide.name}</h3>
 
-              {/* Languages */}
-              <div className="flex flex-wrap justify-center gap-1.5 mt-3">
-                {guide.languages.map((lang) => (
-                  <span
-                    key={lang}
-                    className="rounded-full bg-brand-red/8 px-2.5 py-0.5 text-xs font-medium text-brand-red"
-                  >
-                    {lang}
-                  </span>
-                ))}
+                {/* Language badge - prominent */}
+                <div className="mt-1.5 inline-flex items-center gap-1.5 rounded-full bg-brand-red/8 px-3 py-0.5">
+                  <span className="text-xs font-bold text-brand-red">{guide.languageCode}</span>
+                  <span className="text-xs font-medium text-brand-red">{guide.language}</span>
+                </div>
+
+                <p className="mt-2 text-sm text-muted-foreground truncate">
+                  {guide.city} · {guide.specialty}
+                </p>
+
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {guide.experience} {t.guides.experience}
+                </p>
               </div>
-
-              <p className="mt-3 text-xs text-muted-foreground">
-                {guide.experience} {t.guides.experience}
-              </p>
             </div>
           ))}
         </div>

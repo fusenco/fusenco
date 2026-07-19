@@ -1,20 +1,40 @@
 "use client";
 
+import { useState, useEffect, useCallback } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
+import { HERO_IMAGES } from "@/lib/fusen/data";
 
 export function Hero() {
   const { t } = useLanguage();
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % HERO_IMAGES.length);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(nextSlide, 5000);
+    return () => clearInterval(timer);
+  }, [nextSlide]);
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background image */}
+      {/* Background carousel */}
       <div className="absolute inset-0 z-0">
-        <img
-          src="/hero-mountain.jpg"
-          alt="China mountain landscape"
-          className="h-full w-full object-cover"
-          fetchPriority="high"
-        />
+        {HERO_IMAGES.map((img, i) => (
+          <div
+            key={i}
+            className="absolute inset-0 transition-opacity duration-1000"
+            style={{ opacity: i === currentSlide ? 1 : 0 }}
+          >
+            <img
+              src={img.src}
+              alt={img.alt}
+              className="h-full w-full object-cover"
+              fetchPriority={i === 0 ? "high" : "low"}
+            />
+          </div>
+        ))}
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/70" />
       </div>
 
@@ -60,9 +80,9 @@ export function Hero() {
         {/* Stats */}
         <div className="mt-16 grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto">
           {[
-            { value: "20+", label: t.hero.stat1Label },
-            { value: "8", label: t.hero.stat2Label },
-            { value: "5000+", label: t.hero.stat3Label },
+            { value: "50+", label: t.hero.stat1Label },
+            { value: "10+", label: t.hero.stat2Label },
+            { value: "2000+", label: t.hero.stat3Label },
           ].map((stat, i) => (
             <div key={i} className="text-center">
               <div className="font-serif text-3xl sm:text-4xl font-bold text-brand-gold">{stat.value}</div>
@@ -70,6 +90,20 @@ export function Hero() {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Carousel dots */}
+      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+        {HERO_IMAGES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrentSlide(i)}
+            className={`h-2 rounded-full transition-all ${
+              i === currentSlide ? "w-8 bg-brand-gold" : "w-2 bg-white/40 hover:bg-white/60"
+            }`}
+            aria-label={`Slide ${i + 1}`}
+          />
+        ))}
       </div>
 
       {/* Scroll indicator */}

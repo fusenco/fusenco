@@ -1,11 +1,12 @@
 /**
- * FUSEN static data - Guides and other content
+ * FUSEN static data - Guides, destinations, contact info
  */
 
 export interface GuideData {
   name: string;
+  language: string;
+  languageCode: string;
   city: string;
-  languages: string[];
   experience: number;
   specialty: string;
   avatar: string;
@@ -14,35 +15,84 @@ export interface GuideData {
 export const GUIDES: GuideData[] = [
   {
     name: "Li Wei",
+    language: "English",
+    languageCode: "EN",
     city: "Beijing",
-    languages: ["EN", "RU"],
     experience: 8,
     specialty: "History & Culture",
-    avatar: "",
+    avatar: "/guides/guide-en.jpg",
   },
   {
-    name: "Zhang Mei",
+    name: "Wang Mei",
+    language: "Spanish",
+    languageCode: "ES",
     city: "Shanghai",
-    languages: ["EN", "JA", "KO"],
     experience: 6,
     specialty: "Food & Shopping",
-    avatar: "",
+    avatar: "/guides/guide-es.jpg",
   },
   {
-    name: "Wang Qiang",
-    city: "Shenzhen",
-    languages: ["EN", "ES", "PT"],
+    name: "Zhang Hao",
+    language: "French",
+    languageCode: "FR",
+    city: "Xi'an",
     experience: 10,
-    specialty: "Business & Tech",
-    avatar: "",
+    specialty: "History & Art",
+    avatar: "/guides/guide-fr.jpg",
   },
   {
     name: "Chen Yu",
+    language: "Japanese & Korean",
+    languageCode: "JA/KO",
     city: "Chengdu",
-    languages: ["EN", "FR"],
     experience: 5,
     specialty: "Nature & Cuisine",
-    avatar: "",
+    avatar: "/guides/guide-ja.jpg",
+  },
+  {
+    name: "Liu Ming",
+    language: "Arabic",
+    languageCode: "AR",
+    city: "Guangzhou",
+    experience: 7,
+    specialty: "Trade & Business",
+    avatar: "/guides/guide-ar.jpg",
+  },
+  {
+    name: "Zhao Lin",
+    language: "Russian",
+    languageCode: "RU",
+    city: "Harbin",
+    experience: 9,
+    specialty: "Culture & Architecture",
+    avatar: "/guides/guide-ru.jpg",
+  },
+  {
+    name: "Sun Qiang",
+    language: "Portuguese",
+    languageCode: "PT",
+    city: "Shenzhen",
+    experience: 6,
+    specialty: "Tech & Business",
+    avatar: "/guides/guide-pt.jpg",
+  },
+  {
+    name: "Wu Jie",
+    language: "Polish",
+    languageCode: "PL",
+    city: "Hangzhou",
+    experience: 4,
+    specialty: "Tea Culture & Heritage",
+    avatar: "/guides/guide-pl.jpg",
+  },
+  {
+    name: "Zhou Lei",
+    language: "Turkish",
+    languageCode: "TR",
+    city: "Beijing",
+    experience: 5,
+    specialty: "Silk Road & Culture",
+    avatar: "/guides/guide-tr.jpg",
   },
 ];
 
@@ -54,15 +104,28 @@ export const CONTACT_INFO = {
 };
 
 export const DESTINATION_IMAGES: Record<string, string> = {
-  Beijing: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&h=600&fit=crop",
-  Shanghai: "https://images.unsplash.com/photo-1545893835-abaa50cbe628?w=800&h=600&fit=crop",
-  "Xi'an": "https://images.unsplash.com/photo-1591018653567-1ea24239fbab?w=800&h=600&fit=crop",
-  Chengdu: "https://images.unsplash.com/photo-1545566239-0b103e75ee2c?w=800&h=600&fit=crop",
-  Guangzhou: "https://images.unsplash.com/photo-1584189029912-0300d5072026?w=800&h=600&fit=crop",
-  Hangzhou: "https://images.unsplash.com/photo-1598871132748-8632726ce0a5?w=800&h=600&fit=crop",
-  Shenzhen: "https://images.unsplash.com/photo-1563867460685-f6b3a3b5d7e8?w=800&h=600&fit=crop",
-  Guilin: "https://images.unsplash.com/photo-1537531383496-f4749b8032cf?w=800&h=600&fit=crop",
+  Beijing: "/destinations/dest-beijing.jpg",
+  Shanghai: "/destinations/dest-shanghai.jpg",
+  "Xi'an": "/destinations/dest-xian.jpg",
+  Chengdu: "/destinations/dest-chengdu.jpg",
+  Guangzhou: "/destinations/dest-guangzhou.jpg",
+  Hangzhou: "/destinations/dest-hangzhou.jpg",
+  Shenzhen: "/destinations/dest-shenzhen.jpg",
+  Guilin: "/destinations/dest-guilin.jpg",
 };
+
+export const HERO_IMAGES = [
+  { src: "/hero-mountain.jpg", alt: "China mountain landscape" },
+  { src: "/hero-hongyadong.jpg", alt: "Chongqing Hongyadong night view" },
+  { src: "/hero-potala.jpg", alt: "Tibet Potala Palace panorama" },
+];
+
+export const SERVICE_BACKGROUNDS = [
+  "/destinations/dest-beijing.jpg",
+  "/destinations/dest-shanghai.jpg",
+  "/destinations/dest-shenzhen.jpg",
+  "/destinations/dest-guangzhou.jpg",
+];
 
 // Service icons - using emoji for simplicity, can be replaced with SVG
 export const SERVICE_ICONS = [
