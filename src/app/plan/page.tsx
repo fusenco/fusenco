@@ -498,7 +498,7 @@ export default function PlanPage() {
               )}
               {form.duration && form.duration !== "custom" && form.duration !== "" && (
                 <p className="mt-2 text-xs text-muted-foreground">
-                  ⏰ Overtime: Additional hours beyond the selected duration will be charged at $25/hour (or equivalent).
+                  ⏰ Overtime: Additional hours beyond the selected duration will be charged at <strong>$15/hour</strong> (or equivalent in local currency).
                 </p>
               )}
             </div>
