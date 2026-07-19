@@ -26,6 +26,7 @@ interface FormData {
   duration: string;
   customDuration: string;
   cities: string[];
+  customCity: string;
 
   // Preferences
   dietaryRestrictions: string[];
@@ -52,7 +53,7 @@ interface FormData {
 const initialForm: FormData = {
   fullName: "", nationality: "", visitorCount: "1", email: "", phone: "", wechat: "",
   emergencyName: "", emergencyPhone: "", emergencyRelation: "",
-  entryDate: "", exitDate: "", duration: "", customDuration: "", cities: [],
+  entryDate: "", exitDate: "", duration: "", customDuration: "", cities: [], customCity: "",
   dietaryRestrictions: [], dietaryOther: "", religiousBeliefs: [], religiousOther: "",
   serviceNeeds: [], serviceOther: "", specificInterests: "",
   tripType: "",
@@ -123,6 +124,7 @@ const CITY_OPTIONS = [
   "Beijing", "Shanghai", "Xi'an", "Chengdu", "Guangzhou",
   "Shenzhen", "Hangzhou", "Guilin", "Chongqing", "Kunming",
   "Suzhou", "Nanjing", "Lhasa (Tibet)", "Harbin", "Hong Kong",
+  "custom",
 ];
 
 const BUDGET_OPTIONS = [
@@ -305,6 +307,14 @@ export default function PlanPage() {
   const update = (key: keyof FormData, value: unknown) => setForm((prev) => ({ ...prev, [key]: value }));
 
   const handleCityToggle = (city: string) => {
+    if (city === "custom") {
+      if (form.cities.includes("custom")) {
+        update("cities", form.cities.filter((c) => c !== "custom"));
+      } else {
+        update("cities", [...form.cities, "custom"]);
+      }
+      return;
+    }
     if (form.cities.includes(city)) {
       update("cities", form.cities.filter((c) => c !== city));
     } else {
@@ -331,7 +341,7 @@ export default function PlanPage() {
     payload.append("exitDate", form.exitDate);
     payload.append("duration", form.duration);
     payload.append("customDuration", form.customDuration);
-    payload.append("cities", form.cities.join(", "));
+    payload.append("cities", form.cities.filter((c) => c !== "custom").join(", ") + (form.cities.includes("custom") && form.customCity ? `, Custom: ${form.customCity}` : ""));
     payload.append("dietaryRestrictions", form.dietaryRestrictions.join(", "));
     payload.append("dietaryOther", form.dietaryOther);
     payload.append("religiousBeliefs", form.religiousBeliefs.join(", "));
@@ -419,6 +429,12 @@ export default function PlanPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-brand-red/5 via-brand-gold/5 to-transparent" />
           <div className="relative mx-auto max-w-4xl px-4 text-center pt-8 pb-6">
             <div className="divider-gold w-20 mx-auto mb-4" />
+            <div className="inline-flex items-center gap-2 bg-brand-red/10 text-brand-red text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              Fill in to get a detailed quote — 填写内容，获取详细报价
+            </div>
             <h1 className="font-serif text-4xl sm:text-5xl font-bold text-foreground mb-3">
               Custom Itinerary Planner
             </h1>
@@ -451,7 +467,7 @@ export default function PlanPage() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <InputField label="Full Name" name="emergencyName" value={form.emergencyName} onChange={(v) => update("emergencyName", v)} required />
                 <InputField label="Phone Number" name="emergencyPhone" type="tel" value={form.emergencyPhone} onChange={(v) => update("emergencyPhone", v)} required />
-                <InputField label="Relationship" name="emergencyRelation" value={form.emergencyRelation} onChange={(v) => update("emergencyRelation", v)} required placeholder="e.g. Spouse, Parent" />
+                <InputField label="Relationship" name="emergencyRelation" value={form.emergencyRelation} onChange={(v) => update("emergencyRelation", v)} placeholder="e.g. Spouse, Parent" />
               </div>
             </div>
           </section>
@@ -489,9 +505,10 @@ export default function PlanPage() {
               <label className="block text-sm font-medium text-foreground/80 mb-2.5">
                 Cities You Want to Visit <span className="text-brand-red">*</span>
               </label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                 {CITY_OPTIONS.map((city) => {
                   const isSelected = form.cities.includes(city);
+                  const isCustom = city === "custom";
                   return (
                     <button
                       key={city}
@@ -503,11 +520,22 @@ export default function PlanPage() {
                           : "border-border bg-white text-foreground/70 hover:border-brand-gold/40"
                       }`}
                     >
-                      {city}
+                      {isCustom ? "✏️ Other City" : city}
                     </button>
                   );
                 })}
               </div>
+              {form.cities.includes("custom") && (
+                <div className="mt-3">
+                  <input
+                    type="text"
+                    value={form.customCity}
+                    onChange={(e) => update("customCity", e.target.value)}
+                    placeholder="Enter your city / region..."
+                    className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30"
+                  />
+                </div>
+              )}
             </div>
           </section>
 
@@ -645,6 +673,19 @@ export default function PlanPage() {
 
           {/* ═══════════ Section 6: Submit ═══════════ */}
           <section className="rounded-2xl bg-white border border-border shadow-sm p-6 sm:p-8">
+            {/* Privacy Notice */}
+            <div className="mb-6 flex items-start gap-3 rounded-lg bg-blue-50/50 border border-blue-100 p-4">
+              <svg className="h-5 w-5 text-blue-500 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              <div>
+                <p className="text-sm font-medium text-blue-800">Your Privacy Matters 🔒</p>
+                <p className="text-xs text-blue-600/80 mt-1">
+                  All information you provide is <strong>strictly confidential</strong> and will only be used to create your personalized itinerary. 
+                  We never share your data with third parties. Your personal details are protected under GDPR and international privacy standards.
+                </p>
+              </div>
+            </div>
             <div className="flex items-start gap-3 mb-6">
               <input
                 type="checkbox"
