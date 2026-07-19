@@ -159,7 +159,7 @@ export default function PlanPage() {
   }
 
   const DURATIONS = ["4h", "8h", "3d", "5d", "7d", "custom"];
-  const CITY_KEYS = ["beijing", "shanghai", "guangzhou", "shenzhen", "chengdu", "xian", "hangzhou", "chongqing", "lhasa", "guilin", "hongkong", "kunming", "suzhou", "nanjing", "harbin"];
+  const CITY_KEYS = ["Beijing", "Shanghai", "Guangzhou", "Shenzhen", "Chengdu", "Xi'an", "Hangzhou", "Chongqing", "Lhasa (Tibet)", "Guilin", "Hong Kong", "Kunming", "Suzhou", "Nanjing", "Harbin"];
   const BUDGET_VALUES = ["budget", "mid", "premium", "luxury"];
   const ACCOMMODATION_VALUES = ["hotel5", "hotel4", "boutique", "homestay", "apartment"];
   const TRANSPORTATION_VALUES = ["private", "train", "flight", "public"];
