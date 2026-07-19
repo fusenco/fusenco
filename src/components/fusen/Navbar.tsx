@@ -20,26 +20,39 @@ export function Navbar() {
 
   const handleNavClick = useCallback(
     (e: React.MouseEvent, href: string) => {
-      // Only intercept hash links to different pages
-      if (!href.includes("#") || href.startsWith("/plan")) return;
       e.preventDefault();
-      const [path, hash] = href.split("#");
-      if (path === "/" && window.location.pathname === "/" && hash) {
-        // Same page hash scroll
-        document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
-      } else {
-        // Navigate to page, then scroll to hash after mount
-        router.push(path);
-        // Poll for the element after navigation
-        const check = setInterval(() => {
-          const el = document.getElementById(hash);
-          if (el) {
-            el.scrollIntoView({ behavior: "smooth" });
-            clearInterval(check);
-          }
-        }, 50);
-        setTimeout(() => clearInterval(check), 3000);
+
+      // Handle /plan page navigation
+      if (href === "/plan") {
+        router.push("/plan");
+        return;
       }
+
+      // Handle hash links (/#services, /#home, etc.)
+      if (href.includes("#")) {
+        const [path, hash] = href.split("#");
+        const currentPath = window.location.pathname;
+
+        if (path === currentPath || (path === "/" && currentPath === "/")) {
+          // Same page - smooth scroll to hash
+          document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+        } else {
+          // Navigate to page, then scroll to hash after mount
+          router.push(path);
+          const check = setInterval(() => {
+            const el = document.getElementById(hash);
+            if (el) {
+              el.scrollIntoView({ behavior: "smooth" });
+              clearInterval(check);
+            }
+          }, 50);
+          setTimeout(() => clearInterval(check), 3000);
+        }
+        return;
+      }
+
+      // Fallback for any other links
+      router.push(href);
     },
     [router]
   );
