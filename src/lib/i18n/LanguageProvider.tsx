@@ -30,7 +30,7 @@ const STORAGE_KEY = "fusen-lang";
 
 function mapCountryToLanguage(countryCode: string): LanguageCode {
   const map: Record<string, LanguageCode> = {
-    RU: "ru", BY: "ru", KZ: "ru", KG: "ru",
+    RU: "ru", BY: "ru", KZ: "kk", KG: "ky",
     JP: "ja",
     KR: "ko",
     ES: "es", MX: "es", AR: "es", CO: "es", CL: "es", PE: "es",
@@ -41,6 +41,21 @@ function mapCountryToLanguage(countryCode: string): LanguageCode {
     SA: "ar", AE: "ar", EG: "ar", KW: "ar", QA: "ar", BH: "ar",
     OM: "ar", JO: "ar", LB: "ar", SY: "ar", IQ: "ar", YE: "ar",
     LY: "ar", TN: "ar", DZ: "ar", MA: "ar", MR: "ar",
+    DE: "de", AT: "de", LI: "de",
+    IT: "it", MT: "it", SM: "it",
+    NL: "nl",
+    TH: "th",
+    ID: "id",
+    IR: "fa", AF: "fa", TJ: "tg",
+    IN: "hi",
+    TR: "tr", CY: "tr",
+    UZ: "uz",
+    PL: "pl",
+    FI: "fi",
+    MY: "ms", BN: "ms", SG: "ms",
+    SE: "sv",
+    GR: "el",
+    TM: "tk",
   };
   return map[countryCode] || "en";
 }
@@ -89,7 +104,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   // Update document direction for RTL languages
   useEffect(() => {
-    const isRTL = lang === "ar";
+    const isRTL = lang === "ar" || lang === "fa";
     document.documentElement.dir = isRTL ? "rtl" : "ltr";
     document.documentElement.lang = lang;
   }, [lang]);
@@ -105,7 +120,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     lang,
     setLang,
     t: translations[lang],
-    isRTL: lang === "ar",
+    isRTL: lang === "ar" || lang === "fa",
     languages: LANGUAGES,
   };
 
