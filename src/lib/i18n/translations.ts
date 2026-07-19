@@ -50,9 +50,7 @@ export interface Translation {
     destinations: string;
     guides: string;
     about: string;
-    plan: string;
-    pricing: string;
-    contact: string;
+    plan: string;    contact: string;
     cta: string;
   };
   hero: {
@@ -126,7 +124,6 @@ export const translations: Record<LanguageCode, Translation> = {
       guides: "Our Guides",
       about: "About",
       plan: "Plan",
-      pricing: "Pricing",
       contact: "Contact",
       cta: "Get in Touch",
     },
@@ -266,7 +263,6 @@ export const translations: Record<LanguageCode, Translation> = {
       guides: "Наши гиды",
       about: "О нас",
       plan: "План",
-      pricing: "Цены",
       contact: "Контакты",
       cta: "Связаться",
     },
@@ -406,7 +402,6 @@ export const translations: Record<LanguageCode, Translation> = {
       guides: "ガイド紹介",
       about: "会社概要",
       plan: "プラン",
-      pricing: "料金表",
       contact: "お問い合わせ",
       cta: "お問い合わせ",
     },
@@ -540,7 +535,6 @@ export const translations: Record<LanguageCode, Translation> = {
       guides: "가이드",
       about: "소개",
       plan: "계획",
-      pricing: "요금",
       contact: "문의",
       cta: "문의하기",
     },
@@ -674,7 +668,6 @@ export const translations: Record<LanguageCode, Translation> = {
       guides: "Guías",
       about: "Nosotros",
       plan: "Plan",
-      pricing: "Precios",
       contact: "Contacto",
       cta: "Contáctanos",
     },
@@ -808,7 +801,6 @@ export const translations: Record<LanguageCode, Translation> = {
       guides: "Guias",
       about: "Sobre",
       plan: "Plano",
-      pricing: "Preços",
       contact: "Contato",
       cta: "Fale Conosco",
     },
@@ -942,7 +934,6 @@ export const translations: Record<LanguageCode, Translation> = {
       guides: "Guides",
       about: "À propos",
       plan: "Plan",
-      pricing: "Tarifs",
       contact: "Contact",
       cta: "Contactez-nous",
     },
@@ -1076,7 +1067,6 @@ export const translations: Record<LanguageCode, Translation> = {
       guides: "مرشدونا",
       about: "من نحن",
       plan: "الخطة",
-      pricing: "الأسعار",
       contact: "اتصل بنا",
       cta: "تواصل معنا",
     },
@@ -1203,7 +1193,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   de: {
-    nav: { home: "Startseite", services: "Leistungen", destinations: "Reiseziele", guides: "Unsere Führer", about: "Über uns", plan: "Planen", pricing: "Preise", contact: "Kontakt", cta: "Kontakt aufnehmen" },
+    nav: { home: "Startseite", services: "Leistungen", destinations: "Reiseziele", guides: "Unsere Führer", about: "Über uns", plan: "Planen", contact: "Kontakt", cta: "Kontakt aufnehmen" },
     hero: {
       badge: "Premium-Lokalführerservice in China",
       titleTop: "Entdecken Sie",
@@ -1270,7 +1260,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   it: {
-    nav: { home: "Home", services: "Servizi", destinations: "Destinazioni", guides: "Le nostre guide", about: "Chi siamo", plan: "Pianifica", pricing: "Prezzi", contact: "Contatti", cta: "Contattaci" },
+    nav: { home: "Home", services: "Servizi", destinations: "Destinazioni", guides: "Le nostre guide", about: "Chi siamo", plan: "Pianifica", contact: "Contatti", cta: "Contattaci" },
     hero: {
       badge: "Servizio premium di guide locali in Cina",
       titleTop: "Scopri la",
@@ -1337,7 +1327,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   nl: {
-    nav: { home: "Home", services: "Diensten", destinations: "Bestemmingen", guides: "Onze gidsen", about: "Over ons", plan: "Plannen", pricing: "Prijzen", contact: "Contact", cta: "Neem contact op" },
+    nav: { home: "Home", services: "Diensten", destinations: "Bestemmingen", guides: "Onze gidsen", about: "Over ons", plan: "Plannen", contact: "Contact", cta: "Neem contact op" },
     hero: {
       badge: "Premium lokale gidsenservice in China",
       titleTop: "Ontdek",
@@ -1404,7 +1394,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   th: {
-    nav: { home: "หน้าแรก", services: "บริการ", destinations: "จุดหมายปลายทาง", guides: "มัคคุเทศก์ของเรา", about: "เกี่ยวกับเรา", plan: "วางแผน", pricing: "ราคา", contact: "ติดต่อ", cta: "ติดต่อเรา" },
+    nav: { home: "หน้าแรก", services: "บริการ", destinations: "จุดหมายปลายทาง", guides: "มัคคุเทศก์ของเรา", about: "เกี่ยวกับเรา", plan: "วางแผน", contact: "ติดต่อ", cta: "ติดต่อเรา" },
     hero: {
       badge: "บริการมัคคุเทศก์ท้องถิ่นระดับพรีเมียมในจีน",
       titleTop: "ค้นพบ",
@@ -1471,7 +1461,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   id: {
-    nav: { home: "Beranda", services: "Layanan", destinations: "Tujuan", guides: "Pemandu kami", about: "Tentang", plan: "Rencana", pricing: "Harga", contact: "Kontak", cta: "Hubungi kami" },
+    nav: { home: "Beranda", services: "Layanan", destinations: "Tujuan", guides: "Pemandu kami", about: "Tentang", plan: "Rencana", contact: "Kontak", cta: "Hubungi kami" },
     hero: {
       badge: "Layanan pemandu lokal premium di Tiongkok",
       titleTop: "Temukan",
@@ -1538,7 +1528,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   fa: {
-    nav: { home: "خانه", services: "خدمات", destinations: "مقاصد", guides: "راهنمایان ما", about: "درباره ما", plan: "برنامه‌ریزی", pricing: "قیمت‌ها", contact: "تماس", cta: "ارتباط با ما" },
+    nav: { home: "خانه", services: "خدمات", destinations: "مقاصد", guides: "راهنمایان ما", about: "درباره ما", plan: "برنامه‌ریزی", contact: "تماس", cta: "ارتباط با ما" },
     hero: {
       badge: "خدمات راهنمای محلی پریمیوم در چین",
       titleTop: "کشف کنید",
@@ -1605,7 +1595,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   hi: {
-    nav: { home: "होम", services: "सेवाएं", destinations: "गंतव्य", guides: "हमारे गाइड", about: "हमारे बारे में", plan: "योजना", pricing: "मूल्य", contact: "संपर्क", cta: "संपर्क करें" },
+    nav: { home: "होम", services: "सेवाएं", destinations: "गंतव्य", guides: "हमारे गाइड", about: "हमारे बारे में", plan: "योजना", contact: "संपर्क", cta: "संपर्क करें" },
     hero: {
       badge: "चीन में प्रीमियम स्थानीय गाइड सेवा",
       titleTop: "खोजिए",
@@ -1672,7 +1662,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   tr: {
-    nav: { home: "Ana Sayfa", services: "Hizmetler", destinations: "Destinasyonlar", guides: "Rehberlerimiz", about: "Hakkımızda", plan: "Planla", pricing: "Fiyatlar", contact: "İletişim", cta: "İletişime Geç" },
+    nav: { home: "Ana Sayfa", services: "Hizmetler", destinations: "Destinasyonlar", guides: "Rehberlerimiz", about: "Hakkımızda", plan: "Planla", contact: "İletişim", cta: "İletişime Geç" },
     hero: {
       badge: "Çin'de premium yerel rehber servisi",
       titleTop: "Keşfedin",
@@ -1739,7 +1729,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   kk: {
-    nav: { home: "Басты бет", services: "Қызметтер", destinations: "Бағыттар", guides: "Сархыштарымыз", about: "Біз туралы", plan: "Жоспарлау", pricing: "Бағалар", contact: "Байланыс", cta: "Байланысу" },
+    nav: { home: "Басты бет", services: "Қызметтер", destinations: "Бағыттар", guides: "Сархыштарымыз", about: "Біз туралы", plan: "Жоспарлау", contact: "Байланыс", cta: "Байланысу" },
     hero: {
       badge: "Қытайдағы премиум жергілікті сархыш қызметі",
       titleTop: "Ашыңыз",
@@ -1806,7 +1796,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   uz: {
-    nav: { home: "Bosh sahifa", services: "Xizmatlar", destinations: "Yo'nalishlar", guides: "Gidlarimiz", about: "Biz haqimizda", plan: "Reja", pricing: "Narxlar", contact: "Aloqa", cta: "Bog'lanish" },
+    nav: { home: "Bosh sahifa", services: "Xizmatlar", destinations: "Yo'nalishlar", guides: "Gidlarimiz", about: "Biz haqimizda", plan: "Reja", contact: "Aloqa", cta: "Bog'lanish" },
     hero: {
       badge: "Xitoyda premium mahalliy gid xizmati",
       titleTop: "Kashf eting",
@@ -1873,7 +1863,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   ky: {
-    nav: { home: "Башкы бет", services: "Кызматтар", destinations: "Багыттар", guides: "Гиддерибиз", about: "Биз жөнүндө", plan: "План", pricing: "Баалар", contact: "Байланыш", cta: "Байланышуу" },
+    nav: { home: "Башкы бет", services: "Кызматтар", destinations: "Багыттар", guides: "Гиддерибиз", about: "Биз жөнүндө", plan: "План", contact: "Байланыш", cta: "Байланышуу" },
     hero: {
       badge: "Кытайдагы премиум жергиликтүү гид кызматы",
       titleTop: "Ачкыла",
@@ -1940,7 +1930,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   tg: {
-    nav: { home: "Асосӣ", services: "Хизматҳо", destinations: "Самтҳо", guides: "Роҳбаладони мо", about: "Дар бораи мо", plan: "Нақша", pricing: "Нархҳо", contact: "Тамос", cta: "Тамос гирифтан" },
+    nav: { home: "Асосӣ", services: "Хизматҳо", destinations: "Самтҳо", guides: "Роҳбаладони мо", about: "Дар бораи мо", plan: "Нақша", contact: "Тамос", cta: "Тамос гирифтан" },
     hero: {
       badge: "Хизмати роҳбалади маҳаллии премиум дар Чин",
       titleTop: "Кушоед",
@@ -2007,7 +1997,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   tk: {
-    nav: { home: "Baş sahypa", services: "Hyzmatlar", destinations: "Maksatlar", guides: "Gidlerimiz", about: "Biz barada", plan: "Meýilnama", pricing: "Bahalar", contact: "Aragatnaşyk", cta: "Habarlaşmak" },
+    nav: { home: "Baş sahypa", services: "Hyzmatlar", destinations: "Maksatlar", guides: "Gidlerimiz", about: "Biz barada", plan: "Meýilnama", contact: "Aragatnaşyk", cta: "Habarlaşmak" },
     hero: {
       badge: "Hytaýda premium ýerli gid hyzmaty",
       titleTop: "Açyň",
@@ -2074,7 +2064,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   pl: {
-    nav: { home: "Strona główna", services: "Usługi", destinations: "Destynacje", guides: "Nasi przewodnicy", about: "O nas", plan: "Planuj", pricing: "Cennik", contact: "Kontakt", cta: "Skontaktuj się" },
+    nav: { home: "Strona główna", services: "Usługi", destinations: "Destynacje", guides: "Nasi przewodnicy", about: "O nas", plan: "Planuj", contact: "Kontakt", cta: "Skontaktuj się" },
     hero: {
       badge: "Premium lokalny serwis przewodników w Chinach",
       titleTop: "Odkryj",
@@ -2141,7 +2131,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   la: {
-    nav: { home: "Domus", services: "Servitia", destinations: "Destinationes", guides: "Ductores nostri", about: "De nobis", plan: "Consilium", pricing: "Pretia", contact: "Contactus", cta: "Contingere" },
+    nav: { home: "Domus", services: "Servitia", destinations: "Destinationes", guides: "Ductores nostri", about: "De nobis", plan: "Consilium", contact: "Contactus", cta: "Contingere" },
     hero: {
       badge: "Premium ductor localis servitium in Sina",
       titleTop: "Inveni",
@@ -2208,7 +2198,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   fi: {
-    nav: { home: "Etusivu", services: "Palvelut", destinations: "Kohteet", guides: "Oppaamme", about: "Meistä", plan: "Suunnittelu", pricing: "Hinnat", contact: "Yhteystiedot", cta: "Ota yhteyttä" },
+    nav: { home: "Etusivu", services: "Palvelut", destinations: "Kohteet", guides: "Oppaamme", about: "Meistä", plan: "Suunnittelu", contact: "Yhteystiedot", cta: "Ota yhteyttä" },
     hero: {
       badge: "Premium paikallisopaspalvelu Kiinassa",
       titleTop: "Löydä",
@@ -2275,7 +2265,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   ms: {
-    nav: { home: "Utama", services: "Perkhidmatan", destinations: "Destinasi", guides: "Pemandu kami", about: "Tentang kami", plan: "Rancang", pricing: "Harga", contact: "Hubungi", cta: "Hubungi kami" },
+    nav: { home: "Utama", services: "Perkhidmatan", destinations: "Destinasi", guides: "Pemandu kami", about: "Tentang kami", plan: "Rancang", contact: "Hubungi", cta: "Hubungi kami" },
     hero: {
       badge: "Perkhidmatan pemandu tempatan premium di China",
       titleTop: "Temui",
@@ -2342,7 +2332,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   sv: {
-    nav: { home: "Hem", services: "Tjänster", destinations: "Destinationer", guides: "Våra guider", about: "Om oss", plan: "Planera", pricing: "Priser", contact: "Kontakt", cta: "Kontakta oss" },
+    nav: { home: "Hem", services: "Tjänster", destinations: "Destinationer", guides: "Våra guider", about: "Om oss", plan: "Planera", contact: "Kontakt", cta: "Kontakta oss" },
     hero: {
       badge: "Premium lokal guideervice i Kina",
       titleTop: "Upptäck",
@@ -2409,7 +2399,7 @@ export const translations: Record<LanguageCode, Translation> = {
   },
 
   el: {
-    nav: { home: "Αρχική", services: "Υπηρεσίες", destinations: "Προορισμοί", guides: "Οι ξεναγοί μας", about: "Σχετικά", plan: "Σχεδιασμός", pricing: "Τιμές", contact: "Επικοινωνία", cta: "Επικοινωνήστε" },
+    nav: { home: "Αρχική", services: "Υπηρεσίες", destinations: "Προορισμοί", guides: "Οι ξεναγοί μας", about: "Σχετικά", plan: "Σχεδιασμός", contact: "Επικοινωνία", cta: "Επικοινωνήστε" },
     hero: {
       badge: "Premium υπηρεσία τοπικού ξεναγού στην Κίνα",
       titleTop: "Ανακαλύψτε",
