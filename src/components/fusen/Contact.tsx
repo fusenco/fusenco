@@ -18,7 +18,7 @@ export function Contact() {
     });
 
     try {
-      await fetch("/", {
+      await fetch("https://formspree.io/f/xwvgoavg", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: params.toString(),
@@ -116,7 +116,7 @@ export function Contact() {
             </div>
           </div>
 
-          {/* Inquiry form - Netlify Forms */}
+          {/* Inquiry form - Formspree */}
           <div className="rounded-xl bg-white/5 border border-white/10 p-6 sm:p-8">
             {submitted ? (
               <div className="flex flex-col items-center justify-center h-full py-12 text-center">
@@ -129,19 +129,9 @@ export function Contact() {
               </div>
             ) : (
               <form
-                name="inquiry"
-                method="POST"
-                data-netlify="true"
-                netlify-honeypot="bot-field"
                 onSubmit={handleSubmit}
                 className="space-y-4"
               >
-                <input type="hidden" name="form-name" value="inquiry" />
-                <p className="hidden">
-                  <label>
-                    Don&apos;t fill this out: <input name="bot-field" />
-                  </label>
-                </p>
                 <div>
                   <label className="block text-sm text-white/60 mb-1.5">{t.contact.formName}</label>
                   <input
