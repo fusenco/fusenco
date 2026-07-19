@@ -13,6 +13,12 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
+    // On /plan page, navbar is always solid (no dark hero behind it)
+    const isPlanPage = window.location.pathname === "/plan";
+    if (isPlanPage) {
+      setScrolled(true);
+      return;
+    }
     const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);

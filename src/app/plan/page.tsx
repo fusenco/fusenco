@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { planTranslations, type PlanLang } from "@/lib/i18n/plan-translations";
 import { CONTACT_INFO } from "@/lib/fusen/data";
+import { Navbar } from "@/components/fusen/Navbar";
 import { Footer } from "@/components/fusen/Footer";
 
 export default function PlanPage() {
@@ -123,6 +124,7 @@ export default function PlanPage() {
   if (success) {
     return (
       <>
+        <Navbar />
         <main className="min-h-screen bg-[#F8F5F0] pt-28 pb-16 px-4 flex items-center">
           <div className="max-w-2xl mx-auto text-center">
             <div className="mb-8 inline-flex h-24 w-24 items-center justify-center rounded-full bg-green-50 border-4 border-green-100">
@@ -166,6 +168,7 @@ export default function PlanPage() {
   // ─── Form Page ───
   return (
     <>
+      <Navbar />
       <main className="min-h-screen bg-[#F8F5F0] pt-28 pb-16 px-4">
         <div className="max-w-3xl mx-auto">
           {/* Header */}
