@@ -8,7 +8,7 @@
 - **Language**: TypeScript 5
 - **Styling**: Tailwind CSS 4 + shadcn/ui 设计令牌
 - **Fonts**: Inter (body) + Cormorant Garamond (serif/display)
-- **i18n**: 自建轻量多语言系统（Context + localStorage 持久化）
+- **i18n**: 自建轻量多语言系统（Context + localStorage 持久化），支持 27 种语言
 
 ## 目录结构
 ```

@@ -97,13 +97,15 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden lg:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-2">
           {navLinks.map((link) => (
             <button
               key={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className={`text-sm font-medium transition-colors hover:text-brand-gold ${
-                scrolled ? "text-foreground" : "text-white/90"
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                scrolled
+                  ? "bg-brand-red/10 text-foreground hover:bg-brand-red/20 hover:text-brand-red"
+                  : "bg-white/10 text-white/90 hover:bg-white/20 hover:text-white"
               }`}
             >
               {link.label}
