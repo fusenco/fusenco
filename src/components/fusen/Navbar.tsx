@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
@@ -16,12 +17,12 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { href: "#home", label: t.nav.home },
-    { href: "#services", label: t.nav.services },
-    { href: "#destinations", label: t.nav.destinations },
-    { href: "#guides", label: t.nav.guides },
+    { href: "/#home", label: t.nav.home },
+    { href: "/#services", label: t.nav.services },
+    { href: "/#destinations", label: t.nav.destinations },
+    { href: "/#guides", label: t.nav.guides },
     { href: "/plan", label: t.nav.plan },
-    { href: "#contact", label: t.nav.contact },
+    { href: "/#contact", label: t.nav.contact },
   ];
 
   return (
@@ -34,7 +35,7 @@ export function Navbar() {
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 py-3">
         {/* Logo */}
-        <a href="#home" className="flex items-center gap-2 shrink-0">
+        <Link href="/#home" className="flex items-center gap-2 shrink-0">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-red">
             <span className="font-serif text-xl font-bold text-white">F</span>
           </div>
@@ -46,12 +47,12 @@ export function Navbar() {
               China Local Guide
             </span>
           </div>
-        </a>
+        </Link>
 
         {/* Desktop Nav */}
         <div className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className={`text-sm font-medium transition-colors hover:text-brand-gold ${
@@ -59,7 +60,7 @@ export function Navbar() {
               }`}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -68,12 +69,12 @@ export function Navbar() {
           <div className={scrolled ? "" : "[&_*]:text-white"}>
             <LanguageSwitcher />
           </div>
-          <a
-            href="#contact"
+          <Link
+            href="/#contact"
             className="hidden sm:inline-flex items-center rounded-full bg-brand-red px-5 py-2 text-sm font-semibold text-white transition-all hover:bg-[#A52A2A] hover:shadow-lg"
           >
             {t.nav.cta}
-          </a>
+          </Link>
 
           {/* Mobile menu button */}
           <button
@@ -97,22 +98,22 @@ export function Navbar() {
         <div className="lg:hidden bg-card border-t border-border shadow-lg">
           <div className="px-4 py-4 space-y-1">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
                 className="block rounded-lg px-4 py-3 text-sm font-medium text-foreground hover:bg-accent/10 hover:text-brand-red"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
-            <a
-              href="#contact"
+            <Link
+              href="/#contact"
               onClick={() => setMobileOpen(false)}
               className="block rounded-lg bg-brand-red px-4 py-3 text-center text-sm font-semibold text-white"
             >
               {t.nav.cta}
-            </a>
+            </Link>
           </div>
         </div>
       )}
