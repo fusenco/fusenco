@@ -465,8 +465,8 @@ export default function PlanPage() {
             <div className="mt-6">
               <p className="text-sm font-medium text-foreground/80 mb-2.5">Emergency Contact</p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <InputField label="Full Name" name="emergencyName" value={form.emergencyName} onChange={(v) => update("emergencyName", v)} required />
-                <InputField label="Phone Number" name="emergencyPhone" type="tel" value={form.emergencyPhone} onChange={(v) => update("emergencyPhone", v)} required />
+                <InputField label="Full Name" name="emergencyName" value={form.emergencyName} onChange={(v) => update("emergencyName", v)} />
+                <InputField label="Phone Number" name="emergencyPhone" type="tel" value={form.emergencyPhone} onChange={(v) => update("emergencyPhone", v)} />
                 <InputField label="Relationship" name="emergencyRelation" value={form.emergencyRelation} onChange={(v) => update("emergencyRelation", v)} placeholder="e.g. Spouse, Parent" />
               </div>
             </div>
