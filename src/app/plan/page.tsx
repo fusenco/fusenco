@@ -178,13 +178,14 @@ function SectionTitle({ number, title }: { number: string; title: string }) {
 }
 
 function InputField({
-  label, name, value, onChange, required, placeholder, type = "text", className,
+  label, name, value, onChange, required, placeholder, type = "text", className, min, lang,
 }: {
   label: string; name: string; value: string; onChange: (v: string) => void;
   required?: boolean; placeholder?: string; type?: string; className?: string;
+  min?: string; lang?: string;
 }) {
   return (
-    <div className={className}>
+    <div className={className} lang={lang}>
       <label className="block text-sm font-medium text-foreground/80 mb-1.5">
         {label} {required && <span className="text-brand-red">*</span>}
       </label>
@@ -195,6 +196,8 @@ function InputField({
         onChange={(e) => onChange(e.target.value)}
         required={required}
         placeholder={placeholder}
+        min={min}
+        lang={lang}
         className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30"
       />
     </div>
@@ -299,7 +302,7 @@ function RadioGroup({
 
 // ──────────────────── Main Component ────────────────────
 export default function PlanPage() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const [form, setForm] = useState<FormData>(initialForm);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -456,7 +459,7 @@ export default function PlanPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <InputField label="Full Name" name="fullName" value={form.fullName} onChange={(v) => update("fullName", v)} required placeholder="e.g. John Smith" />
               <InputField label="Nationality" name="nationality" value={form.nationality} onChange={(v) => update("nationality", v)} required placeholder="e.g. USA, UK, France..." />
-              <InputField label="Number of Visitors" name="visitorCount" type="number" value={form.visitorCount} onChange={(v) => update("visitorCount", v)} required />
+              <InputField label="Number of Visitors" name="visitorCount" type="number" value={form.visitorCount} onChange={(v) => update("visitorCount", v)} min="1" required />
               <InputField label="Email Address" name="email" type="email" value={form.email} onChange={(v) => update("email", v)} required placeholder="john@example.com" />
               <InputField label="WhatsApp / Phone" name="phone" type="tel" value={form.phone} onChange={(v) => update("phone", v)} required placeholder="+86 131 1671 6778" />
               <InputField label="WeChat ID (Optional)" name="wechat" value={form.wechat} onChange={(v) => update("wechat", v)} placeholder="wechat123" />
@@ -476,8 +479,8 @@ export default function PlanPage() {
           <section className="rounded-2xl bg-white border border-border shadow-sm p-6 sm:p-8">
             <SectionTitle number="2" title="Trip Details" />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <InputField label="Entry Date (Arrival in China)" name="entryDate" type="date" value={form.entryDate} onChange={(v) => update("entryDate", v)} required />
-              <InputField label="Exit Date (Departure)" name="exitDate" type="date" value={form.exitDate} onChange={(v) => update("exitDate", v)} required />
+              <InputField label="Entry Date (Arrival in China)" name="entryDate" type="date" value={form.entryDate} onChange={(v) => update("entryDate", v)} lang={lang} required />
+              <InputField label="Exit Date (Departure)" name="exitDate" type="date" value={form.exitDate} onChange={(v) => update("exitDate", v)} lang={lang} required />
             </div>
 
             <div className="mt-6">
