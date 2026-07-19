@@ -12,20 +12,26 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const params = new URLSearchParams();
-    formData.forEach((value, key) => {
-      params.append(key, value.toString());
-    });
 
     try {
-      await fetch("https://formspree.io/f/xwvgoavg", {
+      const res = await fetch("https://formspree.io/f/xwvgoavg", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: params.toString(),
+        body: formData,
       });
-      setSubmitted(true);
-      setForm({ name: "", email: "", message: "" });
-      setTimeout(() => setSubmitted(false), 5000);
+
+      if (res.ok) {
+        setSubmitted(true);
+        setForm({ name: "", email: "", message: "" });
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        // Fallback: open WhatsApp with the message
+        const msg = encodeURIComponent(
+          `FUSEN Inquiry\n\nName: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
+        );
+        window.open(`${CONTACT_INFO.whatsappLink}?text=${msg}`, "_blank");
+        setSubmitted(true);
+        setTimeout(() => setSubmitted(false), 5000);
+      }
     } catch {
       // Fallback: open WhatsApp with the message
       const msg = encodeURIComponent(
