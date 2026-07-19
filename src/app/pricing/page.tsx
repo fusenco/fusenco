@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useState } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import Link from "next/link";
 import { Navbar } from "@/components/fusen/Navbar";
@@ -191,6 +192,59 @@ function getText(dict: Record<string, string>, lang: string): string {
 
 export default function PricingPage() {
   const { lang, t } = useLanguage();
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [generating, setGenerating] = useState(false);
+
+  const downloadPdf = async () => {
+    if (!contentRef.current) return;
+    setGenerating(true);
+
+    try {
+      const html2pdf = (await import("html2pdf.js")).default;
+
+      // Clone content for PDF generation
+      const element = contentRef.current.cloneNode(true) as HTMLElement;
+      element.style.background = "#FFFFFF";
+      element.style.padding = "0";
+      element.style.width = "1200px";
+
+      // Create a temp container
+      const container = document.createElement("div");
+      container.style.position = "fixed";
+      container.style.left = "-9999px";
+      container.style.top = "0";
+      container.style.width = "1200px";
+      container.style.background = "#FFFFFF";
+      container.appendChild(element);
+      document.body.appendChild(container);
+
+      const opt = {
+        margin: [10, 10, 10, 10],
+        filename: "FUSEN-Pricing-Translation-Guide-Services.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          scrollY: 0,
+          windowWidth: 1200,
+        },
+        jsPDF: {
+          unit: "mm",
+          format: "a4",
+          orientation: "portrait" as const,
+        },
+        pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+      };
+
+      await html2pdf().set(opt as any).from(element).save();
+
+      document.body.removeChild(container);
+    } catch (err) {
+      console.error("PDF generation failed:", err);
+    } finally {
+      setGenerating(false);
+    }
+  };
 
   return (
     <>
@@ -235,7 +289,35 @@ export default function PricingPage() {
                 ar: "جميع الأسعار بالدولار الأمريكي ومبنية على أبحاث السوق الحالية في المدن الصينية الكبرى. قد تختلف الأسعار حسب المدينة والموسم والمتطلبات.",
               }, lang)}
             </p>
+
+            {/* Download PDF Button */}
+            <div className="mt-8 flex justify-center">
+              <button
+                onClick={downloadPdf}
+                disabled={generating}
+                className="inline-flex items-center gap-2 rounded-full bg-[#8B1A1A] px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-[#A52A2A] hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {generating ? (
+                  <>
+                    <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    {getText({ en: "Generating PDF...", ru: "Создание PDF...", ja: "PDF生成中...", ko: "PDF 생성 중...", es: "Generando PDF...", pt: "Gerando PDF...", fr: "Génération du PDF...", ar: "جارٍ إنشاء PDF..." }, lang)}
+                  </>
+                ) : (
+                  <>
+                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    {getText({ en: "Download PDF", ru: "Скачать PDF", ja: "PDFをダウンロード", ko: "PDF 다운로드", es: "Descargar PDF", pt: "Baixar PDF", fr: "Télécharger PDF", ar: "تنزيل PDF" }, lang)}
+                  </>
+                )}
+              </button>
+            </div>
           </div>
+
+          <div ref={contentRef}>
 
           {/* ═══════════ Service Tiers ═══════════ */}
           <section className="mb-20">
@@ -602,6 +684,7 @@ export default function PricingPage() {
               }, lang)}
             </p>
           </div>
+          </div> {/* end contentRef */}
         </div>
       </main>
       <Footer />
