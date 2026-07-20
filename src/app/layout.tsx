@@ -3,6 +3,7 @@ import { Inspector } from "react-dev-inspector";
 import { Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
+import WhatsAppFloat from "@/components/fusen/WhatsAppFloat";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -59,6 +60,7 @@ export default function RootLayout({
         <LanguageProvider>
           {isDev && <Inspector />}
           {children}
+          <WhatsAppFloat />
         </LanguageProvider>
       </body>
     </html>
