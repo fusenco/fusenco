@@ -81,7 +81,7 @@ export function Navbar() {
           backgroundImage: `url('/cloud-pattern.png')`,
           backgroundRepeat: 'repeat',
           backgroundSize: '120px auto',
-          opacity: 0.15
+          opacity: 0.35
         }}
       />
       
@@ -147,7 +147,7 @@ export function Navbar() {
       {mobileOpen && (
         <div className="lg:hidden bg-[#C8102E] border-t border-white/20 shadow-lg relative overflow-hidden">
           {/* 祥云图腾背景 */}
-          <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
+          <div className="absolute inset-0 opacity-25 pointer-events-none" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cpath d='M10 20 Q 15 15, 20 20 T 30 20 Q 35 25, 40 20 Q 45 15, 50 20 T 60 20 Q 65 25, 70 20' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E")`,
             backgroundRepeat: 'repeat'
           }} />
