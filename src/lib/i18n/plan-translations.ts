@@ -1,4 +1,4 @@
-export type PlanLang = "en" | "ru" | "ja" | "ko" | "es" | "pt" | "fr" | "ar" | "de" | "it" | "nl" | "th" | "id" | "fa" | "hi" | "tr" | "kk" | "uz" | "ky" | "tg" | "tk" | "pl" | "la" | "fi" | "ms" | "sv" | "el";
+export type PlanLang = "zh" | "en" | "ru" | "ja" | "ko" | "es" | "pt" | "fr" | "ar" | "de" | "it" | "nl" | "th" | "id" | "fa" | "hi" | "tr" | "kk" | "uz" | "ky" | "tg" | "tk" | "pl" | "la" | "fi" | "ms" | "sv" | "el";
 
 export interface PlanT {
   // Header
