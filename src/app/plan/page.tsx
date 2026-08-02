@@ -324,7 +324,6 @@ export default function PlanPage() {
       formData.append("Visitor Count", form.visitorCount);
       formData.append("Email", form.email);
       formData.append("Phone", form.phoneCountryCode ? form.phoneCountryCode + " " + form.phone : form.phone);
-      formData.append("WhatsApp", form.whatsapp);
       formData.append("WeChat", form.wechat);
       formData.append("Emergency Contact Name", form.emergencyName);
       formData.append("Emergency Contact Phone", form.emergencyPhone);
@@ -690,6 +689,9 @@ export default function PlanPage() {
                   <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.email} <span className="text-[#8B1A1A]">*</span></label>
                   <input type="email" required value={form.email} onChange={(e) => update("email", e.target.value)} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
                 </div>
+              </div>
+              
+              <div className="space-y-4 mt-4">
                 <div>
                   <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.phone}</label>
                   <div className="flex gap-2">
@@ -701,10 +703,6 @@ export default function PlanPage() {
                     </select>
                     <input type="tel" required value={form.phone} onChange={(e) => update("phone", e.target.value)} className="flex-1 rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
                   </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.whatsapp}</label>
-                  <input type="tel" value={form.whatsapp} onChange={(e) => update("whatsapp", e.target.value)} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.wechat}</label>

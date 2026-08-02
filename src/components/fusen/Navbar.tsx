@@ -76,21 +76,27 @@ export function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-card/95 backdrop-blur-md shadow-md shadow-brand"
+          ? "bg-[#C8102E]/95 backdrop-blur-md shadow-md shadow-brand relative overflow-hidden"
           : "bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 py-3">
+      {/* 祥云图腾背景 */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cpath d='M10 20 Q 15 15, 20 20 T 30 20 Q 35 25, 40 20 Q 45 15, 50 20 T 60 20 Q 65 25, 70 20' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E")`,
+        backgroundRepeat: 'repeat'
+      }} />
+      
+      <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 py-3">
         {/* Logo */}
         <Link href="/#home" className="flex items-center gap-2 shrink-0">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-red">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 backdrop-blur-sm border border-white/30">
             <span className="font-serif text-xl font-bold text-white">F</span>
           </div>
           <div className="hidden sm:block">
-            <span className={`font-serif text-xl font-bold ${scrolled ? "text-brand-red" : "text-white"}`}>
+            <span className="font-serif text-xl font-bold text-white">
               FUSEN
             </span>
-            <span className={`block text-[10px] tracking-widest uppercase ${scrolled ? "text-muted-foreground" : "text-white/70"}`}>
+            <span className="block text-[10px] tracking-widest uppercase text-white/80">
               China Local Guide
             </span>
           </div>
@@ -104,7 +110,7 @@ export function Navbar() {
               onClick={(e) => handleNavClick(e, link.href)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                 scrolled
-                  ? "bg-brand-red/10 text-foreground hover:bg-brand-red/20 hover:text-brand-red"
+                  ? "bg-white/15 text-white hover:bg-white/25 hover:text-white"
                   : "bg-white/10 text-white/90 hover:bg-white/20 hover:text-white"
               }`}
             >
@@ -115,12 +121,12 @@ export function Navbar() {
 
         {/* Right Actions */}
         <div className="flex items-center gap-3">
-          <div className={scrolled ? "" : "[&_*]:text-white"}>
+          <div className="[&_*]:text-white">
             <LanguageSwitcher />
           </div>
           <button
             onClick={(e) => handleNavClick(e, "/#contact")}
-            className="hidden sm:inline-flex items-center rounded-full bg-brand-red px-5 py-2 text-sm font-semibold text-white transition-all hover:bg-[#A52A2A] hover:shadow-lg"
+            className="hidden sm:inline-flex items-center rounded-full bg-white px-5 py-2 text-sm font-semibold text-[#C8102E] transition-all hover:bg-white/90 hover:shadow-lg"
           >
             {t.nav.cta}
           </button>
@@ -128,7 +134,7 @@ export function Navbar() {
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className={`lg:hidden p-2 ${scrolled ? "text-foreground" : "text-white"}`}
+            className="lg:hidden p-2 text-white"
             aria-label="Toggle menu"
           >
             <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -144,8 +150,14 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-card border-t border-border shadow-lg">
-          <div className="px-4 py-4 space-y-1">
+        <div className="lg:hidden bg-[#C8102E] border-t border-white/20 shadow-lg relative overflow-hidden">
+          {/* 祥云图腾背景 */}
+          <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cpath d='M10 20 Q 15 15, 20 20 T 30 20 Q 35 25, 40 20 Q 45 15, 50 20 T 60 20 Q 65 25, 70 20' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E")`,
+            backgroundRepeat: 'repeat'
+          }} />
+          
+          <div className="relative px-4 py-4 space-y-1">
             {navLinks.map((link) => (
               <button
                 key={link.href}
@@ -153,7 +165,7 @@ export function Navbar() {
                   handleNavClick(e, link.href);
                   setMobileOpen(false);
                 }}
-                className="block w-full rounded-lg px-4 py-3 text-left text-sm font-medium text-foreground hover:bg-accent/10 hover:text-brand-red"
+                className="block w-full rounded-lg px-4 py-3 text-left text-sm font-medium text-white hover:bg-white/20"
               >
                 {link.label}
               </button>
@@ -163,7 +175,7 @@ export function Navbar() {
                 handleNavClick(e, "/#contact");
                 setMobileOpen(false);
               }}
-              className="block w-full rounded-lg bg-brand-red px-4 py-3 text-center text-sm font-semibold text-white"
+              className="block w-full rounded-lg bg-white px-4 py-3 text-center text-sm font-semibold text-[#C8102E]"
             >
               {t.nav.cta}
             </button>
