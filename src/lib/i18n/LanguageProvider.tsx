@@ -75,28 +75,60 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    // Try IP-based detection
+    // Try IP-based detection with timeout and multiple fallbacks
     const detectLanguage = async () => {
+      let detected: LanguageCode | null = null;
+
+      // Try ip-api.com (more reliable, no CORS issues for HTTP)
       try {
-        const res = await fetch("https://ipapi.co/json/");
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3000);
+        const res = await fetch("http://ip-api.com/json/?fields=countryCode", {
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
         if (res.ok) {
           const data = await res.json();
-          if (data.country_code) {
-            const detected = mapCountryToLanguage(data.country_code);
-            setLangState(detected);
-            return;
+          if (data.countryCode) {
+            detected = mapCountryToLanguage(data.countryCode);
           }
         }
       } catch {
-        // IP detection failed, fall through to browser language
+        // ip-api failed, try ipapi.co as backup
       }
 
-      // Fallback: browser language
-      if (typeof navigator !== "undefined") {
+      // Fallback 1: ipapi.co
+      if (!detected) {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 3000);
+          const res = await fetch("https://ipapi.co/json/", {
+            signal: controller.signal,
+          });
+          clearTimeout(timeoutId);
+          if (res.ok) {
+            const data = await res.json();
+            if (data.country_code) {
+              detected = mapCountryToLanguage(data.country_code);
+            }
+          }
+        } catch {
+          // ipapi.co also failed
+        }
+      }
+
+      // Apply detected language or fallback to browser language
+      if (detected) {
+        setLangState(detected);
+        localStorage.setItem(STORAGE_KEY, detected);
+      } else if (typeof navigator !== "undefined") {
         const browserLang = navigator.language.split("-")[0];
         if (translations[browserLang as LanguageCode]) {
           setLangState(browserLang as LanguageCode);
           localStorage.setItem(STORAGE_KEY, browserLang as LanguageCode);
+        } else {
+          // Final fallback: Chinese (default)
+          setLangState("zh");
         }
       }
     };
