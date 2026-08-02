@@ -24,7 +24,7 @@ export function LanguageSwitcher() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 rounded-full border border-brand-gold/30 px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:border-brand-gold hover:bg-accent/10"
+        className="flex items-center gap-1.5 rounded-full border border-brand-gold/30 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:border-white/60 hover:bg-white/15"
         aria-label="Switch language"
       >
         <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
