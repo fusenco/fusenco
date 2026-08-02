@@ -1,9 +1,9 @@
 /**
  * FUSEN i18n - Multi-language translation system
- * Supported: EN, RU, JA, KO, ES, PT, FR, AR, DE, IT, NL, TH, ID, FA, HI, TR, KK, UZ, KY, TG, TK, PL, LA, FI, MS, SV, EL
+ * Supported: ZH, EN, RU, JA, KO, ES, PT, FR, AR, DE, IT, NL, TH, ID, FA, HI, TR, KK, UZ, KY, TG, TK, PL, LA, FI, MS, SV, EL
  */
 
-export type LanguageCode = "en" | "ru" | "ja" | "ko" | "es" | "pt" | "fr" | "ar" | "de" | "it" | "nl" | "th" | "id" | "fa" | "hi" | "tr" | "kk" | "uz" | "ky" | "tg" | "tk" | "pl" | "la" | "fi" | "ms" | "sv" | "el";
+export type LanguageCode = "zh" | "en" | "ru" | "ja" | "ko" | "es" | "pt" | "fr" | "ar" | "de" | "it" | "nl" | "th" | "id" | "fa" | "hi" | "tr" | "kk" | "uz" | "ky" | "tg" | "tk" | "pl" | "la" | "fi" | "ms" | "sv" | "el";
 
 export interface LanguageOption {
   code: LanguageCode;
@@ -41,6 +41,7 @@ export const LANGUAGES: LanguageOption[] = [
   { code: "ms", label: "Malay", nativeLabel: "Bahasa Melayu", flag: "MS" },
   { code: "sv", label: "Swedish", nativeLabel: "Svenska", flag: "SV" },
   { code: "el", label: "Greek", nativeLabel: "Ελληνικά", flag: "EL" },
+  { code: "zh", label: "Chinese", nativeLabel: "中文", flag: "CN" },
 ];
 
 export interface Translation {
@@ -2462,6 +2463,90 @@ export const translations: Record<LanguageCode, Translation> = {
     footer: {
       tagline: "Ο αξιόπιστος τοπικός ξεναγός συνεργάτης σας στην Κίνα. Αυθεντικές εμπειρίες, επαγγελματική υπηρεσία, πολυγλωσσική υποστήριξη.",
       quickLinks: "Γρήγοροι σύνδεσμοι", contactUs: "Επικοινωνήστε μαζί μας", followUs: "Ακολουθήστε μας", copyright: "FUSEN", rights: "Με επιφύλαξη κάθε δικαιώματος.",
+    },
+  },
+  zh: {
+    nav: {
+      home: "首页",
+      services: "服务",
+      destinations: "目的地",
+      guides: "我们的导游",
+      about: "关于",
+      plan: "行程",
+      contact: "联系我们",
+      cta: "联系我们",
+    },
+    hero: {
+      badge: "中国优质本地导游服务",
+      titleTop: "探索",
+      titleBottom: "真实的中国",
+      subtitle: "为自由行旅客、过境游客和家庭提供专业的本地导游服务。多语言支持、私人定制行程和商务协助，覆盖中国各大热门目的地。",
+      cta1: "开始旅程",
+      cta2: "查看服务",
+      stat1Label: "覆盖城市",
+      stat2Label: "支持语言",
+      stat3Label: "满意旅客",
+    },
+    services: {
+      title: "我们的服务",
+      subtitle: "为国际游客量身定制的全方位中国本地导游服务",
+      items: [
+        { title: "语言翻译", desc: "精通英语、俄语、日语、韩语、西班牙语、葡萄牙语、法语、阿拉伯语等多种语言的专业翻译。轻松跨越沟通障碍。" },
+        { title: "私人本地体验", desc: "隐秘景点、地道本地商店、文化工坊和独特探索，为您量身定制。无跟团游，完全个性化。" },
+        { title: "商务对接", desc: "工厂参观、供应商会面、展会协助和商务人脉拓展。我们为您连接中国各地的优质合作伙伴。" },
+        { title: "过境与免签游览", desc: "为邮轮乘客和过境旅客设计的短途观光和免签游览。充分利用在中国的每一分钟。" },
+      ],
+    },
+    destinations: {
+      title: "热门目的地",
+      subtitle: "跟随我们的专家本地导游，探索中国最具标志性的城市",
+      cities: [
+        { name: "北京", desc: "故宫、长城、胡同小巷" },
+        { name: "上海", desc: "外滩、法租界、现代天际线" },
+        { name: "西安", desc: "兵马俑、古城墙" },
+        { name: "成都", desc: "大熊猫、茶馆、麻辣川菜" },
+        { name: "广州", desc: "广州塔、商贸中心、早茶" },
+        { name: "杭州", desc: "西湖、茶园、丝绸文化" },
+        { name: "深圳", desc: "科技创新、电子市场" },
+        { name: "桂林", desc: "喀斯特山水、漓江游船" },
+      ],
+      explore: "探索",
+    },
+    guides: {
+      title: "认识我们的导游",
+      subtitle: "持证、经验丰富、热情的本地专家，带您领略中国最美风光",
+      languages: "语言",
+      experience: "年经验",
+      viewProfile: "查看简介",
+    },
+    whyUs: {
+      title: "为什么选择 FUSEN",
+      subtitle: "让您的中国之旅无缝、真实、难忘",
+      features: [
+        { title: "持证专业导游", desc: "所有导游均持有国家正式导游资格证，多年服务国际游客经验。" },
+        { title: "多语言支持", desc: "从英语到阿拉伯语，从俄语到葡萄牙语——全程用您的母语沟通。" },
+        { title: "完全个性化", desc: "无标准化行程，每次游览根据您的兴趣量身定制，您掌控一切。" },
+        { title: "24/7 全天候服务", desc: "通过 WhatsApp 提供持续支持，我们随时为您服务。" },
+      ],
+    },
+    testimonials: {
+      title: "旅客怎么说",
+      subtitle: "选择 FUSEN 的旅客的真实体验",
+      items: [
+        { quote: "我们在北京的导游俄语说得非常流利，对每条胡同都了如指掌。这是最棒的旅行决定！", author: "玛丽亚·伊万诺娃", role: "来自莫斯科的自由行旅客" },
+        { quote: "FUSEN 为我们安排了深圳的工厂参观，对我们的业务至关重要。专业且高效。", author: "卡洛斯·门德斯", role: "来自圣保罗的商务旅客" },
+        { quote: "带孩子来中国旅行原本担心很难，但我们的导游让一切变得轻松。孩子们至今还在聊熊猫！", author: "索菲·罗兰", role: "来自巴黎的家庭旅客" },
+      ],
+    },
+    contact: {
+      title: "联系我们",
+      subtitle: "准备好规划您的中国之旅了吗？给我们发消息，我们将在 24 小时内回复。",
+      whatsapp: "WhatsApp", email: "邮箱", whatsappBtn: "WhatsApp 聊天", emailBtn: "发送邮件",
+      formName: "您的姓名", formEmail: "邮箱地址", formMessage: "告诉我们您的旅行计划", formSubmit: "提交咨询", formSuccess: "谢谢！我们将在 24 小时内与您联系。",
+    },
+    footer: {
+      tagline: "您在中国值得信赖的本地导游合作伙伴。真实体验、专业服务、多语言支持。",
+      quickLinks: "快速链接", contactUs: "联系我们", followUs: "关注我们", copyright: "FUSEN", rights: "版权所有。",
     },
   },
 };
