@@ -4,6 +4,77 @@ import { useState, useEffect, useCallback } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { DESTINATION_IMAGES } from "@/lib/fusen/data";
 
+// Map localized city names to English keys for image lookup
+const CITY_NAME_MAP: Record<string, string> = {
+  // Chinese (Simplified)
+  "北京": "Beijing", "上海": "Shanghai", "西安": "Xi'an",
+  "成都": "Chengdu", "广州": "Guangzhou", "杭州": "Hangzhou",
+  "深圳": "Shenzhen", "桂林": "Guilin",
+  // Japanese
+  "広州": "Guangzhou",
+  // Korean
+  "베이징": "Beijing", "상하이": "Shanghai", "시안": "Xi'an",
+  "청두": "Chengdu", "광저우": "Guangzhou", "항저우": "Hangzhou",
+  "선전": "Shenzhen", "구이린": "Guilin",
+  // Russian
+  "Пекин": "Beijing", "Шанхай": "Shanghai", "Сиань": "Xi'an",
+  "Чэнду": "Chengdu", "Гуанчжоу": "Guangzhou", "Ханчжоу": "Hangzhou",
+  "Шэньчжэнь": "Shenzhen", "Гуйлинь": "Guilin",
+  // Spanish
+  "Pekín": "Beijing", "Shanghái": "Shanghai",
+  // Portuguese
+  "Pequim": "Beijing", "Xangai": "Shanghai",
+  // French
+  "Pékin": "Beijing",
+  // Arabic
+  "بكين": "Beijing", "شنغهاي": "Shanghai", "شيان": "Xi'an",
+  "تشنغدو": "Chengdu", "قوانغتشو": "Guangzhou", "هانغتشو": "Hangzhou",
+  "شنتشن": "Shenzhen", "قويلين": "Guilin",
+  // Italian
+  "Pechino": "Beijing",
+  // Polish
+  "Pekin": "Beijing", "Szanghaj": "Shanghai", "Kanton": "Guangzhou",
+  // Finnish
+  // Swedish
+  // Greek
+  "Πεκίνο": "Beijing", "Σαγκάη": "Shanghai", "Σιάν": "Xi'an",
+  "Τσενγκτού": "Chengdu", "Γκουανγκτζόου": "Guangzhou", "Χανγκτζόου": "Hangzhou",
+  "Σεντσέν": "Shenzhen", "Γκουιλίν": "Guilin",
+  // Thai
+  "ปักกิ่ง": "Beijing", "เซี่ยงไฮ้": "Shanghai", "ซีอาน": "Xi'an",
+  "เฉิงตู": "Chengdu", "กวางโจว": "Guangzhou", "หางโจว": "Hangzhou",
+  "เซินเจิ้น": "Shenzhen", "กุ้ยหลิน": "Guilin",
+  // Hindi
+  "बीजिंग": "Beijing", "शंघाई": "Shanghai", "शियान": "Xi'an",
+  "चेंगदू": "Chengdu", "गुआंगझोउ": "Guangzhou", "हांगझोउ": "Hangzhou",
+  "शेनझेन": "Shenzhen", "गुइलिन": "Guilin",
+  // Turkish
+  "Şanghay": "Shanghai", "Çengdu": "Chengdu", "Guangcou": "Guangzhou",
+  "Hangcou": "Hangzhou", "Şencun": "Shenzhen",
+  // Kazakh
+  "Бейжің": "Beijing",
+  // Uzbek
+  "Pekin": "Beijing", "Shanxay": "Shanghai", "Si'an": "Xi'an",
+  "Chenddu": "Chengdu", "Guanchjou": "Guangzhou", "Xanchjou": "Hangzhou",
+  "Shenchjen": "Shenzhen", "GUILIN": "Guilin",
+  // Kyrgyz
+  "Бейжин": "Beijing",
+  // Tajik
+  "Пекин": "Beijing", "Шанхай": "Shanghai", "Сиан": "Xi'an",
+  "Чэнду": "Chengdu", "Гуанчжоу": "Guangzhou", "Ханчжоу": "Hangzhou",
+  "Шэньчжэнь": "Shenzhen", "Гуйлин": "Guilin",
+  // Turkmen
+  "Pekin": "Beijing", "Şanhaý": "Shanghai", "Si'an": "Xi'an",
+  "Çendu": "Chengdu", "Guançjou": "Guangzhou", "Hançjou": "Hangzhou",
+  "Şençen": "Shenzhen",
+  // Latin
+  "Pechinum": "Beijing",
+};
+
+function getCityImageKey(name: string): string {
+  return CITY_NAME_MAP[name] || name;
+}
+
 export function Destinations() {
   const { t } = useLanguage();
   const [current, setCurrent] = useState(0);
@@ -43,7 +114,7 @@ export function Destinations() {
                 style={{ opacity: i === current ? 1 : 0 }}
               >
                 <img
-                  src={DESTINATION_IMAGES[city.name] ?? DESTINATION_IMAGES["Beijing"]}
+                  src={DESTINATION_IMAGES[getCityImageKey(city.name)] ?? DESTINATION_IMAGES["Beijing"]}
                   alt={city.name}
                   className="h-full w-full object-cover"
                 />
@@ -111,7 +182,7 @@ export function Destinations() {
               }`}
             >
               <img
-                src={DESTINATION_IMAGES[city.name] ?? DESTINATION_IMAGES["Beijing"]}
+                src={DESTINATION_IMAGES[getCityImageKey(city.name)] ?? DESTINATION_IMAGES["Beijing"]}
                 alt={city.name}
                 loading="lazy"
                 className="h-full w-full object-cover"
