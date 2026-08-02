@@ -73,18 +73,17 @@ export function Navbar() {
   ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#C8102E]/95 backdrop-blur-md shadow-md shadow-brand relative overflow-hidden"
-          : "bg-transparent"
-      }`}
-    >
-      {/* 祥云图腾背景 */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cpath d='M10 20 Q 15 15, 20 20 T 30 20 Q 35 25, 40 20 Q 45 15, 50 20 T 60 20 Q 65 25, 70 20' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E")`,
-        backgroundRepeat: 'repeat'
-      }} />
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#C8102E] shadow-md relative overflow-hidden">
+      {/* 祥云图腾背景 - 使用上传的图片 */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `url('/cloud-pattern.png')`,
+          backgroundRepeat: 'repeat',
+          backgroundSize: '120px auto',
+          opacity: 0.15
+        }}
+      />
       
       <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 py-3">
         {/* Logo */}
@@ -108,11 +107,7 @@ export function Navbar() {
             <button
               key={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                scrolled
-                  ? "bg-white/15 text-white hover:bg-white/25 hover:text-white"
-                  : "bg-white/10 text-white/90 hover:bg-white/20 hover:text-white"
-              }`}
+              className="px-4 py-2 rounded-full text-sm font-medium text-white bg-white/15 hover:bg-white/25 transition-all duration-300"
             >
               {link.label}
             </button>
