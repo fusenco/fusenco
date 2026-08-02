@@ -5,6 +5,60 @@ import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { planTranslations, type PlanLang } from "@/lib/i18n/plan-translations";
 import { CONTACT_INFO } from "@/lib/fusen/data";
+
+// Country calling codes data
+const COUNTRY_CODES: { code: string; dial: string; name: string }[] = [
+  { code: "CN", dial: "+86", name: "China 中国" },
+  { code: "US", dial: "+1", name: "United States" },
+  { code: "GB", dial: "+44", name: "United Kingdom" },
+  { code: "RU", dial: "+7", name: "Russia" },
+  { code: "JP", dial: "+81", name: "Japan" },
+  { code: "KR", dial: "+82", name: "South Korea" },
+  { code: "DE", dial: "+49", name: "Germany" },
+  { code: "FR", dial: "+33", name: "France" },
+  { code: "ES", dial: "+34", name: "Spain" },
+  { code: "IT", dial: "+39", name: "Italy" },
+  { code: "BR", dial: "+55", name: "Brazil" },
+  { code: "IN", dial: "+91", name: "India" },
+  { code: "AU", dial: "+61", name: "Australia" },
+  { code: "CA", dial: "+1", name: "Canada" },
+  { code: "MX", dial: "+52", name: "Mexico" },
+  { code: "ID", dial: "+62", name: "Indonesia" },
+  { code: "NL", dial: "+31", name: "Netherlands" },
+  { code: "TR", dial: "+90", name: "Turkey" },
+  { code: "SA", dial: "+966", name: "Saudi Arabia" },
+  { code: "CH", dial: "+41", name: "Switzerland" },
+  { code: "PL", dial: "+48", name: "Poland" },
+  { code: "TH", dial: "+66", name: "Thailand" },
+  { code: "AE", dial: "+971", name: "UAE" },
+  { code: "SE", dial: "+46", name: "Sweden" },
+  { code: "BE", dial: "+32", name: "Belgium" },
+  { code: "AR", dial: "+54", name: "Argentina" },
+  { code: "NO", dial: "+47", name: "Norway" },
+  { code: "IL", dial: "+972", name: "Israel" },
+  { code: "AT", dial: "+43", name: "Austria" },
+  { code: "SG", dial: "+65", name: "Singapore" },
+  { code: "MY", dial: "+60", name: "Malaysia" },
+  { code: "PH", dial: "+63", name: "Philippines" },
+  { code: "PK", dial: "+92", name: "Pakistan" },
+  { code: "EG", dial: "+20", name: "Egypt" },
+  { code: "VN", dial: "+84", name: "Vietnam" },
+  { code: "BD", dial: "+880", name: "Bangladesh" },
+  { code: "IR", dial: "+98", name: "Iran" },
+  { code: "UA", dial: "+380", name: "Ukraine" },
+  { code: "CZ", dial: "+420", name: "Czech Republic" },
+  { code: "RO", dial: "+40", name: "Romania" },
+  { code: "GR", dial: "+30", name: "Greece" },
+  { code: "PT", dial: "+351", name: "Portugal" },
+  { code: "NZ", dial: "+64", name: "New Zealand" },
+  { code: "CL", dial: "+56", name: "Chile" },
+  { code: "FI", dial: "+358", name: "Finland" },
+  { code: "DK", dial: "+45", name: "Denmark" },
+  { code: "IE", dial: "+353", name: "Ireland" },
+  { code: "HU", dial: "+36", name: "Hungary" },
+  { code: "KZ", dial: "+7", name: "Kazakhstan" },
+  { code: "PE", dial: "+51", name: "Peru" },
+];
 import { Navbar } from "@/components/fusen/Navbar";
 import { Footer } from "@/components/fusen/Footer";
 
@@ -213,8 +267,13 @@ export default function PlanPage() {
                 <div>
                   <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.phone}</label>
                   <div className="flex gap-2">
-                    <input type="text" value={form.phoneCountryCode} onChange={(e) => update("phoneCountryCode", e.target.value)} placeholder={t.phPhoneCountryCode} className="w-24 rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
-                    <input type="tel" value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder={t.phPhoneNumber} className="flex-1 rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
+                    <select value={form.phoneCountryCode} onChange={(e) => update("phoneCountryCode", e.target.value)} className="w-40 rounded-lg border border-border bg-white px-2 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30">
+                      <option value="">Code</option>
+                      {COUNTRY_CODES.map((c) => (
+                        <option key={c.code} value={c.dial}>{c.dial} {c.name}</option>
+                      ))}
+                    </select>
+                    <input type="tel" required value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder={t.phPhoneNumber} className="flex-1 rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
                   </div>
                 </div>
                 <div>
