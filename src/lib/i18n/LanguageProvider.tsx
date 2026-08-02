@@ -47,6 +47,7 @@ function mapCountryToLanguage(countryCode: string): LanguageCode {
     TH: "th",
     ID: "id",
     IR: "fa", AF: "fa", TJ: "tg",
+    CN: "zh", TW: "zh", HK: "zh",
     IN: "hi",
     TR: "tr", CY: "tr",
     UZ: "uz",
@@ -57,11 +58,11 @@ function mapCountryToLanguage(countryCode: string): LanguageCode {
     GR: "el",
     TM: "tk",
   };
-  return map[countryCode] || "en";
+  return map[countryCode] || "zh";
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<LanguageCode>("en");
+  const [lang, setLangState] = useState<LanguageCode>("zh");
 
   // Load saved language or detect via IP on first visit
   useEffect(() => {
@@ -95,6 +96,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
         const browserLang = navigator.language.split("-")[0];
         if (translations[browserLang as LanguageCode]) {
           setLangState(browserLang as LanguageCode);
+          localStorage.setItem(STORAGE_KEY, browserLang as LanguageCode);
         }
       }
     };
