@@ -691,7 +691,6 @@ export default function PlanPage() {
                   <input type="email" required value={form.email} onChange={(e) => update("email", e.target.value)} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
                 </div>
                 <div>
-<<<<<<< HEAD
                   <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.phone}</label>
                   <div className="flex gap-2">
                     <select value={form.phoneCountryCode} onChange={(e) => update("phoneCountryCode", e.target.value)} className="w-40 rounded-lg border border-border bg-white px-2 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30">
@@ -700,26 +699,12 @@ export default function PlanPage() {
                         <option key={c.code} value={c.dial}>{c.dial} {c.name}</option>
                       ))}
                     </select>
-                    <input type="tel" required value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder={t.phPhoneNumber} className="flex-1 rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
-=======
-                  <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.phone} <span className="text-[#8B1A1A]">*</span></label>
-                  <div className="flex gap-2">
-                    <select value={form.phoneCountryCode} onChange={(e) => update("phoneCountryCode", e.target.value)} className="w-32 rounded-lg border border-border bg-white px-3 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30">
-                      {COUNTRY_CODES.map((c) => (
-                        <option key={c.code + c.dial} value={c.dial}>{c.dial}</option>
-                      ))}
-                    </select>
                     <input type="tel" required value={form.phone} onChange={(e) => update("phone", e.target.value)} className="flex-1 rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
->>>>>>> a720950 (重构电话字段：添加国家区号下拉选择（241 个国家）+ 新增独立 WhatsApp 字段 + 清空所有 placeholder)
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.whatsapp}</label>
-<<<<<<< HEAD
-                  <input type="tel" value={form.whatsapp} onChange={(e) => update("whatsapp", e.target.value)} placeholder={t.phWhatsapp} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
-=======
                   <input type="tel" value={form.whatsapp} onChange={(e) => update("whatsapp", e.target.value)} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
->>>>>>> a720950 (重构电话字段：添加国家区号下拉选择（241 个国家）+ 新增独立 WhatsApp 字段 + 清空所有 placeholder)
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.wechat}</label>
