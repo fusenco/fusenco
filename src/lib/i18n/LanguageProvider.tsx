@@ -64,18 +64,8 @@ function mapCountryToLanguage(countryCode: string): LanguageCode {
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<LanguageCode>("zh");
 
-  // Load saved language or detect via IP on first visit
+  // Always detect via IP on first visit (don't use stale localStorage cache)
   useEffect(() => {
-    const saved = typeof window !== "undefined"
-      ? (localStorage.getItem(STORAGE_KEY) as LanguageCode | null)
-      : null;
-
-    if (saved && translations[saved]) {
-      setLangState(saved);
-      return;
-    }
-
-    // Try IP-based detection with timeout and multiple fallbacks
     const detectLanguage = async () => {
       let detected: LanguageCode | null = null;
 
