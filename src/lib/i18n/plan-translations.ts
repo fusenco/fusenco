@@ -1,4 +1,4 @@
-export type PlanLang = "en" | "ru" | "ja" | "ko" | "es" | "pt" | "fr" | "ar" | "de" | "it" | "nl" | "th" | "id" | "fa" | "hi" | "tr" | "kk" | "uz" | "ky" | "tg" | "tk" | "pl" | "la" | "fi" | "ms" | "sv" | "el";
+export type PlanLang = "zh" | "en" | "ru" | "ja" | "ko" | "es" | "pt" | "fr" | "ar" | "de" | "it" | "nl" | "th" | "id" | "fa" | "hi" | "tr" | "kk" | "uz" | "ky" | "tg" | "tk" | "pl" | "la" | "fi" | "ms" | "sv" | "el";
 
 export interface PlanT {
   // Header
@@ -1162,10 +1162,50 @@ export const planTranslations: Record<PlanLang, PlanT> = {
     phSpecialNotes: "Ειδικές απαιτήσεις, προβλήματα κινητικότητας, μέρη που πρέπει οπωσδήποτε να δείτε...",
     phMedical: "Ιατρικές καταστάσεις, αλλεργίες, προβλήματα κινητικότητας...", phSpecify: "Παρακαλώ καθορίστε...",
   },
+  zh: {
+    incentiveBadge: "填写获取详细报价",
+    pageTitle: "定制行程规划",
+    pageSubtitle: "告诉我们您的旅行计划，我们将为您量身定制行程并提供详细费用估算。我们的团队将在 24 小时内回复。",
+    requiredFields: "必填项",
+    s1Title: "个人信息",
+    fullName: "姓名", nationality: "国籍", visitorCount: "人数",
+    email: "邮箱地址", phone: "WhatsApp / 电话", wechat: "微信号（选填）",
+    emergencyContact: "紧急联系人", emergencyName: "姓名", emergencyPhone: "电话号码", emergencyRelation: "与本人关系",
+    s2Title: "行程详情", entryDate: "入境日期（抵达中国）", exitDate: "离境日期",
+    serviceDuration: "服务时长", customDuration: "自定义时长",
+    overtimeNotice: "超时说明：超出选定时长的时间将按每小时 $15（或等值当地货币）收费。",
+    cities: "您想去的城市", otherCity: "其他城市",
+    s3Title: "偏好与需求", dietary: "饮食要求", religion: "宗教信仰（用于文化关怀）",
+    services: "所需服务", specificInterests: "具体兴趣/目标", pleaseSpecify: "请具体说明…",
+    s4Title: "旅行类型", tripTypeLabel: "什么最能描述您的旅行？",
+    s5Title: "补充信息", budget: "预算估算（每人）", accommodation: "住宿偏好",
+    transportation: "交通偏好", specialNotes: "特殊需求/备注", medical: "健康状况/特殊需求",
+    hearAbout: "您是从哪里了解到 FUSEN 的？",
+    privacyTitle: "您的隐私很重要", privacyText: "您提供的所有信息将严格保密，仅用于制定您的个性化行程。我们绝不会将您的数据分享给第三方。您的个人信息受 GDPR 及国际隐私保护法规保护。",
+    agreeText: "我确认所填信息准确，并同意 FUSEN 的", termsOfService: "服务条款", privacyPolicy: "隐私政策",
+    submit: "提交行程需求", submitting: "提交中…",
+    thankYou: "感谢！", successMessage: "您的行程需求已成功提交。我们的团队将审核您的要求，并在 24 小时内通过邮件或 WhatsApp 与您联系，提供个性化旅行方案和费用估算。",
+    chatWhatsApp: "WhatsApp 咨询", backToHome: "返回首页",
+    durationOptions: ["4 小时", "8 小时（全天）", "3 天", "5 天", "7 天", "自定义时长"],
+    dietaryOptions: ["清真", "素食", "纯素", "不吃猪肉", "无麸质", "无乳糖", "海鲜过敏", "坚果过敏", "无限制", "其他"],
+    religionOptions: ["佛教", "伊斯兰教", "基督教", "印度教", "犹太教", "无偏好", "其他"],
+    serviceOptions: ["翻译/口译", "导游", "观光游览", "美食探索", "文化历史", "购物协助", "商务拜访/会议", "工厂考察", "展会/交易会", "摄影团", "其他"],
+    tripTypeOptions: ["过境免签/短途", "个人/独行", "家庭旅行", "情侣/蜜月", "商务拜访与会议", "工厂考察与采购", "展会/交易会", "学习/文化交流", "定制/其他"],
+    cityNames: { Beijing: "北京", Shanghai: "上海", "Xi'an": "西安", Chengdu: "成都", Guangzhou: "广州", Shenzhen: "深圳", Hangzhou: "杭州", Guilin: "桂林", Chongqing: "重庆", Kunming: "昆明", Suzhou: "苏州", Nanjing: "南京", "Lhasa (Tibet)": "拉萨（西藏）", Harbin: "哈尔滨", "Hong Kong": "香港" },
+    budgetOptions: ["请选择预算范围", "$500 以下", "$500 - $1,000", "$1,000 - $2,000", "$2,000 - $5,000", "$5,000 以上", "灵活/不确定"],
+    accommodationOptions: ["经济型/青年旅舍", "中档酒店（3-4 星）", "豪华酒店（5 星）", "精品/主题酒店", "无需住宿"],
+    transportationOptions: ["公共交通（地铁/公交）", "专车+司机", "高铁", "国内航班", "混合（灵活安排）"],
+    hearOptions: ["请选择…", "谷歌搜索", "TripAdvisor", "Instagram / 社交媒体", "YouTube", "朋友/口碑", "旅行社", "其他"],
+    phFullName: "例如：张三", phNationality: "例如：中国、美国、法国…", phEmail: "zhang@example.com", phPhone: "+86 131 1671 6778",
+    phWechat: "wechat123", phRelation: "例如：配偶、父母", phCustomDuration: "例如：10 天、2 周…", phCustomCity: "输入您想去的城市/地区…",
+    phInterests: "告诉我们您最期待什么——例如：长城徒步、美食探索、科技公司参观、摄影打卡点…",
+    phSpecialNotes: "有什么特殊需求、行动不便、必去景点或其他需要我们知道的事…",
+    phMedical: "如有健康状况、过敏、行动不便或需要特别协助…", phSpecify: "请具体说明…",
+  },
 };
 
 export function getPlanT(lang: string): PlanT {
-  const validLangs: PlanLang[] = ["en", "ru", "ja", "ko", "es", "pt", "fr", "ar", "de", "it", "nl", "th", "id", "fa", "hi", "tr", "kk", "uz", "ky", "tg", "tk", "pl", "la", "fi", "ms", "sv", "el"];
-  const safeLang = (validLangs.includes(lang as PlanLang) ? lang : "en") as PlanLang;
+  const validLangs: PlanLang[] = ["zh", "en", "ru", "ja", "ko", "es", "pt", "fr", "ar", "de", "it", "nl", "th", "id", "fa", "hi", "tr", "kk", "uz", "ky", "tg", "tk", "pl", "la", "fi", "ms", "sv", "el"];
+  const safeLang = (validLangs.includes(lang as PlanLang) ? lang : "zh") as PlanLang;
   return planTranslations[safeLang];
 }
