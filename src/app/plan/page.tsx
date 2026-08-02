@@ -21,6 +21,8 @@ export default function PlanPage() {
     visitorCount: "1",
     email: "",
     phone: "",
+    phoneCountryCode: "",
+    whatsapp: "",
     wechat: "",
     emergencyName: "",
     emergencyPhone: "",
@@ -77,7 +79,8 @@ export default function PlanPage() {
       formData.append("Nationality", form.nationality);
       formData.append("Visitor Count", form.visitorCount);
       formData.append("Email", form.email);
-      formData.append("Phone", form.phone);
+      formData.append("Phone", form.phoneCountryCode ? form.phoneCountryCode + " " + form.phone : form.phone);
+      formData.append("WhatsApp", form.whatsapp);
       formData.append("WeChat", form.wechat);
       formData.append("Emergency Contact Name", form.emergencyName);
       formData.append("Emergency Contact Phone", form.emergencyPhone);
@@ -193,11 +196,11 @@ export default function PlanPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.fullName} <span className="text-[#8B1A1A]">*</span></label>
-                  <input type="text" required value={form.fullName} onChange={(e) => update("fullName", e.target.value)} placeholder={t.phFullName} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
+                  <input type="text" required value={form.fullName} onChange={(e) => update("fullName", e.target.value)} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.nationality} <span className="text-[#8B1A1A]">*</span></label>
-                  <input type="text" required value={form.nationality} onChange={(e) => update("nationality", e.target.value)} placeholder={t.phNationality} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
+                  <input type="text" required value={form.nationality} onChange={(e) => update("nationality", e.target.value)} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.visitorCount} <span className="text-[#8B1A1A]">*</span></label>
@@ -205,11 +208,18 @@ export default function PlanPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.email} <span className="text-[#8B1A1A]">*</span></label>
-                  <input type="email" required value={form.email} onChange={(e) => update("email", e.target.value)} placeholder={t.phEmail} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
+                  <input type="email" required value={form.email} onChange={(e) => update("email", e.target.value)} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.phone}</label>
-                  <input type="tel" value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder={t.phPhone} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
+                  <div className="flex gap-2">
+                    <input type="text" value={form.phoneCountryCode} onChange={(e) => update("phoneCountryCode", e.target.value)} placeholder={t.phPhoneCountryCode} className="w-24 rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
+                    <input type="tel" value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder={t.phPhoneNumber} className="flex-1 rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.whatsapp}</label>
+                  <input type="tel" value={form.whatsapp} onChange={(e) => update("whatsapp", e.target.value)} placeholder={t.phWhatsapp} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.wechat}</label>
