@@ -73,7 +73,7 @@ export function Navbar() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#C8102E] shadow-md relative overflow-hidden">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#C8102E] shadow-md relative">
       {/* 祥云图腾背景 - 使用上传的图片 */}
       <div 
         className="absolute inset-0 pointer-events-none"
