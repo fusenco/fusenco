@@ -88,7 +88,7 @@ pnpm lint           # ESLint 检查
 - **品牌**: FUSEN（风泉）
 - **业务**: 二手螺母冷镦机、螺栓打头机、螺丝成型机收购与出口
 - **主营机型**: 螺母机 11B / 14B / 17B / 19B / 24B（6S 多工位）；螺栓/螺丝多工位成型机 62S–254SL、10B2S/13B3S 等
-- **常见品牌**: Sijin（思进）、Chunzu（春日）、Yeswin（正耀）、Jernyao（正曜）、BIAULI（标利）、Tenggong（腾工）、Shengtuo（盛拓）、ESSEBI（意士比，意大利）
+- **常见品牌**: Sijin（思进）、Chunzu（春日）、Yeswin（联翔）、Jernyao（正曜）、BIAULI（标利）、Tenggong（腾丰）、Shengtuo（盛拓）、ESSEBI（意士比，意大利）
 - **联系方式**:
   - Email: info@fusenco.com
   - WhatsApp / 电话: +86 133-6576-4352

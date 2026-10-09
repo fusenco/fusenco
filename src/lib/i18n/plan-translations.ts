@@ -174,10 +174,10 @@ export const en: PlanTranslation = {
   brandPrefs: [
     "Sijin (思进)",
     "Chunzu (春日)",
-    "Yeswin (正耀)",
+    "Yeswin (联翔)",
     "Jernyao (正曜)",
     "BIAULI (标利)",
-    "Tenggong (腾工)",
+    "Tenggong (腾丰)",
     "ESSEBI (Italy)",
     "No preference",
   ],
