@@ -39,10 +39,11 @@ src/
 │   │   └── LanguageProvider.tsx# 多语言 Context Provider（深度合并英文兜底）
 │   └── fusen/
 │       ├── data.ts             # CONTACT_INFO、MACHINE_BRANDS、MACHINE_CATEGORIES
-│       └── inventory.ts        # 真实在售库存：NUT_STOCK(约36台)+BOLT_STOCK(含春日80台)，CATEGORY_IMAGE
-└── public/machines/            # 机器/仓库/出货等配图（AI 占位图，待换用户实拍）
+│       └── inventory.ts        # 新打头机(NEW_BOLT_MACHINES: PT/GS/HM规格表) + 二手库存 NUT_STOCK(36台)+BOLT_STOCK(含春日80台) + CATEGORY_IMAGE
+└── public/machines/            # Hero 车间实拍等配图
+└── public/real/                # 机器实拍（思进19B-6S、装货发货照片）+ 新机规格表截图
 
-> Products.tsx 依据 inventory.ts 真实库存分组展示（按型号聚合品牌×数量），不再使用编造机型。
+> Products.tsx 首页"在售机器"分为三大板块：① 新打头机（PT/GS/HM 全规格表）②二手螺母冷镦机 ③二手螺栓成型机（按型号聚合品牌×数量）。
 ```
 
 ## 品牌设计令牌

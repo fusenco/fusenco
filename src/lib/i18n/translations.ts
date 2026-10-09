@@ -60,6 +60,27 @@ export interface Translation {
     boltCat: string;
     qty: string;
     items: string;
+    newMachines: {
+      label: string;
+      title: string;
+      subtitle: string;
+      seriesPT: string;
+      seriesGS: string;
+      seriesHM: string;
+      model: string;
+      maxDia: string;
+      maxLength: string;
+      output: string;
+      motor: string;
+      weight: string;
+      tableSize: string;
+      inquire: string;
+    };
+    sections: {
+      new: string;
+      usedNut: string;
+      usedBolt: string;
+    };
   };
   categories: {
     badge: string;
@@ -242,15 +263,37 @@ export const en: Translation = {
     badge: "Available Machines",
     title: "Machines In Stock Now",
     subtitle:
-      "Live inventory with brand, model and quantity. Contact us for the latest condition report and test videos.",
+      "Deal in both brand-new heading machines and quality used cold heading machines, with live inventory checked before export.",
     inquire: "Inquire",
     all: "View All Machines",
     unitsLabel: "Units in stock",
     modelsLabel: "machine models",
-    nutCat: "Nut Cold Headers",
-    boltCat: "Multi-Station Bolt & Screw Formers",
+    nutCat: "Used Nut Cold Headers",
+    boltCat: "Used Bolt & Screw Formers",
     qty: "Unit",
     items: "items",
+    newMachines: {
+      label: "Brand New",
+      title: "New Bolt Heading Machines",
+      subtitle:
+        "Factory-fresh multi-station heading machines with full technical specifications. Custom die design and commissioning available.",
+      seriesPT: "PT Series — Standard",
+      seriesGS: "GS Series — High Speed",
+      seriesHM: "HM Series — Combination Die",
+      model: "Model",
+      maxDia: "Max. Dia. (mm)",
+      maxLength: "Max. Length (mm)",
+      output: "Output (pcs/min)",
+      motor: "Motor",
+      weight: "Weight (kg)",
+      tableSize: "Table Size (mm)",
+      inquire: "Check Price & Lead Time",
+    },
+    sections: {
+      new: "Brand-New Machines",
+      usedNut: "Used Nut Cold Headers",
+      usedBolt: "Used Bolt & Screw Formers",
+    },
   },
   categories: {
     badge: "By Type",

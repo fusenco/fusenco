@@ -20,7 +20,7 @@ export function Hero() {
       {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/real/shipping-trailer.jpg')" }}
+        style={{ backgroundImage: "url('/machines/hero-workshop.jpg')" }}
         aria-hidden="true"
       />
       {/* Dark overlay */}

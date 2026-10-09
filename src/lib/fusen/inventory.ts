@@ -95,6 +95,65 @@ export const BOLT_TOTAL = BOLT_STOCK.reduce((s, i) => s + i.qty, 0);
 export const TOTAL_UNITS = NUT_TOTAL + BOLT_TOTAL;
 export const TOTAL_MODELS = ALL_STOCK.length;
 
+// ------------------------------------------------------------
+// NEW Bolt Heading Machines (brand new, with full spec sheets)
+// Series: PT / GS / HM (合模机). Specs read from supplier documents.
+// ------------------------------------------------------------
+
+export interface NewMachineSpec {
+  id: string;
+  series: "PT" | "GS" | "HM";
+  model: string;
+  maxDia: string; // 可制外径 (mm)
+  maxLength: string; // 可制长度 / 合模长度 (mm)
+  output: string; // 产量 (pcs/min)
+  mainDie: string; // 主模 / 夹模尺寸
+  punchDie: string; // 冲模尺寸
+  shearDie: string; // 剪模外径 / 剪模尺寸
+  shearBlade: string; // 剪刀尺寸
+  shearHole: string; // 剪刀孔位 / 模具螺丝
+  motor: string; // 电机功率
+  tableSize: string; // 台身尺寸 (mm)
+  weight: string; // 重量 (kg)
+  image: string;
+}
+
+// PT 普通机系列
+const PT_SERIES: NewMachineSpec[] = [
+  { id: "pt2", series: "PT", model: "PT-2", maxDia: "4", maxLength: "25", output: "170–200", mainDie: "Ø25×45", punchDie: "Ø20×48", shearDie: "Ø13", shearBlade: "8×25×60", shearHole: "M8×15", motor: "0.75kW", tableSize: "1300×950×1100", weight: "650", image: "/machines/hero-workshop.jpg" },
+  { id: "pt38", series: "PT", model: "PT-3.8", maxDia: "5", maxLength: "40", output: "150–180", mainDie: "Ø30×60", punchDie: "Ø25×55", shearDie: "Ø16", shearBlade: "10×35×65", shearHole: "M8×20", motor: "1.5kW", tableSize: "1500×1100×1200", weight: "820", image: "/machines/hero-workshop.jpg" },
+  { id: "pt4", series: "PT", model: "PT-4", maxDia: "6", maxLength: "60", output: "110–130", mainDie: "Ø35×80", punchDie: "Ø30×80", shearDie: "Ø18", shearBlade: "10×35×80", shearHole: "M10×20", motor: "2.2kW", tableSize: "2000×1200×1300", weight: "1500", image: "/machines/hero-workshop.jpg" },
+  { id: "pt4a", series: "PT", model: "PT-4A", maxDia: "6", maxLength: "80", output: "100–120", mainDie: "Ø35×100", punchDie: "Ø30×88", shearDie: "Ø18", shearBlade: "10×35×80", shearHole: "M10×20", motor: "2.2kW", tableSize: "1900×1150×1300", weight: "2000", image: "/machines/hero-workshop.jpg" },
+  { id: "pt6", series: "PT", model: "PT-6", maxDia: "8", maxLength: "110", output: "90–110", mainDie: "Ø45×120", punchDie: "Ø32×113", shearDie: "Ø22", shearBlade: "12×40×90", shearHole: "M12×22", motor: "3kW", tableSize: "2400×1300×1400", weight: "2000", image: "/machines/hero-workshop.jpg" },
+];
+
+// GS 高速机系列
+const GS_SERIES: NewMachineSpec[] = [
+  { id: "gs3", series: "GS", model: "GS-3", maxDia: "4", maxLength: "30", output: "200–240", mainDie: "Ø25×45", punchDie: "Ø20×45", shearDie: "Ø13", shearBlade: "8×25×50", shearHole: "M8×12", motor: "1.5kW", tableSize: "1300×900×1050", weight: "700", image: "/machines/hero-workshop.jpg" },
+  { id: "gs4", series: "GS", model: "GS-4", maxDia: "5", maxLength: "40", output: "180–220", mainDie: "Ø30×60", punchDie: "Ø25×55", shearDie: "Ø16", shearBlade: "10×30×65", shearHole: "M10×17", motor: "2.2kW", tableSize: "1600×1100×1300", weight: "1200", image: "/machines/hero-workshop.jpg" },
+  { id: "gs5", series: "GS", model: "GS-5", maxDia: "6", maxLength: "60", output: "150–180", mainDie: "Ø35×88", punchDie: "Ø31×90", shearDie: "Ø19", shearBlade: "10×35×75", shearHole: "M10×20", motor: "2.2kW", tableSize: "1800×1250×1350", weight: "1500", image: "/machines/hero-workshop.jpg" },
+  { id: "gs6", series: "GS", model: "GS-6", maxDia: "8", maxLength: "80", output: "120–140", mainDie: "Ø45×105", punchDie: "Ø36×75", shearDie: "Ø28", shearBlade: "12×40×80", shearHole: "M12×22", motor: "3kW", tableSize: "2000×1400×1500", weight: "2700", image: "/machines/hero-workshop.jpg" },
+  { id: "gs6a", series: "GS", model: "GS-6A", maxDia: "8", maxLength: "100", output: "100–120", mainDie: "Ø45×140", punchDie: "Ø36×75", shearDie: "Ø28", shearBlade: "12×40×80", shearHole: "M12×22", motor: "4kW", tableSize: "2200×1400×1500", weight: "3000", image: "/machines/hero-workshop.jpg" },
+  { id: "gs8", series: "GS", model: "GS-8", maxDia: "10", maxLength: "90", output: "80–100", mainDie: "Ø55×130", punchDie: "Ø40×70", shearDie: "Ø30", shearBlade: "14×45×90", shearHole: "M14×25", motor: "7.5kW", tableSize: "2800×1600×1800", weight: "4000", image: "/machines/hero-workshop.jpg" },
+];
+
+// HM 合模机系列
+const HM_SERIES: NewMachineSpec[] = [
+  { id: "hm05", series: "HM", model: "HM-05", maxDia: "7", maxLength: "50", output: "80–100", mainDie: "40×40×50", punchDie: "Ø35×90", shearDie: "—", shearBlade: "20×24", shearHole: "M8×55", motor: "2.2kW", tableSize: "2600×1250×1650", weight: "2200", image: "/machines/hero-workshop.jpg" },
+];
+
+export const NEW_BOLT_MACHINES: NewMachineSpec[] = [
+  ...PT_SERIES,
+  ...GS_SERIES,
+  ...HM_SERIES,
+];
+
+export const NEW_MACHINE_SERIES = {
+  PT: PT_SERIES,
+  GS: GS_SERIES,
+  HM: HM_SERIES,
+} as const;
+
 // Representative real photo per category
 export const CATEGORY_IMAGE = {
   nut: "/real/sijin-19b6s-front.jpg",
