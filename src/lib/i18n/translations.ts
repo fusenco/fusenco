@@ -314,7 +314,7 @@ export const en: Translation = {
     badge: "Trusted Brands",
     title: "Brands We Deal In",
     subtitle:
-      "Proven Chinese brands from Ningbo, Wenzhou and Taiwan, plus precision Italian machines.",
+      "Proven Chinese brands from the mainland and Taiwan, plus precision Italian machines.",
     originLabel: "Origin",
   },
   whyUs: {

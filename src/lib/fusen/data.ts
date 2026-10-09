@@ -119,10 +119,10 @@ export interface BrandInfo {
 export const MACHINE_BRANDS: BrandInfo[] = [
   { name: "Sijin (思进)", origin: "China (Ningbo)" },
   { name: "Chunzu (春日)", origin: "China (Taiwan)" },
-  { name: "Yeswin (联翔)", origin: "China (Taiwan)" },
+  { name: "Yeswin (联翔)", origin: "China (Zhejiang)" },
   { name: "Jernyao (正曜)", origin: "China (Taiwan)" },
   { name: "BIAULI (标利)", origin: "China (Taiwan)" },
-  { name: "Tenggong (腾丰)", origin: "China (Ningbo)" },
+  { name: "Tenggong (腾丰)", origin: "China (Guangdong)" },
   { name: "ESSEBI (意士比)", origin: "Italy" },
   { name: "Shengtuo (盛拓)", origin: "China (Wenzhou)" },
 ];
