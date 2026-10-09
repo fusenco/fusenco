@@ -32,8 +32,12 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 const STORAGE_KEY = "fusen-lang";
 
-<<<<<<< HEAD
-function mapCountryToLanguage(countryCode: string): LanguageCode {
+function isPlainObject(v: unknown): v is Record<string, unknown> {
+  return typeof v === "object" && v !== null && !Array.isArray(v);
+}
+
+/** Map visitor country code to a supported site language. */
+function mapCountryToLanguage(countryCode: string): LanguageCode | null {
   const map: Record<string, LanguageCode> = {
     RU: "ru", BY: "ru", KZ: "kk", KG: "ky",
     JP: "ja",
@@ -52,7 +56,7 @@ function mapCountryToLanguage(countryCode: string): LanguageCode {
     TH: "th",
     ID: "id",
     IR: "fa", AF: "fa", TJ: "tg",
-    CN: "zh", TW: "zh", HK: "zh",
+    CN: "en", TW: "en", HK: "en",
     IN: "hi",
     TR: "tr", CY: "tr",
     UZ: "uz",
@@ -63,75 +67,7 @@ function mapCountryToLanguage(countryCode: string): LanguageCode {
     GR: "el",
     TM: "tk",
   };
-  return map[countryCode] || "zh";
-}
-
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<LanguageCode>("zh");
-
-  // Always detect via IP on first visit (don't use stale localStorage cache)
-  useEffect(() => {
-    const detectLanguage = async () => {
-      let detected: LanguageCode | null = null;
-
-      // Try ip-api.com (more reliable, no CORS issues for HTTP)
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 3000);
-        const res = await fetch("http://ip-api.com/json/?fields=countryCode", {
-          signal: controller.signal,
-        });
-        clearTimeout(timeoutId);
-        if (res.ok) {
-          const data = await res.json();
-          if (data.countryCode) {
-            detected = mapCountryToLanguage(data.countryCode);
-          }
-        }
-      } catch {
-        // ip-api failed, try ipapi.co as backup
-      }
-
-      // Fallback 1: ipapi.co
-      if (!detected) {
-        try {
-          const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 3000);
-          const res = await fetch("https://ipapi.co/json/", {
-            signal: controller.signal,
-          });
-          clearTimeout(timeoutId);
-          if (res.ok) {
-            const data = await res.json();
-            if (data.country_code) {
-              detected = mapCountryToLanguage(data.country_code);
-            }
-          }
-        } catch {
-          // ipapi.co also failed
-        }
-      }
-
-      // Apply detected language or fallback to browser language
-      if (detected) {
-        setLangState(detected);
-        localStorage.setItem(STORAGE_KEY, detected);
-      } else if (typeof navigator !== "undefined") {
-        const browserLang = navigator.language.split("-")[0];
-        if (translations[browserLang as LanguageCode]) {
-          setLangState(browserLang as LanguageCode);
-          localStorage.setItem(STORAGE_KEY, browserLang as LanguageCode);
-        } else {
-          // Final fallback: Chinese (default)
-          setLangState("zh");
-        }
-      }
-    };
-
-    detectLanguage();
-=======
-function isPlainObject(v: unknown): v is Record<string, unknown> {
-  return typeof v === "object" && v !== null && !Array.isArray(v);
+  return map[countryCode] ?? null;
 }
 
 /** Deep-merge a partial language over the canonical English object. */
@@ -187,25 +123,95 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<LanguageCode>("en");
   const [hydrated, setHydrated] = useState(false);
 
+  // First visit: prefer an explicit user choice in localStorage,
+  // otherwise geo-detect by IP, then fall back to browser language.
   useEffect(() => {
+    let cancelled = false;
+
+    const apply = (code: LanguageCode, persist: boolean) => {
+      if (cancelled) return;
+      setLangState(code);
+      if (persist) {
+        try {
+          window.localStorage.setItem(STORAGE_KEY, code);
+        } catch {
+          /* storage unavailable */
+        }
+      }
+    };
+
     const stored =
       typeof window !== "undefined"
         ? (window.localStorage.getItem(STORAGE_KEY) as LanguageCode | null)
         : null;
 
     if (stored && LANGUAGES.some((l) => l.code === stored)) {
-      setLangState(stored);
-    } else {
-      const nav =
-        typeof navigator !== "undefined"
-          ? navigator.language?.slice(0, 2).toLowerCase()
-          : null;
-      if (nav && LANGUAGES.some((l) => l.code === nav)) {
-        setLangState(nav as LanguageCode);
-      }
+      apply(stored, false);
+      setHydrated(true);
+      return;
     }
-    setHydrated(true);
->>>>>>> 8f09ef2 (feat: 全站转型为二手冷镦机销售外贸站)
+
+    const detect = async () => {
+      let detected: LanguageCode | null = null;
+
+      // ip-api.com (free http endpoint, 3s timeout)
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3000);
+        const res = await fetch(
+          "http://ip-api.com/json/?fields=countryCode",
+          { signal: controller.signal }
+        );
+        clearTimeout(timeoutId);
+        if (res.ok) {
+          const data = (await res.json()) as { countryCode?: string };
+          if (data.countryCode) {
+            detected = mapCountryToLanguage(data.countryCode);
+          }
+        }
+      } catch {
+        /* try backup */
+      }
+
+      // Backup: ipapi.co
+      if (!detected) {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 3000);
+          const res = await fetch("https://ipapi.co/json/", {
+            signal: controller.signal,
+          });
+          clearTimeout(timeoutId);
+          if (res.ok) {
+            const data = (await res.json()) as { country_code?: string };
+            if (data.country_code) {
+              detected = mapCountryToLanguage(data.country_code);
+            }
+          }
+        } catch {
+          /* fall through */
+        }
+      }
+
+      if (detected) {
+        apply(detected, true);
+      } else {
+        const nav =
+          typeof navigator !== "undefined"
+            ? navigator.language?.slice(0, 2).toLowerCase()
+            : null;
+        if (nav && LANGUAGES.some((l) => l.code === nav)) {
+          apply(nav as LanguageCode, true);
+        }
+      }
+      if (!cancelled) setHydrated(true);
+    };
+
+    detect();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const setLang = useCallback((code: LanguageCode) => {

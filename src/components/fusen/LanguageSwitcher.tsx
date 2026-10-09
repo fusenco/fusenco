@@ -24,11 +24,7 @@ export function LanguageSwitcher() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-<<<<<<< HEAD
-        className="flex items-center gap-1.5 rounded-full border border-brand-gold/30 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:border-white/60 hover:bg-white/15"
-=======
-        className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:border-gold hover:bg-gold/10"
->>>>>>> 8f09ef2 (feat: 全站转型为二手冷镦机销售外贸站)
+        className="flex items-center gap-1.5 rounded-full border border-gold/30 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:border-white/60 hover:bg-white/15"
         aria-label="Switch language"
         aria-expanded={open}
       >
