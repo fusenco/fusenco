@@ -122,8 +122,8 @@ export const MACHINE_BRANDS: BrandInfo[] = [
   { name: "Yeswin (联翔)", origin: "China (Zhejiang)" },
   { name: "Jernyao (正曜)", origin: "China (Taiwan)" },
   { name: "BIAULI (标利)", origin: "China (Taiwan)" },
-  { name: "Tenggong (腾丰)", origin: "China (Guangdong)" },
-  { name: "ESSEBI (意士比)", origin: "Italy" },
+  { name: "Tengfeng (腾丰)", origin: "China (Ningbo)" },
+  { name: "Guyou (固友)", origin: "China (Ningbo)" },
   { name: "Shengtuo (盛拓)", origin: "China (Wenzhou)" },
 ];
 
