@@ -58,7 +58,7 @@ function CategoryPanel({
   const { t } = useLanguage();
   return (
     <div className="overflow-hidden rounded-2xl border border-border bg-white shadow-sm">
-      <div className="relative h-48 w-full overflow-hidden md:h-56">
+      <div className="relative h-64 w-full overflow-hidden md:h-80">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={image}
