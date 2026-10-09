@@ -95,8 +95,8 @@ export const BOLT_TOTAL = BOLT_STOCK.reduce((s, i) => s + i.qty, 0);
 export const TOTAL_UNITS = NUT_TOTAL + BOLT_TOTAL;
 export const TOTAL_MODELS = ALL_STOCK.length;
 
-// Representative image per category (AI placeholder until real photos arrive)
+// Representative real photo per category
 export const CATEGORY_IMAGE = {
-  nut: "/machines/nut-cold-header.jpg",
-  bolt: "/machines/bolt-heading-machine.jpg",
+  nut: "/real/nut-machine-container.jpg",
+  bolt: "/real/shipping-yard.jpg",
 } as const;
