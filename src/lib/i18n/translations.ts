@@ -242,7 +242,7 @@ export const en: Translation = {
     badge: "Available Machines",
     title: "Machines In Stock Now",
     subtitle:
-      "Real inventory, real photos. Contact us for the latest condition report and test videos.",
+      "Live inventory with brand, model and quantity. Contact us for the latest condition report and test videos.",
     inquire: "Inquire",
     all: "View All Machines",
     unitsLabel: "Units in stock",
@@ -270,7 +270,8 @@ export const en: Translation = {
   brands: {
     badge: "Trusted Brands",
     title: "Brands We Deal In",
-    subtitle: "Reliable Chinese workhorses and precision Japanese machines.",
+    subtitle:
+      "Proven Chinese brands from Ningbo, Wenzhou and Taiwan, plus precision Italian machines.",
     originLabel: "Origin",
   },
   whyUs: {

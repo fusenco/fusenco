@@ -114,15 +114,17 @@ export interface BrandInfo {
   origin: string;
 }
 
+// Real brands currently in stock (from inventory.ts). Kept compact and
+// representative — the full listing lives in inventory.ts.
 export const MACHINE_BRANDS: BrandInfo[] = [
-  { name: "Sijin", origin: "China" },
-  { name: "Spring (Chunri)", origin: "China" },
-  { name: "National", origin: "China" },
-  { name: "Asahi Okuma", origin: "Japan" },
-  { name: "Sakamura", origin: "Japan" },
-  { name: "Nakashimada", origin: "Japan" },
-  { name: "Tanisaka", origin: "Japan" },
-  { name: "Hyodong", origin: "Korea" },
+  { name: "Sijin (思进)", origin: "China (Ningbo)" },
+  { name: "Chunzu (春日)", origin: "China (Taiwan)" },
+  { name: "Yeswin (正耀)", origin: "China (Taiwan)" },
+  { name: "Jernyao (正曜)", origin: "China (Taiwan)" },
+  { name: "BIAULI (标利)", origin: "China (Taiwan)" },
+  { name: "Tenggong (腾工)", origin: "China (Ningbo)" },
+  { name: "ESSEBI (意士比)", origin: "Italy" },
+  { name: "Shengtuo (盛拓)", origin: "China (Wenzhou)" },
 ];
 
 export interface MachineCategory {
