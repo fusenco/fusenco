@@ -5,15 +5,19 @@ import {
   useContext,
   useState,
   useEffect,
+  useMemo,
   useCallback,
   type ReactNode,
 } from "react";
 import {
   translations,
+  en,
+  LANGUAGES,
+  RTL_LANGUAGES,
   type Translation,
   type LanguageCode,
   type LanguageOption,
-  LANGUAGES,
+  type DeepPartial,
 } from "./translations";
 
 interface LanguageContextValue {
@@ -28,6 +32,7 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 const STORAGE_KEY = "fusen-lang";
 
+<<<<<<< HEAD
 function mapCountryToLanguage(countryCode: string): LanguageCode {
   const map: Record<string, LanguageCode> = {
     RU: "ru", BY: "ru", KZ: "kk", KG: "ky",
@@ -124,41 +129,132 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     };
 
     detectLanguage();
+=======
+function isPlainObject(v: unknown): v is Record<string, unknown> {
+  return typeof v === "object" && v !== null && !Array.isArray(v);
+}
+
+/** Deep-merge a partial language over the canonical English object. */
+function mergeTranslation(
+  base: Translation,
+  patch: DeepPartial<Translation> | undefined
+): Translation {
+  if (!patch) return base;
+
+  const result: Record<string, unknown> = {
+    ...(base as unknown as Record<string, unknown>),
+  };
+
+  for (const key of Object.keys(patch)) {
+    const b = (base as unknown as Record<string, unknown>)[key];
+    const p = (patch as unknown as Record<string, unknown>)[key];
+
+    if (Array.isArray(p)) {
+      result[key] = p;
+    } else if (isPlainObject(p) && isPlainObject(b)) {
+      result[key] = mergeObject(b, p);
+    } else if (p !== undefined) {
+      result[key] = p;
+    }
+  }
+
+  return result as unknown as Translation;
+}
+
+function mergeObject(
+  base: Record<string, unknown>,
+  patch: Record<string, unknown>
+): Record<string, unknown> {
+  const result: Record<string, unknown> = { ...base };
+
+  for (const key of Object.keys(patch)) {
+    const b = base[key];
+    const p = patch[key];
+
+    if (Array.isArray(p)) {
+      result[key] = p;
+    } else if (isPlainObject(p) && isPlainObject(b)) {
+      result[key] = mergeObject(b, p);
+    } else if (p !== undefined) {
+      result[key] = p;
+    }
+  }
+
+  return result;
+}
+
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  const [lang, setLangState] = useState<LanguageCode>("en");
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    const stored =
+      typeof window !== "undefined"
+        ? (window.localStorage.getItem(STORAGE_KEY) as LanguageCode | null)
+        : null;
+
+    if (stored && LANGUAGES.some((l) => l.code === stored)) {
+      setLangState(stored);
+    } else {
+      const nav =
+        typeof navigator !== "undefined"
+          ? navigator.language?.slice(0, 2).toLowerCase()
+          : null;
+      if (nav && LANGUAGES.some((l) => l.code === nav)) {
+        setLangState(nav as LanguageCode);
+      }
+    }
+    setHydrated(true);
+>>>>>>> 8f09ef2 (feat: 全站转型为二手冷镦机销售外贸站)
   }, []);
 
-  // Update document direction for RTL languages
-  useEffect(() => {
-    const isRTL = lang === "ar" || lang === "fa";
-    document.documentElement.dir = isRTL ? "rtl" : "ltr";
-    document.documentElement.lang = lang;
-  }, [lang]);
-
-  const setLang = useCallback((newLang: LanguageCode) => {
-    setLangState(newLang);
-    if (typeof window !== "undefined") {
-      localStorage.setItem(STORAGE_KEY, newLang);
+  const setLang = useCallback((code: LanguageCode) => {
+    setLangState(code);
+    try {
+      window.localStorage.setItem(STORAGE_KEY, code);
+    } catch {
+      /* storage unavailable */
     }
   }, []);
+
+  const t = useMemo<Translation>(
+    () => mergeTranslation(en, translations[lang]),
+    [lang]
+  );
+
+  const isRTL = RTL_LANGUAGES.includes(lang);
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = isRTL ? "rtl" : "ltr";
+  }, [lang, isRTL]);
 
   const value: LanguageContextValue = {
     lang,
     setLang,
-    t: translations[lang],
-    isRTL: lang === "ar" || lang === "fa",
+    t,
+    isRTL,
     languages: LANGUAGES,
   };
 
+  // Provider always wraps children; visibility:hidden before hydration
+  // avoids a flash while reading the persisted language.
   return (
     <LanguageContext.Provider value={value}>
-      {children}
+      <div
+        style={hydrated ? undefined : { visibility: "hidden" }}
+        aria-hidden={hydrated ? undefined : true}
+      >
+        {children}
+      </div>
     </LanguageContext.Provider>
   );
 }
 
-export function useLanguage() {
+export function useLanguage(): LanguageContextValue {
   const ctx = useContext(LanguageContext);
   if (!ctx) {
-    throw new Error("useLanguage must be used within LanguageProvider");
+    throw new Error("useLanguage must be used within a LanguageProvider");
   }
   return ctx;
 }

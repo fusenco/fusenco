@@ -19,24 +19,25 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "FUSEN | Premium Local Guide Service in China",
+  title: "FUSEN | Used Nut Cold Heading Machines & Bolt Heading Machines",
   description:
-    "Professional local guides for independent travelers in China. Multi-language support (EN, RU, JA, KO, ES, PT, FR, AR), private tours, business matching, and factory visits across China's top destinations.",
+    "FUSEN supplies tested, refurbished used nut cold headers, bolt heading machines and screw cold formers from Sijin, Asahi Okuma, Sakamura and more. Worldwide export, installation and spare parts support.",
   keywords: [
-    "China local guide",
-    "China private tour",
-    "Beijing guide",
-    "Shanghai guide",
-    "business trip China",
-    "factory visit China",
-    "multi-language guide China",
+    "used cold heading machine",
+    "nut cold header",
+    "bolt heading machine",
+    "screw cold former",
+    "used Sijin machine",
+    "Asahi Okuma",
+    "fastener machinery",
+    "second hand cold former",
     "FUSEN",
   ],
   authors: [{ name: "FUSEN" }],
   openGraph: {
-    title: "FUSEN | Premium Local Guide Service in China",
+    title: "FUSEN | Used Nut Cold Heading Machines & Bolt Heading Machines",
     description:
-      "Discover the real China with professional local guides. Multi-language support, private tours, business assistance.",
+      "Tested, ready-to-run used cold heading machines for nuts, bolts and screws. Worldwide export with installation and spare parts support.",
     siteName: "FUSEN",
     locale: "en_US",
     type: "website",

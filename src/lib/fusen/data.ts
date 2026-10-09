@@ -1,136 +1,142 @@
-/**
- * FUSEN static data - Guides, destinations, contact info
- */
+// ============================================================
+// FUSEN - Used Cold Heading Machines Data
+// ============================================================
 
-export interface GuideData {
-  name: string;
-  language: string;
-  languageCode: string;
-  city: string;
-  experience: number;
-  specialty: string;
-  avatar: string;
+export interface MachineProduct {
+  id: string;
+  model: string;
+  brand: string;
+  type: "nut" | "bolt" | "screw";
+  station: string;
+  spec: string;
+  year: string;
+  image: string;
+  featured?: boolean;
 }
 
-export const GUIDES: GuideData[] = [
-  {
-    name: "Li Wei",
-    language: "English",
-    languageCode: "EN",
-    city: "Beijing",
-    experience: 8,
-    specialty: "History & Culture",
-    avatar: "/guides/guide-en.jpg",
-  },
-  {
-    name: "Wang Mei",
-    language: "Spanish",
-    languageCode: "ES",
-    city: "Shanghai",
-    experience: 6,
-    specialty: "Food & Shopping",
-    avatar: "/guides/guide-es.jpg",
-  },
-  {
-    name: "Zhang Hao",
-    language: "French",
-    languageCode: "FR",
-    city: "Xi'an",
-    experience: 10,
-    specialty: "History & Art",
-    avatar: "/guides/guide-fr.jpg",
-  },
-  {
-    name: "Chen Yu",
-    language: "Japanese & Korean",
-    languageCode: "JA/KO",
-    city: "Chengdu",
-    experience: 5,
-    specialty: "Nature & Cuisine",
-    avatar: "/guides/guide-ja.jpg",
-  },
-  {
-    name: "Liu Ming",
-    language: "Arabic",
-    languageCode: "AR",
-    city: "Guangzhou",
-    experience: 7,
-    specialty: "Trade & Business",
-    avatar: "/guides/guide-ar.jpg",
-  },
-  {
-    name: "Zhao Lin",
-    language: "Russian",
-    languageCode: "RU",
-    city: "Harbin",
-    experience: 9,
-    specialty: "Culture & Architecture",
-    avatar: "/guides/guide-ru.jpg",
-  },
-  {
-    name: "Sun Qiang",
-    language: "Portuguese",
-    languageCode: "PT",
-    city: "Shenzhen",
-    experience: 6,
-    specialty: "Tech & Business",
-    avatar: "/guides/guide-pt.jpg",
-  },
-  {
-    name: "Wu Jie",
-    language: "Polish",
-    languageCode: "PL",
-    city: "Hangzhou",
-    experience: 4,
-    specialty: "Tea Culture & Heritage",
-    avatar: "/guides/guide-pl.jpg",
-  },
-  {
-    name: "Zhou Lei",
-    language: "Turkish",
-    languageCode: "TR",
-    city: "Beijing",
-    experience: 5,
-    specialty: "Silk Road & Culture",
-    avatar: "/guides/guide-tr.jpg",
-  },
-];
-
 export const CONTACT_INFO = {
-  whatsapp: "+86 133-6576-4352",
-  whatsappLink: "https://wa.me/8613365764352",
   email: "info@fusenco.com",
+  whatsapp: "+86 133-6576-4352",
   phone: "+86 133-6576-4352",
-};
+  whatsappLink: "https://wa.me/8613365764352",
+  companyName: "FUSEN",
+  companyNameCn: "风泉",
+  address: "Dongguan, Guangdong, China",
+} as const;
 
-export const DESTINATION_IMAGES: Record<string, string> = {
-  Beijing: "/destinations/dest-beijing.jpg",
-  Shanghai: "/destinations/dest-shanghai.jpg",
-  "Xi'an": "/destinations/dest-xian.jpg",
-  Chengdu: "/destinations/dest-chengdu.jpg",
-  Guangzhou: "/destinations/dest-guangzhou.jpg",
-  Hangzhou: "/destinations/dest-hangzhou.jpg",
-  Shenzhen: "/destinations/dest-shenzhen.jpg",
-  Guilin: "/destinations/dest-guilin.jpg",
-};
-
-export const HERO_IMAGES = [
-  { src: "/hero-mountain.jpg", alt: "China mountain landscape" },
-  { src: "/hero-hongyadong.jpg", alt: "Chongqing Hongyadong night view" },
-  { src: "/hero-potala.jpg", alt: "Tibet Potala Palace panorama" },
+export const MACHINE_PRODUCTS: MachineProduct[] = [
+  {
+    id: "sijin-105s",
+    model: "Sijin 105S",
+    brand: "Sijin",
+    type: "nut",
+    station: "5-Station Nut Former",
+    spec: "Max wire dia. 10mm · M5–M10 nuts",
+    year: "2018",
+    image: "/machines/nut-cold-header.jpg",
+    featured: true,
+  },
+  {
+    id: "bolt-2d4b",
+    model: "2D4B Bolt Former",
+    brand: "Spring",
+    type: "bolt",
+    station: "2-Die 4-Blow",
+    spec: "Max dia. 8mm · Length 80mm",
+    year: "2019",
+    image: "/machines/bolt-heading-machine.jpg",
+    featured: true,
+  },
+  {
+    id: "screw-1d2b",
+    model: "1D2B Screw Header",
+    brand: "Sijin",
+    type: "screw",
+    station: "1-Die 2-Blow",
+    spec: "Max dia. 5mm · Length 50mm",
+    year: "2020",
+    image: "/machines/screw-heading-machine.jpg",
+  },
+  {
+    id: "former-6d6b",
+    model: "6D6B Cold Former",
+    brand: "Spring",
+    type: "bolt",
+    station: "6-Die 6-Blow",
+    spec: "Max dia. 19mm · Length 200mm",
+    year: "2017",
+    image: "/machines/six-die-former.jpg",
+  },
+  {
+    id: "nut-14b",
+    model: "Nut Machine 14B",
+    brand: "National",
+    type: "nut",
+    station: "5-Station Nut Former",
+    spec: "Max dia. 14mm · M8–M14 nuts",
+    year: "2016",
+    image: "/machines/nut-cold-header.jpg",
+  },
+  {
+    id: "nut-19b",
+    model: "Nut Machine 19B",
+    brand: "National",
+    type: "nut",
+    station: "6-Station Nut Former",
+    spec: "Max dia. 19mm · M12–M19 nuts",
+    year: "2015",
+    image: "/machines/six-die-former.jpg",
+  },
+  {
+    id: "bolt-3d3b",
+    model: "3D3B Part Former",
+    brand: "Sijin",
+    type: "bolt",
+    station: "3-Die 3-Blow",
+    spec: "Max dia. 10mm · Length 120mm",
+    year: "2018",
+    image: "/machines/bolt-heading-machine.jpg",
+  },
+  {
+    id: "bolt-4d4b",
+    model: "4D4B Cold Header",
+    brand: "Spring",
+    type: "bolt",
+    station: "4-Die 4-Blow",
+    spec: "Max dia. 13mm · Length 150mm",
+    year: "2017",
+    image: "/machines/screw-heading-machine.jpg",
+  },
 ];
 
-export const SERVICE_BACKGROUNDS = [
-  "/destinations/dest-beijing.jpg",
-  "/destinations/dest-shanghai.jpg",
-  "/destinations/dest-shenzhen.jpg",
-  "/destinations/dest-guangzhou.jpg",
+export interface BrandInfo {
+  name: string;
+  origin: string;
+}
+
+export const MACHINE_BRANDS: BrandInfo[] = [
+  { name: "Sijin", origin: "China" },
+  { name: "Spring (Chunri)", origin: "China" },
+  { name: "National", origin: "China" },
+  { name: "Asahi Okuma", origin: "Japan" },
+  { name: "Sakamura", origin: "Japan" },
+  { name: "Nakashimada", origin: "Japan" },
+  { name: "Tanisaka", origin: "Japan" },
+  { name: "Hyodong", origin: "Korea" },
 ];
 
-// Service icons - using emoji for simplicity, can be replaced with SVG
-export const SERVICE_ICONS = [
-  "translate",
-  "explore",
-  "business",
-  "flight",
+export interface MachineCategory {
+  key: string;
+  label: string;
+}
+
+export const MACHINE_CATEGORIES: MachineCategory[] = [
+  { key: "nut", label: "Nut Cold Headers" },
+  { key: "bolt", label: "Bolt Heading Machines" },
+  { key: "1d2b", label: "1-Die 2-Blow" },
+  { key: "2d4b", label: "2-Die 4-Blow" },
+  { key: "3d3b", label: "3-Die 3-Blow" },
+  { key: "4d4b", label: "4-Die 4-Blow" },
+  { key: "5d5b", label: "5-Die 5-Blow" },
+  { key: "6d6b", label: "6-Die 6-Blow" },
 ];

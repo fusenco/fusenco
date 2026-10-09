@@ -1,77 +1,84 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
-import { SERVICE_BACKGROUNDS } from "@/lib/fusen/data";
 
-const SERVICE_SVGS = [
-  // Translation
-  <svg key="0" className="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M5 8l6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6" />
-  </svg>,
-  // Explore
-  <svg key="1" className="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10" />
-    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-  </svg>,
-  // Business
-  <svg key="2" className="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-  </svg>,
-  // Flight
-  <svg key="3" className="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
-  </svg>,
+const ICONS = [
+  // Inspection
+  <path
+    key="0"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+  />,
+  // Shipping
+  <path
+    key="1"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"
+  />,
+  // Installation
+  <path
+    key="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.265a2.718 2.718 0 01-4.43-1.114l-.666-2.08a.955.955 0 01.244-1.007l4.853-4.853a3.75 3.75 0 014.212-.842m1.482-5.823l2.707 2.707m-3.75-1.057l1.057-3.75m3.133 5.343l3.75-1.057m-4.807 3.133l2.707-2.707"
+  />,
+  // Parts
+  <path
+    key="3"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.265a2.718 2.718 0 01-4.43-1.114l-.666-2.08a.955.955 0 01.244-1.007l4.853-4.853a3.75 3.75 0 014.212-.842M16.5 7.5l2.25-2.25m-3.75 3.75l-1.5-1.5m5.25-2.25l1.5-1.5M4.5 19.5l1.5-1.5m0 0L3 15m3 3l3-3m-3 3v3m0-3H3"
+  />,
 ];
 
 export function Services() {
   const { t } = useLanguage();
 
   return (
-    <section id="services" className="py-20 sm:py-28 bg-brand-cream">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
-        <div className="text-center mb-16">
-          <div className="divider-gold w-16 mx-auto mb-4" />
-          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-brand-red mb-4">{t.services.title}</h2>
-          <p className="max-w-2xl mx-auto text-muted-foreground text-lg">{t.services.subtitle}</p>
+    <section id="services" className="bg-cream py-24 md:py-32">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-red">
+            {t.services.badge}
+          </span>
+          <h2 className="mt-3 font-serif text-4xl text-foreground md:text-5xl">
+            {t.services.title}
+          </h2>
+          <p className="mt-5 text-lg text-muted">{t.services.subtitle}</p>
         </div>
 
-        {/* Services grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {t.services.items.map((service, i) => (
-            <div
-              key={i}
-              className="group relative rounded-xl overflow-hidden border border-border transition-all duration-300 hover:shadow-brand-hover hover:border-brand-gold/50 hover:-translate-y-1"
-            >
-              {/* Background image */}
-              <div className="absolute inset-0">
-                <img
-                  src={SERVICE_BACKGROUNDS[i]}
-                  alt=""
-                  loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/30 transition-opacity group-hover:from-black/90" />
-              </div>
-
-              {/* Content */}
-              <div className="relative z-10 p-8 min-h-[280px] flex flex-col">
-                {/* Icon */}
-                <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-white/15 backdrop-blur-sm text-white transition-colors group-hover:bg-brand-red group-hover:text-white">
-                  {SERVICE_SVGS[i]}
+        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {t.services.items.map(
+            (
+              item: { title: string; desc: string },
+              i: number
+            ) => (
+              <div
+                key={i}
+                className="group rounded-xl border border-border bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:shadow-lg"
+              >
+                <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-brand-red/10 text-brand-red transition-colors duration-300 group-hover:bg-brand-red group-hover:text-white">
+                  <svg
+                    className="h-7 w-7"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={1.5}
+                    viewBox="0 0 24 24"
+                  >
+                    {ICONS[i]}
+                  </svg>
                 </div>
-
-                <h3 className="font-serif text-xl font-bold text-white mb-3">{service.title}</h3>
-                <p className="text-sm text-white/80 leading-relaxed">{service.desc}</p>
-
-                {/* Number badge */}
-                <span className="absolute top-6 end-6 font-serif text-3xl font-bold text-white/20 group-hover:text-brand-gold/60 transition-colors">
-                  0{i + 1}
-                </span>
+                <h3 className="mt-6 font-serif text-xl text-foreground">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted">
+                  {item.desc}
+                </p>
               </div>
-            </div>
-          ))}
+            )
+          )}
         </div>
       </div>
     </section>

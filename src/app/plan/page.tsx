@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useState, useMemo, type FormEvent } from "react";
 import Link from "next/link";
+<<<<<<< HEAD
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { planTranslations, type PlanLang } from "@/lib/i18n/plan-translations";
 import { CONTACT_INFO } from "@/lib/fusen/data";
@@ -249,16 +250,88 @@ const COUNTRY_CODES: { code: string; dial: string; name: string }[] = [
   { code: "ZM", dial: "+260", name: "Zambia 赞比亚" },
   { code: "ZW", dial: "+263", name: "Zimbabwe 津巴布韦" },
 ];
+=======
+>>>>>>> 8f09ef2 (feat: 全站转型为二手冷镦机销售外贸站)
 import { Navbar } from "@/components/fusen/Navbar";
 import { Footer } from "@/components/fusen/Footer";
+import WhatsAppFloat from "@/components/fusen/WhatsAppFloat";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
+import {
+  planTranslations,
+  en as planEn,
+  type PlanTranslation,
+  type DeepPartial,
+} from "@/lib/i18n/plan-translations";
+import { CONTACT_INFO } from "@/lib/fusen/data";
+
+function isPlainObject(v: unknown): v is Record<string, unknown> {
+  return typeof v === "object" && v !== null && !Array.isArray(v);
+}
+
+function mergeObject(
+  base: Record<string, unknown>,
+  patch: Record<string, unknown>
+): Record<string, unknown> {
+  const result: Record<string, unknown> = { ...base };
+  for (const key of Object.keys(patch)) {
+    const b = base[key];
+    const p = patch[key];
+    if (Array.isArray(p)) {
+      result[key] = p;
+    } else if (isPlainObject(p) && isPlainObject(b)) {
+      result[key] = mergeObject(b, p);
+    } else if (p !== undefined) {
+      result[key] = p;
+    }
+  }
+  return result;
+}
+
+function usePlanT(): PlanTranslation {
+  const { lang } = useLanguage();
+  return useMemo(() => {
+    const patch = planTranslations[lang] as
+      | DeepPartial<PlanTranslation>
+      | undefined;
+    if (!patch) return planEn;
+    return mergeObject(
+      planEn as unknown as Record<string, unknown>,
+      patch as unknown as Record<string, unknown>
+    ) as unknown as PlanTranslation;
+  }, [lang]);
+}
+
+function SectionTitle({
+  num,
+  title,
+}: {
+  num: number;
+  title: string;
+}) {
+  return (
+    <div className="mb-8 flex items-center gap-4">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-red font-serif text-lg font-bold text-white">
+        {num}
+      </div>
+      <h2 className="font-serif text-2xl text-foreground md:text-3xl">
+        {title}
+      </h2>
+    </div>
+  );
+}
+
+const inputCls =
+  "w-full rounded-lg border border-border bg-white px-4 py-3 text-foreground placeholder:text-muted/60 focus:border-brand-red focus:outline-none focus:ring-1 focus:ring-brand-red";
+const labelCls = "mb-2 block text-sm font-medium text-foreground";
 
 export default function PlanPage() {
-  const { lang } = useLanguage();
-  const t = planTranslations[(lang as PlanLang) || "en"];
-
+  const t = usePlanT();
+  const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [agreeError, setAgreeError] = useState(false);
+  const [selected, setSelected] = useState<Record<string, Set<string>>>({});
 
+<<<<<<< HEAD
   const [form, setForm] = useState({
     fullName: "",
     nationality: "",
@@ -299,24 +372,33 @@ export default function PlanPage() {
     setForm((prev) => {
       const arr = prev[key];
       return { ...prev, [key]: arr.includes(value) ? arr.filter((v) => v !== value) : [...arr, value] };
+=======
+  const toggle = (group: string, value: string) => {
+    setSelected((prev) => {
+      const next = new Set(prev[group] ?? []);
+      if (next.has(value)) next.delete(value);
+      else next.add(value);
+      return { ...prev, [group]: next };
+>>>>>>> 8f09ef2 (feat: 全站转型为二手冷镦机销售外贸站)
     });
   };
 
-  const localeMap: Record<string, string> = {
-    en: "en-US",
-    ru: "ru-RU",
-    ja: "ja-JP",
-    ko: "ko-KR",
-    es: "es-ES",
-    pt: "pt-PT",
-    fr: "fr-FR",
-    ar: "ar-SA",
-  };
+  const isActive = (group: string, value: string) =>
+    selected[group]?.has(value) ?? false;
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    const agree = new FormData(form).get("agree");
+
+    if (!agree) {
+      setAgreeError(true);
+      return;
+    }
+    setAgreeError(false);
     setSubmitting(true);
 
+<<<<<<< HEAD
     try {
       const formData = new FormData();
       formData.append("Full Name", form.fullName);
@@ -344,66 +426,90 @@ export default function PlanPage() {
       formData.append("Special Notes", form.specialNotes);
       formData.append("Medical Needs", form.medicalNeeds);
       formData.append("How did you hear", form.hearAbout);
+=======
+    // Attach multi-select groups as readable fields.
+    const data = new FormData(form);
+    for (const [group, set] of Object.entries(selected)) {
+      if (set.size) data.append(group, Array.from(set).join(", "));
+    }
+>>>>>>> 8f09ef2 (feat: 全站转型为二手冷镦机销售外贸站)
 
+    try {
       const res = await fetch("https://formspree.io/f/xwvgoavg", {
         method: "POST",
-        body: formData,
+        body: data,
         headers: { Accept: "application/json" },
       });
-
       if (res.ok) {
-        setSuccess(true);
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        setSubmitted(true);
       } else {
-        window.open(`https://wa.me/${CONTACT_INFO.whatsapp.replace(/[^0-9]/g, "")}`, "_blank");
+        window.open(CONTACT_INFO.whatsappLink, "_blank", "noopener");
       }
     } catch {
-      window.open(`https://wa.me/${CONTACT_INFO.whatsapp.replace(/[^0-9]/g, "")}`, "_blank");
+      window.open(CONTACT_INFO.whatsappLink, "_blank", "noopener");
     } finally {
       setSubmitting(false);
     }
   };
 
-  const locale = localeMap[lang] || "en-US";
-
-  // ─── Success Page ───
-  if (success) {
+  if (submitted) {
     return (
       <>
         <Navbar />
-        <main className="min-h-screen bg-[#F8F5F0] pt-28 pb-16 px-4 flex items-center">
-          <div className="max-w-2xl mx-auto text-center">
-            <div className="mb-8 inline-flex h-24 w-24 items-center justify-center rounded-full bg-green-50 border-4 border-green-100">
-              <svg className="h-12 w-12 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+        <main className="flex min-h-screen items-center justify-center bg-cream px-6 pt-20">
+          <div className="w-full max-w-xl rounded-2xl border border-border bg-white p-10 text-center shadow-sm">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-green-600">
+              <svg
+                className="h-8 w-8"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4.5 12.75l6 6 9-13.5"
+                />
               </svg>
             </div>
-            <h1 className="font-serif text-4xl text-[#1A1410] mb-4">{t.thankYou}</h1>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">{t.successMessage}</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <h1 className="mt-6 font-serif text-3xl text-foreground">
+              {t.successTitle}
+            </h1>
+            <p className="mt-4 leading-relaxed text-muted">{t.successText}</p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
               <a
-                href={`https://wa.me/${CONTACT_INFO.whatsapp.replace(/[^0-9]/g, "")}`}
+                href={CONTACT_INFO.whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-8 py-3.5 font-semibold text-white transition-all hover:bg-[#1EBE5A] hover:shadow-lg"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white"
               >
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg>
-                {t.chatWhatsApp}
+                {t.whatsappCta}
               </a>
               <Link
                 href="/"
-                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#8B1A1A] px-8 py-3.5 font-semibold text-[#8B1A1A] transition-all hover:bg-[#8B1A1A] hover:text-white"
+                className="inline-flex items-center justify-center rounded-full border border-border px-6 py-3 text-sm font-semibold text-foreground hover:border-brand-red hover:text-brand-red"
               >
-                {t.backToHome}
+                {t.backHome}
               </Link>
             </div>
+
+            <button
+              onClick={() => setSubmitted(false)}
+              className="mt-6 text-sm text-muted underline-offset-4 hover:text-brand-red hover:underline"
+            >
+              {t.newInquiry}
+            </button>
           </div>
         </main>
         <Footer />
+        <WhatsAppFloat />
       </>
     );
   }
 
+<<<<<<< HEAD
   const DURATIONS = ["4h", "8h", "3d", "5d", "7d", "custom"];
   const CITY_KEYS = ["Beijing", "Shanghai", "Guangzhou", "Shenzhen", "Chengdu", "Xi'an", "Hangzhou", "Chongqing", "Lhasa (Tibet)", "Guilin", "Hong Kong", "Kunming", "Suzhou", "Nanjing", "Harbin"];
   const BUDGET_VALUES = ["budget", "mid", "premium", "luxury"];
@@ -648,51 +754,295 @@ export default function PlanPage() {
   ];
 
   // ─── Form Page ───
+=======
+>>>>>>> 8f09ef2 (feat: 全站转型为二手冷镦机销售外贸站)
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-[#F8F5F0] pt-28 pb-16 px-4">
-        <div className="max-w-3xl mx-auto">
+      <main className="bg-cream pb-24 pt-32">
+        <div className="mx-auto max-w-4xl px-6">
           {/* Header */}
-          <div className="text-center mb-10">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 border border-green-100 px-4 py-1.5 text-sm font-medium text-green-700 mb-4">
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-              {t.incentiveBadge}
+          <div className="text-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-5 py-2 text-sm font-medium text-green-700">
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              {t.badge}
             </span>
-            <h1 className="font-serif text-4xl sm:text-5xl text-[#1A1410] mb-3">{t.pageTitle}</h1>
-            <p className="text-base text-muted-foreground max-w-xl mx-auto">{t.pageSubtitle}</p>
-            <p className="text-xs text-muted-foreground/60 mt-2">* {t.requiredFields}</p>
+            <h1 className="mt-6 font-serif text-4xl text-foreground md:text-5xl">
+              {t.pageTitle}
+            </h1>
+            <p className="mx-auto mt-5 max-w-2xl text-lg text-muted">
+              {t.pageSubtitle}
+            </p>
+            <p className="mt-3 text-sm text-muted/70">{t.requiredNote}</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* ═══════════ Section 1: Personal Information ═══════════ */}
-            <section className="rounded-2xl bg-white border border-border shadow-sm p-6 sm:p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#8B1A1A] text-sm font-bold text-white">1</span>
-                <h2 className="font-serif text-2xl text-[#1A1410]">{t.s1Title}</h2>
+          <form onSubmit={handleSubmit} className="mt-14 space-y-8">
+            {/* 1. Your Information */}
+            <section className="rounded-2xl border border-border bg-white p-8 shadow-sm">
+              <SectionTitle num={1} title={t.sections.info} />
+              <div className="grid gap-5 md:grid-cols-2">
+                <div>
+                  <label className={labelCls} htmlFor="f-name">
+                    {t.fields.name} *
+                  </label>
+                  <input
+                    id="f-name"
+                    name="name"
+                    required
+                    placeholder={t.placeholders.name}
+                    className={inputCls}
+                  />
+                </div>
+                <div>
+                  <label className={labelCls} htmlFor="f-company">
+                    {t.fields.company}
+                  </label>
+                  <input
+                    id="f-company"
+                    name="company"
+                    placeholder={t.placeholders.company}
+                    className={inputCls}
+                  />
+                </div>
+                <div>
+                  <label className={labelCls} htmlFor="f-country">
+                    {t.fields.country} *
+                  </label>
+                  <input
+                    id="f-country"
+                    name="country"
+                    required
+                    placeholder={t.placeholders.country}
+                    className={inputCls}
+                  />
+                </div>
+                <div>
+                  <label className={labelCls} htmlFor="f-email">
+                    {t.fields.email} *
+                  </label>
+                  <input
+                    id="f-email"
+                    name="email"
+                    type="email"
+                    required
+                    placeholder={t.placeholders.email}
+                    className={inputCls}
+                  />
+                </div>
+                <div>
+                  <label className={labelCls} htmlFor="f-whatsapp">
+                    {t.fields.whatsapp}
+                  </label>
+                  <input
+                    id="f-whatsapp"
+                    name="whatsapp"
+                    placeholder={t.placeholders.whatsapp}
+                    className={inputCls}
+                  />
+                </div>
+                <div>
+                  <label className={labelCls} htmlFor="f-wechat">
+                    {t.fields.wechat}
+                  </label>
+                  <input
+                    id="f-wechat"
+                    name="wechat"
+                    placeholder={t.placeholders.wechat}
+                    className={inputCls}
+                  />
+                </div>
+              </div>
+            </section>
+
+            {/* 2. Machine Requirements */}
+            <section className="rounded-2xl border border-border bg-white p-8 shadow-sm">
+              <SectionTitle num={2} title={t.sections.machine} />
+
+              <label className={labelCls}>{t.fields.machineType} *</label>
+              <div className="mb-6 flex flex-wrap gap-2">
+                {t.machineTypes.map((opt: string, i: number) => (
+                  <button
+                    type="button"
+                    key={i}
+                    onClick={() => toggle("machine_types", opt)}
+                    className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
+                      isActive("machine_types", opt)
+                        ? "border-brand-red bg-brand-red text-white"
+                        : "border-border bg-white text-foreground hover:border-gold"
+                    }`}
+                  >
+                    {opt}
+                  </button>
+                ))}
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <label className={labelCls}>{t.fields.model}</label>
+              <div className="mb-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                {t.models.map((opt: string, i: number) => (
+                  <button
+                    type="button"
+                    key={i}
+                    onClick={() => toggle("models", opt)}
+                    className={`rounded-lg border px-3 py-2.5 text-sm font-medium transition ${
+                      isActive("models", opt)
+                        ? "border-brand-red bg-brand-red text-white"
+                        : "border-border bg-white text-foreground hover:border-gold"
+                    }`}
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+              <input
+                name="model_other"
+                placeholder={t.placeholders.modelOther}
+                className={`${inputCls} mb-6`}
+              />
+
+              <label className={labelCls}>{t.fields.station}</label>
+              <div className="mb-6 flex flex-wrap gap-2">
+                {t.stations.map((opt: string, i: number) => (
+                  <button
+                    type="button"
+                    key={i}
+                    onClick={() => toggle("stations", opt)}
+                    className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
+                      isActive("stations", opt)
+                        ? "border-brand-red bg-brand-red text-white"
+                        : "border-border bg-white text-foreground hover:border-gold"
+                    }`}
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+
+              <div className="grid gap-5 md:grid-cols-3">
                 <div>
+<<<<<<< HEAD
                   <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.fullName} <span className="text-[#8B1A1A]">*</span></label>
                   <input type="text" required value={form.fullName} onChange={(e) => update("fullName", e.target.value)} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.nationality} <span className="text-[#8B1A1A]">*</span></label>
                   <input type="text" required value={form.nationality} onChange={(e) => update("nationality", e.target.value)} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
+=======
+                  <label className={labelCls} htmlFor="f-diameter">
+                    {t.fields.diameter}
+                  </label>
+                  <input
+                    id="f-diameter"
+                    name="wire_diameter"
+                    inputMode="decimal"
+                    placeholder={t.placeholders.diameter}
+                    className={inputCls}
+                  />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.visitorCount} <span className="text-[#8B1A1A]">*</span></label>
-                  <input type="number" min="1" required value={form.visitorCount} onChange={(e) => update("visitorCount", e.target.value)} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
+                  <label className={labelCls} htmlFor="f-length">
+                    {t.fields.length}
+                  </label>
+                  <input
+                    id="f-length"
+                    name="cutoff_length"
+                    inputMode="decimal"
+                    placeholder={t.placeholders.length}
+                    className={inputCls}
+                  />
+>>>>>>> 8f09ef2 (feat: 全站转型为二手冷镦机销售外贸站)
                 </div>
                 <div>
+                  <label className={labelCls} htmlFor="f-product">
+                    {t.fields.product}
+                  </label>
+                  <input
+                    id="f-product"
+                    name="product"
+                    placeholder={t.placeholders.product}
+                    className={inputCls}
+                  />
+                </div>
+              </div>
+            </section>
+
+            {/* 3. Purchase Preferences */}
+            <section className="rounded-2xl border border-border bg-white p-8 shadow-sm">
+              <SectionTitle num={3} title={t.sections.requirements} />
+
+              <label className={labelCls}>{t.fields.brand}</label>
+              <div className="mb-6 flex flex-wrap gap-2">
+                {t.brandPrefs.map((opt: string, i: number) => (
+                  <button
+                    type="button"
+                    key={i}
+                    onClick={() => toggle("brands", opt)}
+                    className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
+                      isActive("brands", opt)
+                        ? "border-brand-red bg-brand-red text-white"
+                        : "border-border bg-white text-foreground hover:border-gold"
+                    }`}
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+
+              <div className="grid gap-5 md:grid-cols-2">
+                <div>
+                  <label className={labelCls} htmlFor="f-year">
+                    {t.fields.year}
+                  </label>
+                  <select id="f-year" name="year" className={inputCls} defaultValue="">
+                    <option value="" disabled>
+                      Select
+                    </option>
+                    <option>2020+</option>
+                    <option>2015 – 2020</option>
+                    <option>2010 – 2015</option>
+                    <option>No preference</option>
+                  </select>
+                </div>
+                <div>
+<<<<<<< HEAD
                   <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.email} <span className="text-[#8B1A1A]">*</span></label>
                   <input type="email" required value={form.email} onChange={(e) => update("email", e.target.value)} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
+=======
+                  <label className={labelCls}>{t.fields.condition}</label>
+                  <div className="flex flex-wrap gap-2">
+                    {t.conditions.map((opt: string, i: number) => (
+                      <button
+                        type="button"
+                        key={i}
+                        onClick={() => toggle("condition", opt)}
+                        className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
+                          isActive("condition", opt)
+                            ? "border-brand-red bg-brand-red text-white"
+                            : "border-border bg-white text-foreground hover:border-gold"
+                        }`}
+                      >
+                        {opt}
+                      </button>
+                    ))}
+                  </div>
+>>>>>>> 8f09ef2 (feat: 全站转型为二手冷镦机销售外贸站)
                 </div>
               </div>
               
               <div className="space-y-4 mt-4">
                 <div>
+<<<<<<< HEAD
                   <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.phone}</label>
                   <div className="flex gap-2">
                     <select value={form.phoneCountryCode} onChange={(e) => update("phoneCountryCode", e.target.value)} className="w-40 rounded-lg border border-border bg-white px-2 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30">
@@ -707,245 +1057,174 @@ export default function PlanPage() {
                 <div>
                   <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.wechat}</label>
                   <input type="text" value={form.wechat} onChange={(e) => update("wechat", e.target.value)} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
+=======
+                  <label className={labelCls} htmlFor="f-qty">
+                    {t.fields.quantity}
+                  </label>
+                  <input
+                    id="f-qty"
+                    name="quantity"
+                    type="number"
+                    min="1"
+                    placeholder={t.placeholders.quantity}
+                    className={inputCls}
+                  />
                 </div>
+                <div>
+                  <label className={labelCls} htmlFor="f-budget">
+                    {t.fields.budget}
+                  </label>
+                  <select id="f-budget" name="budget" className={inputCls} defaultValue="">
+                    <option value="" disabled>
+                      Select
+                    </option>
+                    {t.budgets.map((opt: string, i: number) => (
+                      <option key={i} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+>>>>>>> 8f09ef2 (feat: 全站转型为二手冷镦机销售外贸站)
+                </div>
+              </div>
+            </section>
+
+            {/* 4. Additional Services */}
+            <section className="rounded-2xl border border-border bg-white p-8 shadow-sm">
+              <SectionTitle num={4} title={t.sections.services} />
+              <div className="space-y-3">
+                {t.services.map((opt: string, i: number) => (
+                  <label
+                    key={i}
+                    className="flex cursor-pointer items-center gap-3 rounded-lg border border-border px-4 py-3 transition hover:border-gold hover:bg-cream/50"
+                  >
+                    <input
+                      type="checkbox"
+                      name="services"
+                      value={opt}
+                      className="h-4 w-4 accent-brand-red"
+                    />
+                    <span className="text-sm text-foreground">{opt}</span>
+                  </label>
+                ))}
               </div>
 
               <div className="mt-6">
-                <p className="text-sm font-medium text-foreground/80 mb-3">{t.emergencyContact}</p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <input type="text" value={form.emergencyName} onChange={(e) => update("emergencyName", e.target.value)} placeholder={t.emergencyName} className="rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
-                  <input type="tel" value={form.emergencyPhone} onChange={(e) => update("emergencyPhone", e.target.value)} placeholder={t.emergencyPhone} className="rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
-                  <input type="text" value={form.emergencyRelation} onChange={(e) => update("emergencyRelation", e.target.value)} placeholder={t.phRelation} className="rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
-                </div>
+                <label className={labelCls} htmlFor="f-power">
+                  {t.fields.power}
+                </label>
+                <input
+                  id="f-power"
+                  name="power"
+                  placeholder="e.g. 380V / 50Hz / 3-phase"
+                  className={inputCls}
+                />
               </div>
             </section>
 
-            {/* ═══════════ Section 2: Trip Details ═══════════ */}
-            <section className="rounded-2xl bg-white border border-border shadow-sm p-6 sm:p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#8B1A1A] text-sm font-bold text-white">2</span>
-                <h2 className="font-serif text-2xl text-[#1A1410]">{t.s2Title}</h2>
+            {/* 5. Other Information */}
+            <section className="rounded-2xl border border-border bg-white p-8 shadow-sm">
+              <SectionTitle num={5} title={t.sections.extra} />
+
+              <label className={labelCls} htmlFor="f-target">
+                {t.fields.targetDate}
+              </label>
+              <div className="mb-6 flex flex-wrap gap-2">
+                {t.targetDates.map((opt: string, i: number) => (
+                  <button
+                    type="button"
+                    key={i}
+                    onClick={() => toggle("target_date", opt)}
+                    className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
+                      isActive("target_date", opt)
+                        ? "border-brand-red bg-brand-red text-white"
+                        : "border-border bg-white text-foreground hover:border-gold"
+                    }`}
+                  >
+                    {opt}
+                  </button>
+                ))}
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                <div>
-                  <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.entryDate} <span className="text-[#8B1A1A]">*</span></label>
-                  <input type="date" required value={form.entryDate} onChange={(e) => update("entryDate", e.target.value)} lang={locale} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.exitDate} <span className="text-[#8B1A1A]">*</span></label>
-                  <input type="date" required value={form.exitDate} onChange={(e) => update("exitDate", e.target.value)} lang={locale} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
-                </div>
-              </div>
+              <label className={labelCls} htmlFor="f-special">
+                {t.fields.special}
+              </label>
+              <textarea
+                id="f-special"
+                name="special_requirements"
+                rows={4}
+                placeholder={t.placeholders.special}
+                className={`${inputCls} mb-6 resize-none`}
+              />
 
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground/80 mb-2">{t.serviceDuration} <span className="text-[#8B1A1A]">*</span></label>
-                <div className="flex flex-wrap gap-2">
-                  {DURATIONS.map((d) => (
-                    <button key={d} type="button" onClick={() => update("duration", d)} className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${form.duration === d ? "bg-[#8B1A1A] text-white border border-[#8B1A1A]" : "bg-white text-foreground border border-border hover:border-brand-gold"}`}>
-                      {d === "custom" ? t.customDuration : t.durationOptions[DURATIONS.indexOf(d)]}
-                    </button>
-                  ))}
-                </div>
-                {form.duration === "custom" && (
-                  <input type="text" value={form.customDuration} onChange={(e) => update("customDuration", e.target.value)} placeholder={t.phCustomDuration} className="mt-3 w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
-                )}
-                <p className="mt-2 text-xs text-muted-foreground/70">{t.overtimeNotice}</p>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-foreground/80 mb-2">{t.cities}</label>
-                <div className="flex flex-wrap gap-2">
-                  {CITY_KEYS.map((key) => (
-                    <button key={key} type="button" onClick={() => toggleArray("cities", key)} className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-all ${form.cities.includes(key) ? "bg-[#8B1A1A] text-white border border-[#8B1A1A]" : "bg-white text-foreground border border-border hover:border-brand-gold"}`}>
-                      {t.cityNames[key]}
-                    </button>
-                  ))}
-                </div>
-                <input type="text" value={form.customCity} onChange={(e) => update("customCity", e.target.value)} placeholder={t.phCustomCity} className="mt-3 w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30" />
-              </div>
-            </section>
-
-            {/* ═══════════ Section 3: Preferences ═══════════ */}
-            <section className="rounded-2xl bg-white border border-border shadow-sm p-6 sm:p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#8B1A1A] text-sm font-bold text-white">3</span>
-                <h2 className="font-serif text-2xl text-[#1A1410]">{t.s3Title}</h2>
-              </div>
-
-              {/* Dietary */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground/80 mb-2">{t.dietary}</label>
-                <div className="flex flex-wrap gap-2">
-                  {t.dietaryOptions.map((opt: string, i: number) => (
-                    <button key={i} type="button" onClick={() => toggleArray("dietary", String(i))} className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-all ${form.dietary.includes(String(i)) ? "bg-[#8B1A1A] text-white border border-[#8B1A1A]" : "bg-white text-foreground border border-border hover:border-brand-gold"}`}>
-                      {opt}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Religion */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground/80 mb-2">{t.religion}</label>
-                <div className="flex flex-wrap gap-2">
-                  {t.religionOptions.map((opt: string, i: number) => (
-                    <button key={i} type="button" onClick={() => update("religion", opt)} className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-all ${form.religion === opt ? "bg-[#8B1A1A] text-white border border-[#8B1A1A]" : "bg-white text-foreground border border-border hover:border-brand-gold"}`}>
-                      {opt}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Services */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground/80 mb-2">{t.services}</label>
-                <div className="flex flex-wrap gap-2">
-                  {t.serviceOptions.map((opt: string, i: number) => (
-                    <button key={i} type="button" onClick={() => toggleArray("services", String(i))} className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-all ${form.services.includes(String(i)) ? "bg-[#8B1A1A] text-white border border-[#8B1A1A]" : "bg-white text-foreground border border-border hover:border-brand-gold"}`}>
-                      {opt}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Specific interests */}
-              <div>
-                <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.specificInterests}</label>
-                <textarea value={form.specificInterests} onChange={(e) => update("specificInterests", e.target.value)} rows={3} placeholder={t.phInterests} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30 resize-none" />
-              </div>
-            </section>
-
-            {/* ═══════════ Section 4: Trip Type ═══════════ */}
-            <section className="rounded-2xl bg-white border border-border shadow-sm p-6 sm:p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#8B1A1A] text-sm font-bold text-white">4</span>
-                <h2 className="font-serif text-2xl text-[#1A1410]">{t.s4Title}</h2>
-              </div>
-
+              <label className={labelCls}>{t.fields.source}</label>
               <div className="flex flex-wrap gap-2">
-                {t.tripTypeOptions.map((opt: string, i: number) => (
-                  <button key={i} type="button" onClick={() => update("tripType", opt)} className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${form.tripType === opt ? "bg-[#8B1A1A] text-white border border-[#8B1A1A]" : "bg-white text-foreground border border-border hover:border-brand-gold"}`}>
+                {t.sources.map((opt: string, i: number) => (
+                  <button
+                    type="button"
+                    key={i}
+                    onClick={() => toggle("source", opt)}
+                    className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
+                      isActive("source", opt)
+                        ? "border-brand-red bg-brand-red text-white"
+                        : "border-border bg-white text-foreground hover:border-gold"
+                    }`}
+                  >
                     {opt}
                   </button>
                 ))}
               </div>
             </section>
 
-            {/* ═══════════ Section 5: Additional Info ═══════════ */}
-            <section className="rounded-2xl bg-white border border-border shadow-sm p-6 sm:p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#8B1A1A] text-sm font-bold text-white">5</span>
-                <h2 className="font-serif text-2xl text-[#1A1410]">{t.s5Title}</h2>
-              </div>
+            {/* Submit */}
+            <section className="rounded-2xl border border-border bg-white p-8 text-center shadow-sm">
+              <label className="flex cursor-pointer items-start justify-center gap-3 text-start">
+                <input
+                  type="checkbox"
+                  name="agree"
+                  className="mt-1 h-4 w-4 shrink-0 accent-brand-red"
+                  onChange={() => setAgreeError(false)}
+                />
+                <span className="text-sm leading-relaxed text-muted">
+                  {t.fields.agree}
+                </span>
+              </label>
+              {agreeError && (
+                <p className="mt-3 text-sm text-red-600">{t.agreeRequired}</p>
+              )}
 
-              <div className="space-y-6">
-                {/* Budget */}
-                <div>
-                  <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.budget}</label>
-                  <select value={form.budgetRange} onChange={(e) => update("budgetRange", e.target.value)} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30">
-                    {BUDGET_VALUES.map((v, i) => (
-                      <option key={v} value={v}>{t.budgetOptions[i]}</option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Accommodation */}
-                <div>
-                  <label className="block text-sm font-medium text-foreground/80 mb-2">{t.accommodation}</label>
-                  <div className="flex flex-wrap gap-2">
-                    {ACCOMMODATION_VALUES.map((v, i) => (
-                      <button key={v} type="button" onClick={() => toggleArray("accommodation", v)} className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-all ${form.accommodation.includes(v) ? "bg-[#8B1A1A] text-white border border-[#8B1A1A]" : "bg-white text-foreground border border-border hover:border-brand-gold"}`}>
-                        {t.accommodationOptions[i]}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Transportation */}
-                <div>
-                  <label className="block text-sm font-medium text-foreground/80 mb-2">{t.transportation}</label>
-                  <div className="flex flex-wrap gap-2">
-                    {TRANSPORTATION_VALUES.map((v, i) => (
-                      <button key={v} type="button" onClick={() => toggleArray("transportation", v)} className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition-all ${form.transportation.includes(v) ? "bg-[#8B1A1A] text-white border border-[#8B1A1A]" : "bg-white text-foreground border border-border hover:border-brand-gold"}`}>
-                        {t.transportationOptions[i]}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Special Notes */}
-                <div>
-                  <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.specialNotes}</label>
-                  <textarea value={form.specialNotes} onChange={(e) => update("specialNotes", e.target.value)} rows={3} placeholder={t.phSpecialNotes} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30 resize-none" />
-                </div>
-
-                {/* Medical */}
-                <div>
-                  <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.medical}</label>
-                  <textarea value={form.medicalNeeds} onChange={(e) => update("medicalNeeds", e.target.value)} rows={2} placeholder={t.phMedical} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30 resize-none" />
-                </div>
-
-                {/* How did you hear */}
-                <div>
-                  <label className="block text-sm font-medium text-foreground/80 mb-1.5">{t.hearAbout}</label>
-                  <select value={form.hearAbout} onChange={(e) => update("hearAbout", e.target.value)} className="w-full rounded-lg border border-border bg-white px-4 py-2.5 text-sm outline-none transition-colors focus:border-brand-gold focus:ring-1 focus:ring-brand-gold/30">
-                    {HEAR_VALUES.map((v, i) => (
-                      <option key={v} value={v}>{t.hearOptions[i]}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </section>
-
-            {/* ═══════════ Section 6: Submit ═══════════ */}
-            <section className="rounded-2xl bg-white border border-border shadow-sm p-6 sm:p-8">
-              {/* Privacy Notice */}
-              <div className="mb-6 flex items-start gap-3 rounded-lg bg-blue-50/50 border border-blue-100 p-4">
-                <svg className="h-5 w-5 text-blue-500 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-                <div>
-                  <p className="text-sm font-medium text-blue-800">{t.privacyTitle}</p>
-                  <p className="text-xs text-blue-600/80 mt-1">{t.privacyText}</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 mb-6">
-                <input type="checkbox" id="agree" checked={form.agree} onChange={(e) => update("agree", e.target.checked)} required className="mt-1 h-4 w-4 rounded border-border text-brand-red focus:ring-brand-gold" />
-                <label htmlFor="agree" className="text-sm text-muted-foreground">
-                  {t.agreeText}{" "}
-                  <a href="#" className="text-brand-red underline mx-1">{t.termsOfService}</a>{" "}
-                  <a href="#" className="text-brand-red underline mx-1">{t.privacyPolicy}</a>.
-                  <span className="text-brand-red"> *</span>
-                </label>
-              </div>
-
-              <button type="submit" disabled={!form.agree || submitting} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#8B1A1A] px-10 py-3.5 text-base font-semibold text-white transition-all hover:bg-[#A52A2A] hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+              <button
+                type="submit"
+                disabled={submitting}
+                className="mt-6 inline-flex w-full max-w-md items-center justify-center gap-2 rounded-full bg-brand-red px-8 py-4 text-base font-semibold text-white transition hover:bg-brand-red-light disabled:opacity-60"
+              >
                 {submitting ? (
-                  <>
-                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                    </svg>
-                    {t.submitting}
-                  </>
+                  t.submitting
                 ) : (
                   <>
-                    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
-                    </svg>
                     {t.submit}
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
+                      />
+                    </svg>
                   </>
                 )}
               </button>
             </section>
-
-            <div className="h-8" />
           </form>
         </div>
       </main>
       <Footer />
+      <WhatsAppFloat />
     </>
   );
 }
