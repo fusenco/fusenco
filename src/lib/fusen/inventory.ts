@@ -97,6 +97,6 @@ export const TOTAL_MODELS = ALL_STOCK.length;
 
 // Representative real photo per category
 export const CATEGORY_IMAGE = {
-  nut: "/real/nut-machine-container.jpg",
+  nut: "/real/sijin-19b6s-front.jpg",
   bolt: "/real/shipping-yard.jpg",
 } as const;
