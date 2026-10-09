@@ -54,6 +54,12 @@ export interface Translation {
     subtitle: string;
     inquire: string;
     all: string;
+    unitsLabel: string;
+    modelsLabel: string;
+    nutCat: string;
+    boltCat: string;
+    qty: string;
+    items: string;
   };
   categories: {
     badge: string;
@@ -239,6 +245,12 @@ export const en: Translation = {
       "Real inventory, real photos. Contact us for the latest condition report and test videos.",
     inquire: "Inquire",
     all: "View All Machines",
+    unitsLabel: "Units in stock",
+    modelsLabel: "machine models",
+    nutCat: "Nut Cold Headers",
+    boltCat: "Multi-Station Bolt & Screw Formers",
+    qty: "Unit",
+    items: "items",
   },
   categories: {
     badge: "By Type",

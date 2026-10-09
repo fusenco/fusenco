@@ -38,8 +38,11 @@ src/
 │   │   ├── plan-translations.ts# 询价单翻译（同样 9 语言）
 │   │   └── LanguageProvider.tsx# 多语言 Context Provider（深度合并英文兜底）
 │   └── fusen/
-│       └── data.ts             # CONTACT_INFO、MACHINE_PRODUCTS、MACHINE_BRANDS、MACHINE_CATEGORIES
-└── public/machines/            # 机器/仓库/出货等 8 张配图（当前为 AI 占位图，待换实拍）
+│       ├── data.ts             # CONTACT_INFO、MACHINE_BRANDS、MACHINE_CATEGORIES
+│       └── inventory.ts        # 真实在售库存：NUT_STOCK(约36台)+BOLT_STOCK(含春日80台)，CATEGORY_IMAGE
+└── public/machines/            # 机器/仓库/出货等配图（AI 占位图，待换用户实拍）
+
+> Products.tsx 依据 inventory.ts 真实库存分组展示（按型号聚合品牌×数量），不再使用编造机型。
 ```
 
 ## 品牌设计令牌
