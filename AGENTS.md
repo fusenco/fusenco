@@ -15,26 +15,32 @@
 ```
 src/
 ├── app/
-│   ├── layout.tsx              # 根布局（LanguageProvider + WhatsAppFloat、字体、SEO metadata）
+│   ├── layout.tsx              # 根布局（LanguageProvider + WhatsAppFloat + JsonLd、字体、SEO metadata）
 │   ├── page.tsx                # 首页（组合所有模块）
 │   ├── plan/page.tsx           # 机器采购询价单（5 区块表单）
+│   ├── plan/layout.tsx         # /plan 独立 SEO metadata（canonical /plan/）
+│   ├── robots.ts               # robots.txt（允许全站 + sitemap 指向）
+│   ├── sitemap.ts              # sitemap.xml（/ 与 /plan/，静态导出）
 │   └── globals.css             # 全局样式 + 品牌设计令牌
 ├── components/fusen/
 │   ├── Navbar.tsx              # 固定导航栏（滚动变色 + 移动端菜单 + isPlan 白底）
 │   ├── LanguageSwitcher.tsx    # 27 语言切换下拉
 │   ├── Hero.tsx                # 首屏 Hero（仓库背景图 + CTA + 统计）
 │   ├── Services.tsx            # 4 项服务（检验翻新/出口海运/安装调试/备件售后）
-│   ├── Products.tsx            # 在售机器网格（8 台）
+│   ├── Products.tsx            # 三大产品板块（新机规格表 + 二手螺母/螺栓，含 SEO 专业文案）
 │   ├── Categories.tsx          # 机型分类（8 类）
 │   ├── Brands.tsx              # 可采购品牌（8 个）
 │   ├── WhyUs.tsx               # 4 项优势（通电试机/如实披露/出口经验/价格）
 │   ├── Testimonials.tsx        # 3 条海外采购商评价
+│   ├── Faq.tsx                 # FAQ 折叠列表 + FAQPage JSON-LD（客户端按当前语言生成）
 │   ├── Contact.tsx             # 联系区（WhatsApp/邮箱 + 快速表单）
 │   ├── Footer.tsx              # 页脚
+│   ├── JsonLd.tsx              # Organization + WebSite 结构化数据（服务端渲染）
 │   └── WhatsAppFloat.tsx       # WhatsApp 悬浮按钮（默认导出）
 ├── lib/
 │   ├── i18n/
-│   │   ├── translations.ts     # 首页翻译（en 基准 + ru/ja/ko/es/pt/fr/ar/de，共 9 语言）
+│   │   ├── translations.ts     # 首页翻译（en 基准 + ru/ja/ko/es/pt/fr/ar/de，共 9 语言；导出时 deepMerge seoContent）
+│   │   ├── seo-translations.ts # 8 语言本地化 SEO 内容（products.sectionIntro + faq）
 │   │   ├── plan-translations.ts# 询价单翻译（同样 9 语言）
 │   │   └── LanguageProvider.tsx# 多语言 Context Provider（深度合并英文兜底）
 │   └── fusen/
@@ -43,8 +49,17 @@ src/
 └── public/machines/            # Hero 车间实拍、cover-nut.jpg / cover-bolt.jpg（螺母/螺栓板块封面）等配图
 └── public/real/                # 机器实拍（思进19B-6S、装货发货照片）+ 新机规格表截图
 
-> Products.tsx 首页"在售机器"分为三大板块：① 新打头机（PT/GS/HM 全规格表）②二手螺母冷镦机 ③二手螺栓成型机（按型号聚合品牌×数量）。
+> Products.tsx 首页"在售机器"分为三大板块：① 新打头机（PT/GS/HM 全规格表）②二手螺母冷镦机 ③二手螺栓成型机（按型号聚合品牌×数量）。每个板块编号标题下方渲染本地化专业 SEO 文案（products.sectionIntro）。
 ```
+
+## SEO 架构（重要）
+- **Metadata**：根 `layout.tsx` 用 `metadataBase=https://fusenco.com` + title `template` + `alternates.canonical`；首页、/plan 各自独立 title/description/keywords，/plan 用嵌套 `plan/layout.tsx` 提供 metadata（page.tsx 为 client component）。
+- **sitemap / robots**：`app/sitemap.ts` 输出 `/` 与 `/plan/`；`app/robots.ts` 允许全站抓取并指向 sitemap。两者静态导出为 `out/sitemap.xml`、`out/robots.txt`。
+- **结构化数据（JSON-LD）**：`JsonLd.tsx` 服务端注入 `Organization` + `WebSite`；`Faq.tsx` 客户端按当前语言注入 `FAQPage`。
+- **多语言 SEO 内容**：`seo-translations.ts` 存放 8 种人工语言的板块文案与 FAQ，`translations.ts` 在导出 Record 时通过 `deepMerge` 合并；未翻译语言仍回退英文。
+- **图片 alt**：产品封面 alt 含机型/数量/用途关键词；Hero 为 CSS 背景（装饰性）。
+- 待办（后续）：在 Google Search Console / Bing Webmaster 验证站点并提交 sitemap；考虑机型独立详情页与 hreflang。
+
 
 ## 导航机制（重要）
 全站跳转统一使用浏览器整页导航（`window.location.assign`），**不使用** `next/navigation` 的 `router.push`/`useRouter`。原因：静态导出部署在 Netlify，客户端路由在 /plan ↔ 首页之间的跳转不可靠（曾出现进入 /plan 后无法返回）。锚点通过 URL hash（如 `/#products`）定位，`html` 已设 `scroll-padding-top:80px` 避免被固定导航栏遮挡。仅 /plan 成功页的"返回首页"使用 `next/link`（静态导出会渲染为标准 `<a>`）。

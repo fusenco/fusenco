@@ -62,7 +62,7 @@ function CategoryPanel({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={image}
-          alt={title}
+          alt={`${title} - ${totalQty} used machines in stock at FUSEN, inspected and test-run before export`}
           className="h-full w-full object-cover"
           loading="lazy"
         />
@@ -315,6 +315,9 @@ export function Products() {
             </span>
             {t.products.sections.new}
           </h3>
+          <p className="mt-4 max-w-4xl text-base leading-relaxed text-muted">
+            {t.products.sectionIntro.new}
+          </p>
           <NewMachinesPanel />
         </div>
 
@@ -326,6 +329,9 @@ export function Products() {
             </span>
             {t.products.sections.usedNut}
           </h3>
+          <p className="mt-4 max-w-4xl text-base leading-relaxed text-muted">
+            {t.products.sectionIntro.usedNut}
+          </p>
           <div className="mt-6">
             <CategoryPanel
               title={t.products.nutCat}
@@ -346,6 +352,9 @@ export function Products() {
             </span>
             {t.products.sections.usedBolt}
           </h3>
+          <p className="mt-4 max-w-4xl text-base leading-relaxed text-muted">
+            {t.products.sectionIntro.usedBolt}
+          </p>
           <div className="mt-6">
             <CategoryPanel
               title={t.products.boltCat}

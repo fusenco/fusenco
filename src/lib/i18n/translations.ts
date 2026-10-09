@@ -4,6 +4,8 @@
 // over English so missing keys never render blank.
 // ============================================================
 
+import { seoContent } from "./seo-translations";
+
 export interface NavTranslation {
   home: string;
   products: string;
@@ -81,6 +83,11 @@ export interface Translation {
       usedNut: string;
       usedBolt: string;
     };
+    sectionIntro: {
+      new: string;
+      usedNut: string;
+      usedBolt: string;
+    };
   };
   categories: {
     badge: string;
@@ -104,6 +111,12 @@ export interface Translation {
     badge: string;
     title: string;
     items: Testimonial[];
+  };
+  faq: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    items: ListItem[];
   };
   contact: {
     badge: string;
@@ -294,6 +307,11 @@ export const en: Translation = {
       usedNut: "Used Nut Cold Headers",
       usedBolt: "Used Bolt & Screw Formers",
     },
+    sectionIntro: {
+      new: "Our brand-new multi-station bolt heading machines cover the PT, GS and HM series, built for fastener makers who want a current-generation machine with a full warranty, CE-ready electrics and factory support. Choose the standard PT line for general bolts, the high-speed GS line for high-volume production, or the HM combination-die line for complex parts. Every model is delivered with complete technical specifications, custom die design and commissioning support, so you can move from order to stable production without guesswork.",
+      usedNut: "A nut cold header — also called a nut former — automatically forms hex and flange nuts from coiled wire across several progressive stations. Our used nut formers span the common 11B, 14B, 17B, 19B and 24B sizes, mostly 6-station (6S) machines from proven makers such as Sijin, Yeswin and Jernyao. Each second-hand machine is powered on and inspected before export, so you can see it run and check real tolerances on video. Buying a tested used nut former is a cost-effective way to add capacity for M5 to M24 nuts at a fraction of the price of new equipment.",
+      usedBolt: "Multi-station bolt and screw formers shape bolts, screws and special fasteners through a sequence of dies. Our used stock covers compact 10B2S / 13B3S machines through large 62S–254SL multi-die formers, sourced from established brands including Sijin, Chunzu, BIAULI, Shengtuo, Tengfeng and Guyou. Every used bolt former is inspected and test-run before loading, with honest disclosure of wear and repairs. With hundreds of units shipped and complete export documentation, we help fastener factories worldwide buy reliable second-hand formers and get them into production quickly.",
+    },
   },
   categories: {
     badge: "By Type",
@@ -362,6 +380,34 @@ export const en: Translation = {
           "I have bought three nut formers from them. Every unit was tested honestly.",
         name: "D. Kowalski",
         role: "Fastener Manufacturer, Poland",
+      },
+    ],
+  },
+  faq: {
+    badge: "FAQ",
+    title: "Frequently Asked Questions",
+    subtitle:
+      "Practical answers for buyers sourcing used cold heading machines from China.",
+    items: [
+      {
+        title: "Can I see the machine running before I pay?",
+        desc: "Yes. We power on every used machine and send you a live or recorded video showing it running, so you can hear it and check real tolerances before making payment.",
+      },
+      {
+        title: "How do you ship a machine to my country?",
+        desc: "We handle full export documentation, secure container loading and sea freight to your nearest port. We can also arrange insurance and customs-clearance support on request.",
+      },
+      {
+        title: "What is the difference between the 11B, 14B, 19B and 24B nut machines?",
+        desc: "The number indicates the machine size and the maximum nut it can form — from small 11B units up to 24B machines for large M20–M24 nuts. Larger machines use thicker wire and have heavier frames and motor power.",
+      },
+      {
+        title: "Do you provide installation, dies and spare parts?",
+        desc: "Yes. We offer remote or on-site commissioning, custom die design, wear parts and ongoing technical support so the machine can reach stable production in your factory.",
+      },
+      {
+        title: "What payment terms do you accept?",
+        desc: "We commonly accept a deposit to confirm the order with the balance paid before loading, by bank transfer. Exact terms are agreed per machine and can be discussed on WhatsApp or by email.",
       },
     ],
   },
@@ -1636,15 +1682,46 @@ export const de: DeepPartial<Translation> = {
 
 // === MORE_LANGUAGES ===
 
-export const translations: Record<string, DeepPartial<Translation>> = {
-  en,
-  ru,
-  ja,
-  ko,
-  es,
-  pt,
-  fr,
-  ar,
-  de,
-  // === LANG_MAP ===
-};
+export const translations: Record<string, DeepPartial<Translation>> = (() => {
+  const base: Record<string, DeepPartial<Translation>> = {
+    en,
+    ru,
+    ja,
+    ko,
+    es,
+    pt,
+    fr,
+    ar,
+    de,
+    // === LANG_MAP ===
+  };
+  // Localized professional SEO copy (section intros + FAQ) is deep-merged
+  // over the hand-written translations so missing keys still fall back.
+  for (const code of Object.keys(seoContent)) {
+    const patch = seoContent[code as LanguageCode];
+    if (patch) {
+      base[code] = deepMerge(base[code] ?? {}, patch);
+    }
+  }
+  return base;
+})();
+
+function deepMerge<T extends object>(base: T, patch: DeepPartial<T>): T {
+  const result: Record<string, unknown> = { ...(base as Record<string, unknown>) };
+  for (const key of Object.keys(patch as object)) {
+    const b = result[key];
+    const p = (patch as Record<string, unknown>)[key];
+    if (Array.isArray(p)) {
+      result[key] = p;
+    } else if (isPlainObjectValue(p) && isPlainObjectValue(b)) {
+      result[key] = deepMerge(b as object, p as DeepPartial<typeof b>);
+    } else if (p !== undefined) {
+      result[key] = p;
+    }
+  }
+  return result as T;
+}
+
+function isPlainObjectValue(v: unknown): v is Record<string, unknown> {
+  return typeof v === "object" && v !== null && !Array.isArray(v);
+}
