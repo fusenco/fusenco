@@ -1,17 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export function Navbar() {
   const { t } = useLanguage();
-  const router = useRouter();
-  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  const isPlan = pathname === "/plan";
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -21,33 +16,20 @@ export function Navbar() {
   }, [mobileOpen]);
 
   const links = [
-    { href: "/#home", label: t.nav.home, id: "home" },
-    { href: "/#products", label: t.nav.products, id: "products" },
-    { href: "/#categories", label: t.nav.categories, id: "categories" },
-    { href: "/#brands", label: t.nav.brands, id: "brands" },
-    { href: "/#whyus", label: t.nav.whyUs, id: "whyus" },
+    { href: "/#home", label: t.nav.home },
+    { href: "/#products", label: t.nav.products },
+    { href: "/#categories", label: t.nav.categories },
+    { href: "/#brands", label: t.nav.brands },
+    { href: "/#whyus", label: t.nav.whyUs },
     { href: "/plan", label: t.nav.inquiry },
-    { href: "/#contact", label: t.nav.contact, id: "contact" },
+    { href: "/#contact", label: t.nav.contact },
   ];
 
-  const handleNavClick = (href: string, id?: string) => {
+  // Use full-page navigation: reliable for the static export on Netlify,
+  // including returning from /plan back to a homepage section.
+  const handleNavClick = (href: string) => {
     setMobileOpen(false);
-
-    if (href === "/plan") {
-      router.push("/plan");
-      return;
-    }
-
-    if (isPlan) {
-      router.push("/");
-      window.setTimeout(() => {
-        if (id) {
-          document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 180);
-    } else if (id) {
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    }
+    window.location.assign(href);
   };
 
   return (
@@ -67,7 +49,7 @@ export function Navbar() {
       <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         {/* Logo */}
         <button
-          onClick={() => handleNavClick("/#home", "home")}
+          onClick={() => handleNavClick("/#home")}
           className="flex shrink-0 items-center gap-2"
         >
           <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/30 bg-white/20 backdrop-blur-sm">
@@ -88,7 +70,7 @@ export function Navbar() {
           {links.map((l, i: number) => (
             <button
               key={i}
-              onClick={() => handleNavClick(l.href, l.id)}
+              onClick={() => handleNavClick(l.href)}
               className="rounded-full bg-white/15 px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:bg-white/25"
             >
               {l.label}
@@ -101,7 +83,7 @@ export function Navbar() {
           <LanguageSwitcher />
           <button
             onClick={() => handleNavClick("/plan")}
-            className="hidden items-center rounded-full bg-white px-5 py-2 text-sm font-semibold text-brand-red transition-all hover:bg-white/90 hover:shadow-lg sm:inline-flex"
+            className="hidden items-center rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-brand-red transition-all hover:bg-white/90 hover:shadow-lg sm:inline-flex"
           >
             {t.nav.cta}
           </button>
@@ -162,7 +144,7 @@ export function Navbar() {
             {links.map((l, i: number) => (
               <button
                 key={i}
-                onClick={() => handleNavClick(l.href, l.id)}
+                onClick={() => handleNavClick(l.href)}
                 className="block w-full rounded-lg px-4 py-3 text-start text-sm font-medium text-white transition hover:bg-white/20"
               >
                 {l.label}

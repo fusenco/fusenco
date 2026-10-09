@@ -2,11 +2,9 @@
 
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { CONTACT_INFO, MACHINE_CATEGORIES } from "@/lib/fusen/data";
-import { useRouter } from "next/navigation";
 
 export function Footer() {
   const { t } = useLanguage();
-  const router = useRouter();
   const year = new Date().getFullYear();
 
   return (
@@ -40,7 +38,7 @@ export function Footer() {
               {MACHINE_CATEGORIES.map((c, i: number) => (
                 <li key={i}>
                   <button
-                    onClick={() => router.push("/plan")}
+                    onClick={() => window.location.assign("/plan")}
                     className="text-sm text-white/60 transition hover:text-gold"
                   >
                     {c.label}
@@ -57,23 +55,14 @@ export function Footer() {
             </h3>
             <ul className="mt-4 space-y-2.5">
               {[
-                { id: "home", label: t.nav.home },
-                { id: "products", label: t.nav.products },
-                { id: "whyus", label: t.nav.whyUs },
-                { id: "contact", label: t.nav.contact },
+                { hash: "#home", label: t.nav.home },
+                { hash: "#products", label: t.nav.products },
+                { hash: "#whyus", label: t.nav.whyUs },
+                { hash: "#contact", label: t.nav.contact },
               ].map((l) => (
-                <li key={l.id}>
+                <li key={l.hash}>
                   <button
-                    onClick={() => {
-                      router.push("/");
-                      setTimeout(
-                        () =>
-                          document
-                            .getElementById(l.id)
-                            ?.scrollIntoView({ behavior: "smooth" }),
-                        120
-                      );
-                    }}
+                    onClick={() => window.location.assign(`/${l.hash}`)}
                     className="text-sm text-white/60 transition hover:text-gold"
                   >
                     {l.label}

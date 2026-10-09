@@ -40,11 +40,14 @@ src/
 │   └── fusen/
 │       ├── data.ts             # CONTACT_INFO、MACHINE_BRANDS、MACHINE_CATEGORIES
 │       └── inventory.ts        # 新打头机(NEW_BOLT_MACHINES: PT/GS/HM规格表) + 二手库存 NUT_STOCK(36台)+BOLT_STOCK(含春日80台) + CATEGORY_IMAGE
-└── public/machines/            # Hero 车间实拍等配图
+└── public/machines/            # Hero 车间实拍、cover-nut.jpg / cover-bolt.jpg（螺母/螺栓板块封面）等配图
 └── public/real/                # 机器实拍（思进19B-6S、装货发货照片）+ 新机规格表截图
 
 > Products.tsx 首页"在售机器"分为三大板块：① 新打头机（PT/GS/HM 全规格表）②二手螺母冷镦机 ③二手螺栓成型机（按型号聚合品牌×数量）。
 ```
+
+## 导航机制（重要）
+全站跳转统一使用浏览器整页导航（`window.location.assign`），**不使用** `next/navigation` 的 `router.push`/`useRouter`。原因：静态导出部署在 Netlify，客户端路由在 /plan ↔ 首页之间的跳转不可靠（曾出现进入 /plan 后无法返回）。锚点通过 URL hash（如 `/#products`）定位，`html` 已设 `scroll-padding-top:80px` 避免被固定导航栏遮挡。仅 /plan 成功页的"返回首页"使用 `next/link`（静态导出会渲染为标准 `<a>`）。
 
 ## 品牌设计令牌
 - **主色（中国红）**: #8B1A1A (`brand-red`)

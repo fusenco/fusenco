@@ -1,11 +1,9 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
-import { useRouter } from "next/navigation";
 
 export function Categories() {
   const { t } = useLanguage();
-  const router = useRouter();
 
   return (
     <section id="categories" className="bg-cream py-24 md:py-32">
@@ -24,7 +22,7 @@ export function Categories() {
           {t.categories.items.map((label: string, i: number) => (
             <button
               key={i}
-              onClick={() => router.push("/plan")}
+              onClick={() => window.location.assign("/plan")}
               className="group flex items-center justify-between rounded-xl border border-border bg-white px-6 py-5 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-gold hover:shadow-md"
             >
               <span className="font-serif text-lg text-foreground transition group-hover:text-brand-red">

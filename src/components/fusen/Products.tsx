@@ -1,7 +1,6 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
-import { useRouter } from "next/navigation";
 import {
   NUT_STOCK,
   BOLT_STOCK,
@@ -238,8 +237,7 @@ function NewMachinesPanel() {
 
 export function Products() {
   const { t } = useLanguage();
-  const router = useRouter();
-  const goInquiry = () => router.push("/plan");
+  const goInquiry = () => window.location.assign("/plan");
 
   return (
     <section id="products" className="bg-cream py-24 md:py-32">

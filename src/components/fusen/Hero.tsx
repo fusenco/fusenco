@@ -1,11 +1,9 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
-import { useRouter } from "next/navigation";
 
 export function Hero() {
   const { t } = useLanguage();
-  const router = useRouter();
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -48,7 +46,7 @@ export function Hero() {
 
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <button
-            onClick={() => router.push("/plan")}
+            onClick={() => window.location.assign("/plan")}
             className="inline-flex items-center gap-2 rounded-full bg-brand-red px-8 py-4 text-base font-semibold text-white transition-all duration-300 hover:bg-brand-red-light hover:shadow-lg hover:shadow-brand-red/30"
           >
             {t.hero.cta1}

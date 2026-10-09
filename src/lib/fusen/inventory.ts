@@ -156,6 +156,6 @@ export const NEW_MACHINE_SERIES = {
 
 // Representative real photo per category
 export const CATEGORY_IMAGE = {
-  nut: "/real/sijin-19b6s-front.jpg",
-  bolt: "/real/shipping-yard.jpg",
+  nut: "/machines/cover-nut.jpg",
+  bolt: "/machines/cover-bolt.jpg",
 } as const;

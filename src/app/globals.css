@@ -199,9 +199,10 @@
   }
 }
 
-/* Smooth scrolling */
+/* Smooth scrolling; offset for the fixed navbar when jumping to anchors */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
 /* Fade in animation */
