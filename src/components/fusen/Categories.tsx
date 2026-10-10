@@ -15,7 +15,7 @@ export function Categories() {
           <h2 className="mt-3 font-serif text-4xl text-foreground md:text-5xl">
             {t.categories.title}
           </h2>
-          <p className="mt-5 text-lg text-muted">{t.categories.subtitle}</p>
+          <p className="mt-5 text-lg text-muted-foreground">{t.categories.subtitle}</p>
         </div>
 
         <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

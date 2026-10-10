@@ -16,7 +16,7 @@ export function Brands() {
           <h2 className="mt-3 font-serif text-4xl text-foreground md:text-5xl">
             {t.brands.title}
           </h2>
-          <p className="mt-5 text-lg text-muted">{t.brands.subtitle}</p>
+          <p className="mt-5 text-lg text-muted-foreground">{t.brands.subtitle}</p>
         </div>
 
         <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">

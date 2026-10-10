@@ -46,7 +46,7 @@ export function Services() {
           <h2 className="mt-3 font-serif text-4xl text-foreground md:text-5xl">
             {t.services.title}
           </h2>
-          <p className="mt-5 text-lg text-muted">{t.services.subtitle}</p>
+          <p className="mt-5 text-lg text-muted-foreground">{t.services.subtitle}</p>
         </div>
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -73,7 +73,7 @@ export function Services() {
                 <h3 className="mt-6 font-serif text-xl text-foreground">
                   {item.title}
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted">
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   {item.desc}
                 </p>
               </div>

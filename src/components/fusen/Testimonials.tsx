@@ -42,7 +42,7 @@ export function Testimonials() {
                   <div className="font-serif text-lg text-brand-red">
                     {item.name}
                   </div>
-                  <div className="text-sm text-muted">{item.role}</div>
+                  <div className="text-sm text-muted-foreground">{item.role}</div>
                 </figcaption>
               </figure>
             )

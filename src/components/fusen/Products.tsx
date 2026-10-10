@@ -94,7 +94,7 @@ function CategoryPanel({
                 {row.entries.slice(0, 6).map((e) => (
                   <span
                     key={e.id}
-                    className="rounded-full border border-border bg-white px-2.5 py-0.5 text-xs text-muted"
+                    className="rounded-full border border-border bg-white px-2.5 py-0.5 text-xs text-muted-foreground"
                   >
                     {e.brand}
                     <b className="ml-1 font-semibold text-brand-red">
@@ -106,7 +106,7 @@ function CategoryPanel({
             </div>
             <div className="flex items-center justify-end gap-3">
               {row.entries.some((e) => e.note) && (
-                <span className="max-w-[220px] truncate text-xs italic text-muted">
+                <span className="max-w-[220px] truncate text-xs italic text-muted-foreground">
                   {row.entries
                     .filter((e) => e.note)
                     .map((e) => e.note)
@@ -126,7 +126,7 @@ function CategoryPanel({
           </li>
         ))}
         {rows.length > 16 && (
-          <li className="px-6 py-3 text-center text-sm text-muted">
+          <li className="px-6 py-3 text-center text-sm text-muted-foreground">
             + {rows.length - 16} more models ·{" "}
             <button
               onClick={onInquire}
@@ -162,7 +162,7 @@ function NewMachineTable({ series }: { series: string }) {
       </div>
       <table className="w-full min-w-[720px] text-left text-sm">
         <thead>
-          <tr className="border-b border-border bg-cream/50 text-xs uppercase tracking-wide text-muted">
+          <tr className="border-b border-border bg-cream/50 text-xs uppercase tracking-wide text-muted-foreground">
             <th className="px-5 py-3 font-semibold">{nm.model}</th>
             <th className="px-3 py-3 font-semibold">{nm.maxDia}</th>
             <th className="px-3 py-3 font-semibold">{nm.maxLength}</th>
@@ -258,7 +258,7 @@ export function Products() {
             <h2 className="mt-3 font-serif text-4xl text-foreground md:text-5xl">
               {t.products.title}
             </h2>
-            <p className="mt-5 text-lg text-muted">{t.products.subtitle}</p>
+            <p className="mt-5 text-lg text-muted-foreground">{t.products.subtitle}</p>
           </div>
           <button
             onClick={goInquiry}
@@ -287,7 +287,7 @@ export function Products() {
             <div className="font-serif text-4xl text-brand-red">
               {NEW_BOLT_MACHINES.length}
             </div>
-            <div className="mt-1 text-sm text-muted">
+            <div className="mt-1 text-sm text-muted-foreground">
               {t.products.sections.new}
             </div>
           </div>
@@ -301,7 +301,7 @@ export function Products() {
             <div className="font-serif text-4xl text-brand-red">
               {BOLT_TOTAL}
             </div>
-            <div className="mt-1 text-sm text-muted">
+            <div className="mt-1 text-sm text-muted-foreground">
               {t.products.sections.usedBolt}
             </div>
           </div>
@@ -323,7 +323,7 @@ export function Products() {
             </span>
             {t.products.sections.new}
           </h3>
-          <p className="mt-4 max-w-4xl text-base leading-relaxed text-muted">
+          <p className="mt-4 max-w-4xl text-base leading-relaxed text-muted-foreground">
             {t.products.sectionIntro.new}
           </p>
           <NewMachinesPanel />
@@ -337,7 +337,7 @@ export function Products() {
             </span>
             {t.products.sections.usedNut}
           </h3>
-          <p className="mt-4 max-w-4xl text-base leading-relaxed text-muted">
+          <p className="mt-4 max-w-4xl text-base leading-relaxed text-muted-foreground">
             {t.products.sectionIntro.usedNut}
           </p>
           <div className="mt-6">
@@ -360,7 +360,7 @@ export function Products() {
             </span>
             {t.products.sections.usedBolt}
           </h3>
-          <p className="mt-4 max-w-4xl text-base leading-relaxed text-muted">
+          <p className="mt-4 max-w-4xl text-base leading-relaxed text-muted-foreground">
             {t.products.sectionIntro.usedBolt}
           </p>
           <div className="mt-6">

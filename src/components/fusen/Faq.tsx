@@ -42,7 +42,7 @@ export function Faq() {
           <h2 className="mt-3 font-serif text-4xl text-foreground md:text-5xl">
             {t.faq.title}
           </h2>
-          <p className="mt-5 text-lg text-muted">{t.faq.subtitle}</p>
+          <p className="mt-5 text-lg text-muted-foreground">{t.faq.subtitle}</p>
         </div>
 
         <div className="mt-12 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-cream/40">
@@ -88,7 +88,7 @@ export function Faq() {
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <p className="px-6 pb-6 text-base leading-relaxed text-muted">
+                    <p className="px-6 pb-6 text-base leading-relaxed text-muted-foreground">
                       {item.desc}
                     </p>
                   </div>

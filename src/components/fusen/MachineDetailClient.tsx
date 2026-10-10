@@ -103,7 +103,7 @@ export function MachineDetailClient({ detail }: { detail: MachineDetail }) {
                   <div>
                     <div className="font-semibold text-foreground">{b.brand}</div>
                     {b.note && (
-                      <div className="mt-0.5 text-xs italic text-muted">{b.note}</div>
+                      <div className="mt-0.5 text-xs italic text-muted-foreground">{b.note}</div>
                     )}
                   </div>
                   <span className="rounded-full bg-dark px-3 py-1 text-xs font-semibold text-white">

@@ -71,7 +71,7 @@ function SectionTitle({
 }
 
 const inputCls =
-  "w-full rounded-lg border border-border bg-white px-4 py-3 text-foreground placeholder:text-muted/60 focus:border-brand-red focus:outline-none focus:ring-1 focus:ring-brand-red";
+  "w-full rounded-lg border border-border bg-white px-4 py-3 text-foreground placeholder:text-muted-foreground/60 focus:border-brand-red focus:outline-none focus:ring-1 focus:ring-brand-red";
 const labelCls = "mb-2 block text-sm font-medium text-foreground";
 
 export default function PlanPage() {
@@ -153,7 +153,7 @@ export default function PlanPage() {
             <h1 className="mt-6 font-serif text-3xl text-foreground">
               {t.successTitle}
             </h1>
-            <p className="mt-4 leading-relaxed text-muted">{t.successText}</p>
+            <p className="mt-4 leading-relaxed text-muted-foreground">{t.successText}</p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
               <a
@@ -174,7 +174,7 @@ export default function PlanPage() {
 
             <button
               onClick={() => setSubmitted(false)}
-              className="mt-6 text-sm text-muted underline-offset-4 hover:text-brand-red hover:underline"
+              className="mt-6 text-sm text-muted-foreground underline-offset-4 hover:text-brand-red hover:underline"
             >
               {t.newInquiry}
             </button>
@@ -212,10 +212,10 @@ export default function PlanPage() {
             <h1 className="mt-6 font-serif text-4xl text-foreground md:text-5xl">
               {t.pageTitle}
             </h1>
-            <p className="mx-auto mt-5 max-w-2xl text-lg text-muted">
+            <p className="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground">
               {t.pageSubtitle}
             </p>
-            <p className="mt-3 text-sm text-muted/70">{t.requiredNote}</p>
+            <p className="mt-3 text-sm text-muted-foreground/70">{t.requiredNote}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="mt-14 space-y-8">
@@ -581,7 +581,7 @@ export default function PlanPage() {
                   className="mt-1 h-4 w-4 shrink-0 accent-brand-red"
                   onChange={() => setAgreeError(false)}
                 />
-                <span className="text-sm leading-relaxed text-muted">
+                <span className="text-sm leading-relaxed text-muted-foreground">
                   {t.fields.agree}
                 </span>
               </label>

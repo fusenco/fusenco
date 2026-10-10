@@ -66,7 +66,7 @@ export function LanguageSwitcher() {
               }`}
             >
               <span>{l.native}</span>
-              <span className="text-xs uppercase text-muted">{l.code}</span>
+              <span className="text-xs uppercase text-muted-foreground">{l.code}</span>
             </button>
           ))}
         </div>
