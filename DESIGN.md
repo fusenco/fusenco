@@ -16,7 +16,7 @@
 - 深色背景：#1A1410（dark，WhyUs/Contact 区）
 - 米白背景：#F8F5F0（cream，页面主背景）
 - 纯白：#FFFFFF（卡片/表单背景）
-- 次要文字：#6B5D52（muted）
+- 次要文字：#574C43（muted，加深版）
 - 边框色：#E5DDD3
 
 ### 字体
