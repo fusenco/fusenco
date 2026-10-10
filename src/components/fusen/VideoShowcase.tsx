@@ -84,7 +84,7 @@ export function VideoShowcase() {
                 playsInline
                 poster="/machines/cover-nut.jpg"
               >
-                <source src="/videos/product-tuning.mp4" type="video/mp4" />
+                <source src="/videos/product-tuning-h264.mp4" type="video/mp4" />
                 Your browser does not support embedded video.
               </video>
             </div>

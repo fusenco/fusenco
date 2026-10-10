@@ -10,7 +10,7 @@ export interface NavTranslation {
   home: string;
   products: string;
   categories: string;
-  brands: string;
+  news: string;
   whyUs: string;
   inquiry: string;
   contact: string;
@@ -235,7 +235,8 @@ export const en: Translation = {
     home: "Home",
     products: "Machines",
     categories: "Categories",
-    brands: "Brands",
+    news: "News",
+    
     whyUs: "Why Us",
     inquiry: "Inquiry",
     contact: "Contact",
@@ -465,7 +466,7 @@ export const ru: DeepPartial<Translation> = {
     home: "Главная",
     products: "Станки",
     categories: "Категории",
-    brands: "Бренды",
+    news: "Новости",
     whyUs: "Почему мы",
     inquiry: "Запрос",
     contact: "Контакты",
@@ -622,7 +623,7 @@ export const ja: DeepPartial<Translation> = {
     home: "ホーム",
     products: "機械",
     categories: "カテゴリー",
-    brands: "ブランド",
+    news: "ニュース",
     whyUs: "選ぶ理由",
     inquiry: "引合",
     contact: "お問い合わせ",
@@ -777,7 +778,7 @@ export const ko: DeepPartial<Translation> = {
     home: "홈",
     products: "기계",
     categories: "카테고리",
-    brands: "브랜드",
+    news: "뉴스",
     whyUs: "선택 이유",
     inquiry: "문의",
     contact: "연락처",
@@ -928,7 +929,7 @@ export const es: DeepPartial<Translation> = {
     home: "Inicio",
     products: "Máquinas",
     categories: "Categorías",
-    brands: "Marcas",
+    news: "Noticias",
     whyUs: "Por qué nosotros",
     inquiry: "Consulta",
     contact: "Contacto",
@@ -1085,7 +1086,7 @@ export const pt: DeepPartial<Translation> = {
     home: "Início",
     products: "Máquinas",
     categories: "Categorias",
-    brands: "Marcas",
+    news: "Notícias",
     whyUs: "Por que nós",
     inquiry: "Consulta",
     contact: "Contato",
@@ -1242,7 +1243,7 @@ export const fr: DeepPartial<Translation> = {
     home: "Accueil",
     products: "Machines",
     categories: "Catégories",
-    brands: "Marques",
+    news: "Actualités",
     whyUs: "Pourquoi nous",
     inquiry: "Demande",
     contact: "Contact",
@@ -1399,7 +1400,7 @@ export const ar: DeepPartial<Translation> = {
     home: "الرئيسية",
     products: "الماكينات",
     categories: "الفئات",
-    brands: "العلامات",
+    news: "الأخبار",
     whyUs: "لماذا نحن",
     inquiry: "استفسار",
     contact: "اتصل بنا",
@@ -1553,7 +1554,7 @@ export const de: DeepPartial<Translation> = {
     home: "Startseite",
     products: "Maschinen",
     categories: "Kategorien",
-    brands: "Marken",
+    news: "Neuigkeiten",
     whyUs: "Warum wir",
     inquiry: "Anfrage",
     contact: "Kontakt",

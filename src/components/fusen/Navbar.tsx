@@ -19,7 +19,7 @@ export function Navbar() {
     { href: "/#home", label: t.nav.home },
     { href: "/#products", label: t.nav.products },
     { href: "/#categories", label: t.nav.categories },
-    { href: "/#brands", label: t.nav.brands },
+    { href: "/blog", label: t.nav.news },
     { href: "/#whyus", label: t.nav.whyUs },
     { href: "/plan", label: t.nav.inquiry },
     { href: "/#contact", label: t.nav.contact },

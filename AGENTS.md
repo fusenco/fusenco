@@ -18,6 +18,9 @@ src/
 │   ├── layout.tsx              # 根布局（LanguageProvider + WhatsAppFloat + JsonLd、字体、SEO metadata）
 │   ├── page.tsx                # 首页（组合所有模块）
 │   ├── machines/[model]/page.tsx # 机型详情页（SSG 静态导出全部机型；server 分发 + generateStaticParams/Metadata/Product JSON-LD）
+│   ├── blog/layout.tsx         # /blog 独立 SEO metadata（canonical /blog/）
+│   ├── blog/page.tsx           # 新闻博客列表页（文章+视频，按类型筛选）
+│   ├── blog/[slug]/page.tsx    # 博客文章/视频详情页（SSG 静态导出；BlogPosting/VideoObject JSON-LD + metadata）
 │   ├── plan/page.tsx           # 机器采购询价单（5 区块表单）
 │   ├── plan/layout.tsx         # /plan 独立 SEO metadata（canonical /plan/）
 │   ├── robots.ts               # robots.txt（允许全站 + sitemap 指向）
@@ -35,6 +38,7 @@ src/
 │   ├── WhyUs.tsx               # 4 项优势（通电试机/如实披露/出口经验/价格）
 │   ├── Testimonials.tsx        # 3 条海外采购商评价
 │   ├── Faq.tsx                 # FAQ 折叠列表 + FAQPage JSON-LD（客户端按当前语言生成）
+│   ├── BlogPostClient.tsx       # 博客详情页 client 组件（useLanguage 渲染 + VideoObject/BlogPosting JSON-LD + Navbar/Footer）
 │   ├── Contact.tsx             # 联系区（WhatsApp/邮箱 + 快速表单）
 │   ├── Footer.tsx              # 页脚
 │   ├── JsonLd.tsx              # Organization + WebSite 结构化数据（服务端渲染）
@@ -47,18 +51,19 @@ src/
 │   │   └── LanguageProvider.tsx# 多语言 Context Provider（深度合并英文兜底）
 │   └── fusen/
 │       ├── data.ts             # CONTACT_INFO、MACHINE_BRANDS、MACHINE_CATEGORIES
-│       └── inventory.ts        # 新打头机(NEW_BOLT_MACHINES: PT/GS/HM规格表) + 二手库存 NUT_STOCK(36台)+BOLT_STOCK(含春日80台) + CATEGORY_IMAGE
-│       └── machines.ts         # 机型详情查询：getMachineDetail(机型聚合品牌×数量)、allModels/slug 映射（供 /machines/[model] server+client 共用）
+│       ├── inventory.ts        # 新打头机(NEW_BOLT_MACHINES: PT/GS/HM规格表) + 二手库存 NUT_STOCK(36台)+BOLT_STOCK(含春日80台) + CATEGORY_IMAGE
+│       ├── machines.ts         # 机型详情查询：getMachineDetail(机型聚合品牌×数量)、allModels/slug 映射（供 /machines/[model] server+client 共用）
+│       └── blog.ts             # 博客数据模块：BLOG_CONTENT + BLOG_POSTS（文章/视频）、getPostBySlug/isArticlePost/pickLang
 └── public/machines/            # Hero 车间实拍、cover-nut.jpg / cover-bolt.jpg（螺母/螺栓板块封面）等配图
 └── public/real/                # 机器实拍（思进19B-6S、装货发货照片）+ 新机规格表截图
-└── public/videos/              # product-tuning.mp4（产品调试视频，VideoShowcase 区块引用）
+└── public/videos/              # product-tuning.mp4（产品调试视频，HEVC 原片）+ product-tuning-h264.mp4（H.264 转码版，播放器实际使用）
 
 > Products.tsx 首页"在售机器"分为三大板块：① 新打头机（PT/GS/HM 全规格表）②二手螺母冷镦机 ③二手螺栓成型机（按型号聚合品牌×数量）。每个板块编号标题下方渲染本地化专业 SEO 文案（products.sectionIntro）。
 ```
 
 ## SEO 架构（重要）
 - **Metadata**：根 `layout.tsx` 用 `metadataBase=https://fusenco.com` + title `template` + `alternates.canonical`；首页、/plan 各自独立 title/description/keywords，/plan 用嵌套 `plan/layout.tsx` 提供 metadata（page.tsx 为 client component）。
-- **sitemap / robots**：`app/sitemap.ts` 输出 `/` 与 `/plan/`；`app/robots.ts` 允许全站抓取并指向 sitemap。两者静态导出为 `out/sitemap.xml`、`out/robots.txt`。
+- **sitemap / robots**：`app/sitemap.ts` 输出 `/`、`/plan/`、`/blog/` 与全部机器详情页、博客文章；`app/robots.ts` 允许全站抓取并指向 sitemap。两者静态导出为 `out/sitemap.xml`、`out/robots.txt`。
 - **结构化数据（JSON-LD）**：`JsonLd.tsx` 服务端注入 `Organization` + `WebSite`；`Faq.tsx` 客户端按当前语言注入 `FAQPage`。
 - **多语言 SEO 内容**：`seo-translations.ts` 存放 8 种人工语言的板块文案与 FAQ，`translations.ts` 在导出 Record 时通过 `deepMerge` 合并；未翻译语言仍回退英文。
 - **图片 alt**：产品封面 alt 含机型/数量/用途关键词；Hero 为 CSS 背景（装饰性）。
@@ -83,6 +88,14 @@ src/
 - 阿拉伯语、波斯语自动切换 RTL 布局
 - 语言选择持久化到 localStorage（key: `fusen-lang`）
 - 所有文本通过 `useLanguage().t` 获取
+
+## 新闻博客页面（/blog）
+- 用于发布文章与视频，提升网站流量（替代导航中原"Brands"入口）
+- 导航链接：`/blog`（`t.nav.news`，9 语言已翻译；原 `nav.brands` 字段已并入 `nav.news`）
+- 列表页（app/blog/page.tsx）：`BlogPage` client 组件，深色头部 + 类型筛选（All/Articles/Videos）+ 卡片网格；视频卡片内嵌 controls 播放器，文章卡片显示封面/摘要
+- 详情页（app/blog/[slug]/page.tsx）：SSG 静态导出全部文章；server 端生成 `BlogPosting`（文章）JSON-LD，客户端生成 `VideoObject`（视频）JSON-LD；含 CTA 引导询价
+- 数据源：`src/lib/fusen/blog.ts` 的 `BLOG_POSTS`（文章 article / 视频 video，标题/摘要/正文 9 语言），`BLOG_CONTENT` 为页面文案；新增内容直接往数组添加对象即可
+- **视频兼容性**：所有嵌入式 `<video>` 必须使用 H.264（H.265/HEVC 会被浏览器忽略只出声音）。`public/videos/product-tuning-h264.mp4` 为转码兼容版
 
 ## 询价单页面（/plan）
 - 5 个编号区块：

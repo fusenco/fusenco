@@ -81,3 +81,12 @@
 - 提交区：同意条款复选框（未勾选显示错误提示）+ 红色圆角全宽提交按钮
 - 提交成功：绿色勾选卡片 + WhatsApp 绿色按钮 + 返回首页（next/link）+ 再填一单
 - 表单提交到 Formspree，失败时打开 WhatsApp
+
+## 新闻博客页面（/blog）
+- 导航入口：`/blog`（替代原 Brands），标签用 `t.nav.news`；导航点击用整页导航 `window.location.assign("/blog")`
+- 头部：深色背景 + 金色 badge + serif 大标题 + 概述；居中排版
+- 类型筛选：圆角 chip 按钮组（All / Articles / Videos），选中态 brand-red 白字
+- 卡片：白底 rounded-2xl；视频卡片顶部内嵌 controls 播放器 + 左上红色 Video 徽章；文章卡片 16:9 封面 + 金色 Article 徽章；日期/类型小字 + serif 标题（hover 变红）+ 摘要
+- 卡片悬浮：translate-y + shadow 加深（同机器卡片）
+- 详情页：深色头部（serif 大标题 + 日期/类型）+ 文章正文或视频播放器；底部询价 CTA 白卡
+- 视频兼容性规范：嵌入式 `<video>` 一律用 H.264 编码（H.265 会被浏览器忽略）。播放器 `controls` + `preload="metadata"` + `playsInline` + `poster`，用 `<source type="video/mp4">` 声明
