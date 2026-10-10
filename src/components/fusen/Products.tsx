@@ -56,6 +56,8 @@ function CategoryPanel({
   const rows = groupByModel(items);
   const totalQty = items.reduce((s, i) => s + i.qty, 0);
   const { t } = useLanguage();
+  const goModel = (model: string) =>
+    window.location.assign(`/machines/${model.toLowerCase().replace("/", "-")}`);
   return (
     <div className="overflow-hidden rounded-2xl border border-border bg-white shadow-sm">
       <div className="relative h-64 w-full overflow-hidden md:h-80">
@@ -111,6 +113,12 @@ function CategoryPanel({
                     .join(" · ")}
                 </span>
               )}
+              <button
+                onClick={() => goModel(row.model)}
+                className="shrink-0 rounded-full border border-brand-red/30 px-3 py-1 text-xs font-semibold text-brand-red transition hover:bg-brand-red hover:text-white"
+              >
+                {t.products?.view ?? "View"}
+              </button>
               <span className="shrink-0 rounded-full bg-dark px-3 py-1 text-xs font-semibold text-white">
                 {row.totalQty} {qtyLabel}
               </span>

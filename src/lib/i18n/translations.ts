@@ -58,6 +58,7 @@ export interface Translation {
     all: string;
     unitsLabel: string;
     modelsLabel: string;
+    view: string;
     nutCat: string;
     boltCat: string;
     qty: string;
@@ -281,6 +282,7 @@ export const en: Translation = {
     all: "View All Machines",
     unitsLabel: "Units in stock",
     modelsLabel: "machine models",
+    view: "View",
     nutCat: "Used Nut Cold Headers",
     boltCat: "Used Bolt & Screw Formers",
     qty: "Unit",

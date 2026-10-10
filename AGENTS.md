@@ -17,17 +17,19 @@ src/
 ├── app/
 │   ├── layout.tsx              # 根布局（LanguageProvider + WhatsAppFloat + JsonLd、字体、SEO metadata）
 │   ├── page.tsx                # 首页（组合所有模块）
+│   ├── machines/[model]/page.tsx # 机型详情页（SSG 静态导出全部机型；server 分发 + generateStaticParams/Metadata/Product JSON-LD）
 │   ├── plan/page.tsx           # 机器采购询价单（5 区块表单）
 │   ├── plan/layout.tsx         # /plan 独立 SEO metadata（canonical /plan/）
 │   ├── robots.ts               # robots.txt（允许全站 + sitemap 指向）
-│   ├── sitemap.ts              # sitemap.xml（/ 与 /plan/，静态导出）
+│   ├── sitemap.ts              # sitemap.xml（/、/plan/ + 全部 in-stock 机型详情页，静态导出）
 │   └── globals.css             # 全局样式 + 品牌设计令牌
 ├── components/fusen/
 │   ├── Navbar.tsx              # 固定导航栏（滚动变色 + 移动端菜单 + isPlan 白底）
 │   ├── LanguageSwitcher.tsx    # 27 语言切换下拉
 │   ├── Hero.tsx                # 首屏 Hero（仓库背景图 + CTA + 统计）
 │   ├── Services.tsx            # 4 项服务（检验翻新/出口海运/安装调试/备件售后）
-│   ├── Products.tsx            # 三大产品板块（新机规格表 + 二手螺母/螺栓，含 SEO 专业文案）
+│   ├── Products.tsx            # 三大产品板块（新机规格表 + 二手螺母/螺栓，型号行可点击跳 /machines/[model]，含 SEO 专业文案）
+│   ├── MachineDetailClient.tsx # 机型详情页 client 组件（useLanguage 渲染 + Navbar/Footer + Product JSON-LD）
 │   ├── Categories.tsx          # 机型分类（8 类）
 │   ├── Brands.tsx              # 可采购品牌（8 个）
 │   ├── WhyUs.tsx               # 4 项优势（通电试机/如实披露/出口经验/价格）
@@ -46,6 +48,7 @@ src/
 │   └── fusen/
 │       ├── data.ts             # CONTACT_INFO、MACHINE_BRANDS、MACHINE_CATEGORIES
 │       └── inventory.ts        # 新打头机(NEW_BOLT_MACHINES: PT/GS/HM规格表) + 二手库存 NUT_STOCK(36台)+BOLT_STOCK(含春日80台) + CATEGORY_IMAGE
+│       └── machines.ts         # 机型详情查询：getMachineDetail(机型聚合品牌×数量)、allModels/slug 映射（供 /machines/[model] server+client 共用）
 └── public/machines/            # Hero 车间实拍、cover-nut.jpg / cover-bolt.jpg（螺母/螺栓板块封面）等配图
 └── public/real/                # 机器实拍（思进19B-6S、装货发货照片）+ 新机规格表截图
 

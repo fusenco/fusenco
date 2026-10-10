@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+import { allModels, toModelSlug } from "@/lib/fusen/machines";
 
 export const dynamic = "force-static";
 
@@ -12,9 +13,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/plan/", priority: 0.8, changeFrequency: "monthly" },
   ];
 
-  // On-page anchor sections on the homepage help search engines understand
-  // the content blocks. They are listed for reference only.
-  return pages.map((page) => ({
+  // Individual machine detail pages for every in-stock model
+  const machinePages = allModels().map((m) => ({
+    path: `/machines/${toModelSlug(m)}/`,
+    priority: 0.7,
+    changeFrequency: "weekly" as const,
+  }));
+
+  const combined = [...pages, ...machinePages];
+
+  return combined.map((page) => ({
     url: `${SITE_URL}${page.path}`,
     lastModified,
     changeFrequency: page.changeFrequency,
