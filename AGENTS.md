@@ -51,6 +51,7 @@ src/
 │       └── machines.ts         # 机型详情查询：getMachineDetail(机型聚合品牌×数量)、allModels/slug 映射（供 /machines/[model] server+client 共用）
 └── public/machines/            # Hero 车间实拍、cover-nut.jpg / cover-bolt.jpg（螺母/螺栓板块封面）等配图
 └── public/real/                # 机器实拍（思进19B-6S、装货发货照片）+ 新机规格表截图
+└── public/videos/              # product-tuning.mp4（产品调试视频，VideoShowcase 区块引用）
 
 > Products.tsx 首页"在售机器"分为三大板块：① 新打头机（PT/GS/HM 全规格表）②二手螺母冷镦机 ③二手螺栓成型机（按型号聚合品牌×数量）。每个板块编号标题下方渲染本地化专业 SEO 文案（products.sectionIntro）。
 ```

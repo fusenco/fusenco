@@ -6,6 +6,7 @@ import { Products } from "@/components/fusen/Products";
 import { Categories } from "@/components/fusen/Categories";
 import { Brands } from "@/components/fusen/Brands";
 import { WhyUs } from "@/components/fusen/WhyUs";
+import { VideoShowcase } from "@/components/fusen/VideoShowcase";
 import { Testimonials } from "@/components/fusen/Testimonials";
 import { Faq } from "@/components/fusen/Faq";
 import { Contact } from "@/components/fusen/Contact";
@@ -38,6 +39,7 @@ export default function Home() {
         <Categories />
         <Brands />
         <WhyUs />
+        <VideoShowcase />
         <Testimonials />
         <Faq />
         <Contact />

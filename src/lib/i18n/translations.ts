@@ -113,6 +113,13 @@ export interface Translation {
     title: string;
     items: Testimonial[];
   };
+  videoShowcase: {
+    badge: string;
+    title: string;
+    body: string;
+    points: string[];
+    caption: string;
+  };
   faq: {
     badge: string;
     title: string;
@@ -384,6 +391,17 @@ export const en: Translation = {
         role: "Fastener Manufacturer, Poland",
       },
     ],
+  },
+  videoShowcase: {
+    badge: "Machines That Work",
+    title: "We Don't Just Sell Machines — We Tune Them to Deliver Real Products",
+    body: "Before any used cold header leaves our warehouse, it is powered on, tooled up and test-run to produce actual fasteners. We set the dies, adjust the punches and trim the machine until the parts come out right — so what you receive is a working production line, not a promise.",
+    points: [
+      "Power-on commissioning in our own workshop",
+      "Die setting and part sample verified before shipping",
+      "Video-proof of real output, not just spec sheets",
+    ],
+    caption: "A sample run from our workshop — a used cold header producing real parts for a buyer.",
   },
   faq: {
     badge: "FAQ",
