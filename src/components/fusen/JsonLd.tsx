@@ -18,8 +18,8 @@ export function JsonLd() {
       "Exporter of used nut cold heading machines, bolt heading machines and screw cold formers, with worldwide shipping, installation and spare-parts support.",
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Dongguan",
-      addressRegion: "Guangdong",
+      addressLocality: "Zhejiang",
+      addressRegion: "Zhejiang",
       addressCountry: "CN",
     },
     contactPoint: {

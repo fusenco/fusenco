@@ -112,4 +112,4 @@ pnpm lint           # ESLint 检查
   - Email: info@fusenco.com
   - WhatsApp / 电话: +86 133-6576-4352
   - WhatsApp 链接: https://wa.me/8613365764352
-  - 地址: Dongguan, Guangdong, China
+  - 地址: Zhejiang, China

@@ -21,7 +21,7 @@ export const CONTACT_INFO = {
   whatsappLink: "https://wa.me/8613365764352",
   companyName: "FUSEN",
   companyNameCn: "风泉",
-  address: "Dongguan, Guangdong, China",
+  address: "Zhejiang, China",
 } as const;
 
 export const MACHINE_PRODUCTS: MachineProduct[] = [
