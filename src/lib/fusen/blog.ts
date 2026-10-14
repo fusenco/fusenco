@@ -222,4 +222,31 @@ export const BLOG_POSTS: BlogPost[] = [
       ],
     },
   },
+  {
+    slug: "buying-a-used-cold-heading-machine-worries-solved",
+    type: "article",
+    date: "2026-10-15",
+    featured: true,
+    title: {
+      en: "Buying a Used Bolt or Nut Cold Heading Machine? The Worries Behind Your Decision — and How FUSEN Solves Them",
+    },
+    excerpt: {
+      en: "Hidden wear, unknown history, no test run, risky export. These are the real fears buyers face when sourcing a used nut or bolt cold heading machine. Here is how FUSEN removes each one with inspection, power-on testing and honest disclosure — so you never receive a machine like the one in this photo.",
+    },
+    body: {
+      en: [
+        "Picture it: thick congealed oil and swarf packed into the gears, peeling paint, exposed tooling, and a pusher unit that has not been opened or checked in years. It may run on the day it is loaded — or it may seize three weeks after it reaches your factory. When you buy a used cold heading machine across a border, that risk feels very real. You are not just buying steel; you are buying uptime, part quality and peace of mind.",
+        "Over years of exporting used nut formers, bolt headers and screw forming machines to buyers on four continents, we have heard the same concerns again and again. Below are the worries that genuinely keep fastener-plant owners awake at night — and exactly how we address each one.",
+        "The number-one fear is justified: a machine that looks clean on the outside can still have worn punch and die seats, ram play, a fatigued pusher or bearings approaching end of life. Our solution is a documented 7-point inspection. Before a machine is ever offered to you, we check the punch and dies for pitting and cracks, move the ram by hand to measure vertical play, inspect the gearbox and pusher for oil leaks and abnormal knocking, and examine the motor, belts and electricals. We photograph and film every stage, and what we find — including the flaws — is reported to you in plain language. A surprise after delivery is the one thing we will not sell.",
+        "A motor that turns is not the same as a machine that produces parts. Many buyers have received a used cold header that powers up but cannot hold tolerance, jams on the second station, or shuts down under load. At FUSEN a power-on test run is non-negotiable. We switch every candidate machine on, run it at working speed and confirm it produces real parts before we quote it. You receive a test-run video — the actual serial-number machine, actually making nuts or bolts — not stock footage from a catalog. If we cannot show it running and producing, we do not offer it.",
+        "Fresh paint is cheap; honesty is not. A freshly repainted machine can conceal oil leaks, weld repairs and crack repairs that you only discover months later. We disclose before you commit: year, brand, model, stations, wire diameter and cut length, known repairs, missing or replaced parts, and the true cosmetic condition. We would rather lose a sale than dress up a machine and pretend it is better than it is. Most of our customers come back — or refer another factory — precisely because the machine that arrived matched the machine we described.",
+        "A cold heading machine is heavy, awkward and export-sensitive. Buyers worry about damage in transit, wrong paperwork, customs clearance, and whether they can get the machine running without the seller's support. We handle the full export chain: loading and securing, sea freight booking, export documents and customs support, plus installation and commissioning guidance on arrival. Spare parts, dies and tooling can be packed with the machine, and we stay reachable on WhatsApp for commissioning questions long after the container has left. For us, a sale ends when your machine is running in your plant — not when it leaves our yard.",
+        "Used does not have to mean unsupported. We focus on mainstream, proven brands — Sijin, Chunzu, Yeswin, Jernyao, BIAULI, Tengfeng, Shengtuo and Guyou — precisely because tooling and spares remain widely available for years. When you need replacement dies, punch pins or pusher components, we can help source them and ship them with your order or afterwards.",
+        "The strongest guarantee of a fair price is transparency: you see the real machine, the real test run and the real condition, and you compare that against the market. Our pricing reflects inspected, power-on-tested, export-ready equipment — not the cheapest untested unit on the platform. Buyers tell us the lowest-priced machine is usually the one in this photo.",
+        "To remove the guesswork, every machine we supply goes through the same path: sourcing and screening of sound frames with known working history; a 7-point mechanical inspection of tooling, ram play, pusher, gearbox, lubrication, motor and electricals; an honest condition report with defects disclosed by photo and video before quotation; a power-on production test in which the machine makes real parts, filmed for you; cleaning, servicing and replacement of wear parts as needed; export preparation with secure loading, documentation, customs support and sea freight; and after-sales support covering installation guidance, tooling and spares, with ongoing WhatsApp response.",
+        "A used nut or bolt cold heading machine can give you the fastest payback in fastener manufacturing — but only if the risk is removed before the container is sealed. You should never have to wonder whether the machine will work, whether the seller is hiding something, or whether you will be supported after arrival. Send us the model, station count and the parts you want to produce. We will reply within 24 hours with real stock, an honest condition report and a power-on test video — so the machine that arrives at your factory is the machine you agreed to buy.",
+      ],
+    },
+    thumbnail: "/blog/old-neglected-machine.jpg",
+  },
 ];
