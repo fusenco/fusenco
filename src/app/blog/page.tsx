@@ -25,11 +25,18 @@ function formatDate(iso: string): string {
 
 function PostCard({ post, lang }: { post: BlogPost; lang: string }) {
   const isVideo = post.type === "video";
+  const href = `/blog/${post.slug}/`;
+
+  const openPost = () => {
+    window.location.assign(href);
+  };
+
   return (
     <article
+      onClick={isVideo ? undefined : openPost}
       className={`group flex flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
-        post.featured ? "lg:col-span-2 lg:row-span-2" : ""
-      }`}
+        isVideo ? "" : "cursor-pointer"
+      } ${post.featured ? "lg:col-span-2 lg:row-span-2" : ""}`}
     >
       {isVideo ? (
         <div className="relative overflow-hidden bg-dark">
@@ -67,7 +74,12 @@ function PostCard({ post, lang }: { post: BlogPost; lang: string }) {
         </div>
       )}
 
-      <div className="flex flex-1 flex-col gap-3 p-6">
+      <div
+        className={`flex flex-1 flex-col gap-3 p-6 ${
+          isVideo ? "cursor-pointer" : ""
+        }`}
+        onClick={isVideo ? openPost : undefined}
+      >
         <div className="flex items-center gap-3 text-xs uppercase tracking-wide text-muted-foreground">
           <span>{formatDate(post.date)}</span>
           <span className="text-gold">•</span>
