@@ -102,6 +102,9 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
+  verification: {
+    google: "gbBVFC61cK1gUjmxtlKHxaZPpEHfmtlznumwSu6AEbI",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
