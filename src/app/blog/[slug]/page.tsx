@@ -6,6 +6,7 @@ import {
   isArticlePost,
 } from "@/lib/fusen/blog";
 import { BlogPostClient } from "@/components/fusen/BlogPostClient";
+import { BreadcrumbJsonLd } from "@/components/fusen/BreadcrumbJsonLd";
 
 export const dynamicParams = false;
 
@@ -28,12 +29,29 @@ export async function generateMetadata({
   return {
     title,
     description: excerpt,
+    keywords: [
+      "used cold heading machine",
+      "used nut cold header",
+      "bolt heading machine",
+      "screw cold former",
+      "fastener machinery",
+      "used machine buying guide",
+      "cold heading machine inspection",
+      "FUSEN",
+    ],
     alternates: { canonical: `/blog/${slug}/` },
     openGraph: {
       title,
       description: excerpt,
       url: `https://fusenco.com/blog/${slug}/`,
       type: isArticlePost(post) ? "article" : "video.other",
+      publishedTime: post.date,
+      images: [post.thumbnail ?? post.video?.poster ?? "/machines/hero-workshop.jpg"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: excerpt,
       images: [post.thumbnail ?? post.video?.poster ?? "/machines/hero-workshop.jpg"],
     },
     robots: { index: true, follow: true },
@@ -60,8 +78,19 @@ export default async function BlogPostPage({
         dateModified: post.date,
         author: { "@type": "Organization", name: "FUSEN" },
         publisher: { "@type": "Organization", name: "FUSEN" },
+        image: post.thumbnail ?? post.video?.poster ?? "/machines/hero-workshop.jpg",
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": `https://fusenco.com/blog/${post.slug}/`,
+        },
       }
     : null;
+
+  const breadcrumbItems = [
+    { name: "Home", url: "/" },
+    { name: "Blog", url: "/blog/" },
+    { name: post.title.en ?? "Article", url: `/blog/${post.slug}/` },
+  ];
 
   return (
     <>
@@ -72,6 +101,7 @@ export default async function BlogPostPage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       ) : null}
+      <BreadcrumbJsonLd items={breadcrumbItems} />
     </>
   );
 }

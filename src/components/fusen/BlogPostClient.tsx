@@ -122,11 +122,15 @@ export function BlogPostClient({ post }: { post: BlogPost }) {
           ) : isArticlePost(post) ? (
             <article className="space-y-6 text-lg leading-relaxed text-dark">
               {post.thumbnail && (
-                <img
-                  src={post.thumbnail}
-                  alt={title}
-                  className="w-full rounded-2xl border border-border object-cover shadow-sm"
-                />
+                <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border shadow-sm">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={post.thumbnail}
+                    alt={title}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
               )}
               <p className="text-xl text-muted-foreground">{excerpt}</p>
               {pickLangArray(post.body, lang).map((paragraph, i) => (

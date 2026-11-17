@@ -7,6 +7,7 @@ import {
   type MachineDetail,
 } from "@/lib/fusen/machines";
 import { MachineDetailClient } from "@/components/fusen/MachineDetailClient";
+import { BreadcrumbJsonLd } from "@/components/fusen/BreadcrumbJsonLd";
 import { notFound } from "next/navigation";
 
 export const dynamicParams = false;
@@ -42,10 +43,22 @@ export async function generateMetadata({
   const title = `Used ${model} ${cat} in Stock — ${d.totalQty} Units`;
   const description = `In-stock used ${model} ${cat} at FUSEN: ${d.totalQty} unit(s) from ${brands}. Inspected, power-on tested and exported worldwide with installation and spare parts support. Get a quotation today.`;
   const url = buildHref(model);
+  const keywords = [
+    `used ${model} ${cat}`,
+    `${model} cold heading machine`,
+    `${model} for sale`,
+    `${model} ${d.category} former`,
+    `second hand ${model}`,
+    ...d.brands.map((b) => `${b.brand} ${model}`),
+    `buy used ${cat}`,
+    "used cold heading machine",
+    "fastener machinery",
+  ];
 
   return {
     title,
     description,
+    keywords,
     alternates: { canonical: url },
     openGraph: {
       title,
@@ -70,5 +83,17 @@ export default async function MachineDetailPage({
   if (!model) notFound();
   const d = getMachineDetail(model);
   if (!d) notFound();
-  return <MachineDetailClient detail={d} />;
+
+  const breadcrumbItems = [
+    { name: "Home", url: "/" },
+    { name: "Machines", url: "/#products" },
+    { name: `Used ${model}`, url: buildHref(model) },
+  ];
+
+  return (
+    <>
+      <MachineDetailClient detail={d} />
+      <BreadcrumbJsonLd items={breadcrumbItems} />
+    </>
+  );
 }
